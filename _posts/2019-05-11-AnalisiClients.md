@@ -12,7 +12,7 @@ tags: myblog
  
 ### **Anàlisi Descriptiu**
  
-L'anàlisi descriptiu ens ha de permetre conàixer la tipologia actual dels clients.  
+L'anàlisi descriptiu ens ha de permetre conèixer la tipologia actual dels clients.  
 Discretitzem les variables numèriques per facilitar l'interpretabilitat.  
   
 
@@ -81,7 +81,7 @@ Existeix un cert equilibri homes-dones excepte al ranking 'mig-baix' on predomin
  
 
  
-<img src="jEspluga.github.io/figures/unnamed-chunk-12-1.png" title="plot of chunk unnamed-chunk-12" alt="plot of chunk unnamed-chunk-12" style="display: block; margin: auto;" />
+<img src="/figures/unnamed-chunk-12-1.png" title="plot of chunk unnamed-chunk-12" alt="plot of chunk unnamed-chunk-12" style="display: block; margin: auto;" />
  
 * #### **Ingressos - Score**  
   

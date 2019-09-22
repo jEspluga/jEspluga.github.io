@@ -50,7 +50,7 @@ Al voltant dels 50 anys hi ha un augment d'activitat en les dones  i a partir de
   
 &nbsp;  
  
-<img src="/figures/client2 -1.png" /> 
+<img src="/figures/client2-1.png" /> 
  
 * #### **Ingressos**  
  

@@ -1,8 +1,11 @@
 ---
-title: "ANÀLISI CLIENTS"
-author: "Josep Espluga"
-date: "11 de maig de 2019"
-output: github_document 
+layout: post  
+title: Segmentació Clients  
+author: Josep Espluga  
+published: false  
+status: process  
+draft: false  
+tags: industrial
 ---
 
 ***  
@@ -154,7 +157,7 @@ p_sco <- ggplot(df, aes(x=Despesa_score, fill=Sexe))+
 
 &nbsp;  
 
-```{r, echo=FALSE, fig.height = 8, fig.width = 15, fig.align = "center"}
+```{r, client1, echo=FALSE, fig.height = 8, fig.width = 15, fig.align = "center"}
 
 grid.arrange(p_sexe, p_den, p_edat, ncol = 3)
 
@@ -173,7 +176,7 @@ Al voltant dels 50 anys hi ha un augment d'activitat en les dones  i a partir de
   
 &nbsp;  
 
-```{r, , echo=FALSE, fig.height = 8, fig.width = 15, fig.align = "center"}
+```{r,client2 , echo=FALSE, fig.height = 8, fig.width = 15, fig.align = "center"}
 grid.arrange(p_ing, p_sco, ncol = 2)
 ```
 
@@ -253,7 +256,7 @@ p_es <- ggplot(clients, aes(x= Edat, y=Score, color= Sexe, size= Ingressos))+
     
 ```
 
-```{r, echo=FALSE, fig.height = 8, fig.width = 15, fig.align = "center"}
+```{r, client3, echo=FALSE, fig.height = 8, fig.width = 15, fig.align = "center"}
 grid.arrange(p_is, p_es, ncol = 2)
 ```
 
@@ -270,7 +273,7 @@ Aquesta classificació ens permet intuir una certa distribució, a la vegada que
     - clients TOP 2: perfil ingressos superiors a la mitjana, edat al voltant dels 40 anys  
     - clients PROMIG: clients amb valoració 50 de 100 i centrats segins nivell d'ingressos. Edat al voltant dels 50 anys  
     
-```{r, echo= FALSE, include= FALSE}
+```{r, client4, echo= FALSE, include= FALSE}
 ############################################## CLUSTERING
 actives <- clients %>% 
                 select(4,5) %>% 
@@ -401,7 +404,7 @@ pclu_sex <- ggplot(pep, aes(factor(k_5)))+
 ```
 
 
-```{r, , echo=FALSE, fig.height = 15, fig.width = 15, fig.align = "center"}
+```{r,client5 , echo=FALSE, fig.height = 15, fig.width = 15, fig.align = "center"}
 #grid.arrange(p_clu, p_tot, ncol = 2)
 
 #grid.arrange(arrangeGrob(p_clu, ncol = 1, nrow = 1),
@@ -475,7 +478,7 @@ pbox_sco <- ggplot(clients, aes(x= k_5, y=Score, group= k_5, fill= as.factor(k_5
         
 ``` 
 
-```{r, , echo=FALSE, fig.height = 6, fig.width = 15, fig.align = "center"}
+```{r,client6 , echo=FALSE, fig.height = 6, fig.width = 15, fig.align = "center"}
 
 grid.arrange(pbox_ed, pbox_ing, pbox_sco, nrow=1)      
 ```

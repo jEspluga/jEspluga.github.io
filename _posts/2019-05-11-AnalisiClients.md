@@ -50,7 +50,8 @@ Al voltant dels 50 anys hi ha un augment d'activitat en les dones  i a partir de
   
 &nbsp;  
  
-<img src="/figures/unnamed-chunk-9-1.png" />
+<img src="/figures/client1-1.png" />
+<img src="/figures/client2-1.png" /> 
  
 * #### **Ingressos**  
  
@@ -79,7 +80,7 @@ Existeix un cert equilibri homes-dones excepte al ranking 'mig-baix' on predomin
  
 
 
-<img src="/figures/unnamed-chunk-12-1.png" /> 
+<img src="/figures/client3-1.png" /> 
  
 * #### **Ingressos - Score**  
   
@@ -117,7 +118,7 @@ agrupar automàticament les observacions de la mostra.
 
  
  
-<img src="/figures/unnamed-chunk-17-1.png" />
+<img src="/figures/client5-1.png" /> 
  
 * #### **Resum per Clusters** 
     
@@ -127,7 +128,7 @@ agrupar automàticament les observacions de la mostra.
   
 
  
-<img src="/figures/unnamed-chunk-21-1.png"/>
+<img src="/figures/client6-1.png" /> 
  
 **Clúster 4**
 Clients al voltant dels 30 anys, alts ingressos i la millor valoració. Target prioritari.

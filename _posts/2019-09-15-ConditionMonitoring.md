@@ -63,39 +63,39 @@ df_fug %>%
   <tr>
    <th style="text-align:left;"> hora </th>
    <th style="text-align:right;"> cabal </th>
-   <th style="text-align:right;"> pressio </th>
+   <th style="text-align:left;"> pressio </th>
   </tr>
  </thead>
 <tbody>
   <tr>
    <td style="text-align:left;"> 10:11:05 </td>
    <td style="text-align:right;"> 0.00 </td>
-   <td style="text-align:right;"> 5.84 </td>
+   <td style="text-align:left;"> 5.84 </td>
   </tr>
   <tr>
    <td style="text-align:left;"> 10:11:06 </td>
    <td style="text-align:right;"> 0.00 </td>
-   <td style="text-align:right;"> 5.84 </td>
+   <td style="text-align:left;"> 5.84 </td>
   </tr>
   <tr>
    <td style="text-align:left;"> 10:11:06 </td>
    <td style="text-align:right;"> 109.40 </td>
-   <td style="text-align:right;"> 5.00 </td>
+   <td style="text-align:left;"> 5.00 </td>
   </tr>
   <tr>
    <td style="text-align:left;"> 10:11:07 </td>
    <td style="text-align:right;"> 108.78 </td>
-   <td style="text-align:right;"> 4.93 </td>
+   <td style="text-align:left;"> 4.93 </td>
   </tr>
   <tr>
    <td style="text-align:left;"> 10:11:07 </td>
    <td style="text-align:right;"> 57.20 </td>
-   <td style="text-align:right;"> 4.62 </td>
+   <td style="text-align:left;"> 4.62 </td>
   </tr>
   <tr>
    <td style="text-align:left;"> 10:11:08 </td>
    <td style="text-align:right;"> 55.32 </td>
-   <td style="text-align:right;"> 5.04 </td>
+   <td style="text-align:left;"> 5.04 </td>
   </tr>
 </tbody>
 </table>
@@ -191,36 +191,36 @@ df_ok %>%
  </thead>
 <tbody>
   <tr>
-   <td style="text-align:left;"> Cabal_OK </td>
-   <td style="text-align:left;"> 0.00 </td>
-   <td style="text-align:left;"> 203.81 </td>
-   <td style="text-align:left;"> 63.32 </td>
-   <td style="text-align:left;"> 54.73 </td>
-   <td style="text-align:left;"> 48.77 </td>
+   <td style="text-align:center;"> Cabal_OK </td>
+   <td style="text-align:center;"> 0.00 </td>
+   <td style="text-align:center;"> 203.81 </td>
+   <td style="text-align:center;"> 63.32 </td>
+   <td style="text-align:center;"> 54.73 </td>
+   <td style="text-align:center;"> 48.77 </td>
   </tr>
   <tr>
-   <td style="text-align:left;"> Cabal_fuites </td>
-   <td style="text-align:left;"> 0.00 </td>
-   <td style="text-align:left;"> 207.57 </td>
-   <td style="text-align:left;"> 66.81 </td>
-   <td style="text-align:left;"> 54.03 </td>
-   <td style="text-align:left;"> 55.33 </td>
+   <td style="text-align:center;"> Cabal_fuites </td>
+   <td style="text-align:center;"> 0.00 </td>
+   <td style="text-align:center;"> 207.57 </td>
+   <td style="text-align:center;"> 66.81 </td>
+   <td style="text-align:center;"> 54.03 </td>
+   <td style="text-align:center;"> 55.33 </td>
   </tr>
   <tr>
-   <td style="text-align:left;"> Pressio_OK </td>
-   <td style="text-align:left;"> 4.44 </td>
-   <td style="text-align:left;"> 5.86 </td>
-   <td style="text-align:left;"> 5.05 </td>
-   <td style="text-align:left;"> 0.22 </td>
-   <td style="text-align:left;"> 5.04 </td>
+   <td style="text-align:center;"> Pressio_OK </td>
+   <td style="text-align:center;"> 4.44 </td>
+   <td style="text-align:center;"> 5.86 </td>
+   <td style="text-align:center;"> 5.05 </td>
+   <td style="text-align:center;"> 0.22 </td>
+   <td style="text-align:center;"> 5.04 </td>
   </tr>
   <tr>
-   <td style="text-align:left;"> Pressio_fuites </td>
-   <td style="text-align:left;"> 4.40 </td>
-   <td style="text-align:left;"> 5.85 </td>
-   <td style="text-align:left;"> 4.98 </td>
-   <td style="text-align:left;"> 0.23 </td>
-   <td style="text-align:left;"> 4.96 </td>
+   <td style="text-align:center;"> Pressio_fuites </td>
+   <td style="text-align:center;"> 4.40 </td>
+   <td style="text-align:center;"> 5.85 </td>
+   <td style="text-align:center;"> 4.98 </td>
+   <td style="text-align:center;"> 0.23 </td>
+   <td style="text-align:center;"> 4.96 </td>
   </tr>
 </tbody>
 </table>

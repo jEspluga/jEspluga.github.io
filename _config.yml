@@ -18,10 +18,10 @@ avatar: /images/meSmall.jpg
 # Includes an icon in the footer for each username you enter
 footer-links:
   dribbble: 
-  email:            #- put here your e-mail [AQUI+]
+  email:    j.esplugagmail.com        #- put here your e-mail [AQUI+]
   facebook: 
   flickr: 
-  github: perezp44  #- put here your github account [AQUI+]
+  github: jEspluga  #- put here your github account [AQUI+]
   instagram: 
   linkedin: 
   pinterest: 
@@ -50,7 +50,7 @@ baseurl: ""
 #
 
 markdown: kramdown
-highlighter: pygments
+highlighter: rouge
 permalink: /:title/
 
 # The release of Jekyll Now that you're using

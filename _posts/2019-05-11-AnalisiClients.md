@@ -50,7 +50,7 @@ Al voltant dels 50 anys hi ha un augment d'activitat en les dones  i a partir de
   
 &nbsp;  
  
-<img src="figures/unnamed-chunk-9-1.png" title="plot of chunk unnamed-chunk-9" alt="plot of chunk unnamed-chunk-9" style="display: block; margin: auto;" />
+<img src="figures/unnamed-chunk-9-1.png" />
  
 * #### **Ingressos**  
  
@@ -78,8 +78,8 @@ Existeix un cert equilibri homes-dones excepte al ranking 'mig-baix' on predomin
 
  
 
- 
-<img src="https://github.com/jEspluga/jEspluga.github.io/tree/master/figures/unnamed-chunk-12-1.png" title="plot of chunk unnamed-chunk-12" alt="plot of chunk unnamed-chunk-12" style="display: block; margin: auto;" />
+
+<img src="figures/unnamed-chunk-12-1.png" /> 
  
 * #### **Ingressos - Score**  
   
@@ -117,7 +117,7 @@ agrupar automàticament les observacions de la mostra.
 
  
  
-<img src="jEspluga.github.io/figures/unnamed-chunk-17-1.png" title="plot of chunk unnamed-chunk-17" alt="plot of chunk unnamed-chunk-17" style="display: block; margin: auto;" />
+<img src="figures/unnamed-chunk-17-1.png" />
  
 * #### **Resum per Clusters** 
     
@@ -127,7 +127,7 @@ agrupar automàticament les observacions de la mostra.
   
 
  
-<img src="jEspluga.github.io/figures/unnamed-chunk-21-1.png" title="plot of chunk unnamed-chunk-21" alt="plot of chunk unnamed-chunk-21" style="display: block; margin: auto;" />
+<img src="/figures/unnamed-chunk-21-1.png"/>
  
 **Clúster 4**
 Clients al voltant dels 30 anys, alts ingressos i la millor valoració. Target prioritari.

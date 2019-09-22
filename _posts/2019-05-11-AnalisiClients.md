@@ -35,7 +35,7 @@ Discretitzem les variables numèriques per facilitar l'interpretabilitat.
  
 &nbsp;  
  
-<img src="jEspluga.github.io/figures/unnamed-chunk-8-1.png" title="plot of chunk unnamed-chunk-8" alt="plot of chunk unnamed-chunk-8" style="display: block; margin: auto;" />
+<img src="https://github.com/jEspluga/jEspluga.github.io/tree/master/figures/unnamed-chunk-8-1.png" title="plot of chunk unnamed-chunk-8" alt="plot of chunk unnamed-chunk-8" style="display: block; margin: auto;" />
  
 * #### **Sexe**
  
@@ -68,11 +68,9 @@ La resta estan molt equilibrats.
 La suma dels rankings top + alt suposen un 31%.
 Podriem parlar d'un 31% de bons clients, un 37% de normals i un 31 de dolents.
 Existeix un cert equilibri homes-dones excepte al ranking 'mig-baix' on predominen les dones. 
-  
-  
-***
- 
-### **Anàlisi Relacional**  
+
+
+### **Anàlisi Multivariant**  
  
 &nbsp; 
  
@@ -81,13 +79,12 @@ Existeix un cert equilibri homes-dones excepte al ranking 'mig-baix' on predomin
  
 
  
-<img src="/figures/unnamed-chunk-12-1.png" title="plot of chunk unnamed-chunk-12" alt="plot of chunk unnamed-chunk-12" style="display: block; margin: auto;" />
+<img src="https://github.com/jEspluga/jEspluga.github.io/tree/master/figures/unnamed-chunk-12-1.png" title="plot of chunk unnamed-chunk-12" alt="plot of chunk unnamed-chunk-12" style="display: block; margin: auto;" />
  
 * #### **Ingressos - Score**  
   
 Gràfica que relaciona els ingressos amb la classificació del client.
 El tamay del punt ens indica l'edat i el color refereix sexe.  
-  
 Aquesta classificació ens permet intuir una certa distribució, a la vegada que ens dona dades del perfil de client de cada grup:  
 - S' insinuen 5 grups diferenciats  
 - No hi ha una clara distinció determinada pel sexe  
@@ -96,8 +93,14 @@ Aquesta classificació ens permet intuir una certa distribució, a la vegada que
     - clients TOP 2: perfil ingressos superiors a la mitjana, edat al voltant dels 40 anys  
     - clients PROMIG: clients amb valoració 50 de 100 i centrats segins nivell d'ingressos. Edat al voltant dels 50 anys  
     
+* #### **Edat - Score** 
 
- 
+Gràfica que relaciona la edat amb la classificació del client. 
+La mida del punt ens indica els ingressos i el color refereix el sexe.  
+No hi ha clients ben valorats a partir dels 40 anys.  
+Predominen les dones en una franja mitjana de valoració entre els 20 i 40 anys.  
+Predominen els homes en una franja baixa de valoració entre els 20 i 40 anys (ingressos alts).  
+
 ***  
  
 ### **Anàlisi Clúster** 

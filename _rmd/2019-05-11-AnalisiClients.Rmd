@@ -1,11 +1,8 @@
 ---
-layout: post
-title: Anàlisi Clients
-author: Josep Espluga
-published: false
-status: process
-draft: false
-tags: myblog
+title: "ANÀLISI CLIENTS"
+author: "Josep Espluga"
+date: "11 de maig de 2019"
+output: github_document 
 ---
 
 ***  

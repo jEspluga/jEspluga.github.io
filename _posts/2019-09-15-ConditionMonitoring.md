@@ -9,11 +9,6 @@ tags: industrial
 ---
  
 
-{% highlight text %}
-## Error in if (fileSize <= 0) {: missing value where TRUE/FALSE needed
-{% endhighlight %}
- 
-
  
 ***
  
@@ -31,205 +26,18 @@ Analitzem dues sÃ¨reis diferents d'observacions. Una sÃ¨rie amb condicions n
 El format dels registres Ã©s el segÃ¼ent:  
  
 
-{% highlight r %}
-# Condicions de treball. OK
-x <- scan("LOGFILE_health.log",what=character(), skip = 1, skipNul = TRUE)
-x1 <- data.frame(x, stringsAsFactors = FALSE)
-df_1 <- separate(x1, col = x, into = c("hora","cabal","pressio"), sep = ",", convert = TRUE)
- 
-df_ok <- 
-df_1 %>% 
-  mutate(cabal = ifelse(cabal<0, 0, cabal),
-         temps = c(1:nrow(df_1)))
- 
- 
-# Condicions de treball: fuites
-y <- scan("LOGFILE_ill.log",what=character(), skip = 1, skipNul = TRUE)
-y1 <- data.frame(y, stringsAsFactors = FALSE)
-df_2 <- separate(y1, col = y, into = c("hora","cabal","pressio"), sep = ",", convert = TRUE)
- 
-df_fug <- 
-df_2 %>% 
-  mutate(cabal = ifelse(cabal<0, 0, cabal),
-         temps = c(1:nrow(df_2)))
- 
-df_fug %>% 
-  select(-temps) %>% 
-  rename("pressiÃ³" = "pressio") %>% 
-  head() %>% 
-  kable() %>% 
-  kable_styling(bootstrap_options = c("condensed"), full_width = F)
-{% endhighlight %}
-
-<table class="table table-condensed" style="width: auto !important; margin-left: auto; margin-right: auto;">
- <thead>
-  <tr>
-   <th style="text-align:left;"> hora </th>
-   <th style="text-align:right;"> cabal </th>
-   <th style="text-align:right;"> pressiÃ³ </th>
-  </tr>
- </thead>
-<tbody>
-  <tr>
-   <td style="text-align:left;"> 10:11:05 </td>
-   <td style="text-align:right;"> 0.00000 </td>
-   <td style="text-align:right;"> 5.849588 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> 10:11:06 </td>
-   <td style="text-align:right;"> 0.00000 </td>
-   <td style="text-align:right;"> 5.849588 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> 10:11:06 </td>
-   <td style="text-align:right;"> 109.40930 </td>
-   <td style="text-align:right;"> 5.008753 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> 10:11:07 </td>
-   <td style="text-align:right;"> 108.78418 </td>
-   <td style="text-align:right;"> 4.936235 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> 10:11:07 </td>
-   <td style="text-align:right;"> 57.20557 </td>
-   <td style="text-align:right;"> 4.628658 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> 10:11:08 </td>
-   <td style="text-align:right;"> 55.32996 </td>
-   <td style="text-align:right;"> 5.048763 </td>
-  </tr>
-</tbody>
-</table>
  
 ### **Descriptius estadÃ­stics**  
  
 
-{% highlight r %}
-hist_ok <- 
-df_ok %>% 
-  select(pressio, cabal) %>% 
-  gather() %>%  
-  ggplot(aes(x= value))+
-  geom_histogram(fill= "dodgerblue3", color="white")+
-  facet_wrap(~key, scales = "free")+
-  theme_minimal()+
-  theme(title = element_text(color= "dodgerblue3"))+
-  labs(title = "Condicions Treball: OK", x="", y="")
- 
-hist_fui <- 
-df_fug %>% 
-  select(pressio, cabal) %>% 
-  gather() %>%  
-  ggplot(aes(x= value))+
-  geom_histogram(fill= "orange", color="white")+
-  facet_wrap(~key, scales = "free")+
-  theme_minimal()+
-  theme(title = element_text(color= "orange"))+
-  labs(title = "Condicions Treball: fuites", x="", y="")
- 
-plot_grid(hist_ok, hist_fui, labels = "", ncol=1)
-{% endhighlight %}
-
-<img src="/figures/unnamed-chunk-4-1.png" title="plot of chunk unnamed-chunk-4" alt="plot of chunk unnamed-chunk-4" style="display: block; margin: auto;" />
  
 
-{% highlight r %}
-p_dens_q <- 
-ggplot()+
-  geom_density(data = df_ok, aes(x = cabal), fill = "dodgerblue3", alpha= 0.5)+
-  geom_density(data = df_fug, aes(x = cabal), fill= "orange", alpha= 0.5)+
-  theme_minimal()+
-  theme(title = element_text(color= "grey30"),
-        plot.title = element_text(hjust = 0.5))+
-  labs(title = "Cabal", x="", y="")
- 
-p_dens_p <-
-ggplot()+
-  geom_density(data = df_ok, aes(pressio), fill= "dodgerblue3", alpha= 0.5)+
-  geom_density(data = df_fug, aes(pressio), fill= "orange", alpha= 0.5 )+
-  theme_minimal()+
-  theme(title = element_text(color= "grey30"),
-        plot.title = element_text(hjust = 0.5))+
-  labs(title = "PressiÃ³", x="", y="")
- 
-plot_grid(p_dens_q, p_dens_p, ncol = 2)
-{% endhighlight %}
-
-<img src="/figures/unnamed-chunk-5-1.png" title="plot of chunk unnamed-chunk-5" alt="plot of chunk unnamed-chunk-5" style="display: block; margin: auto;" />
  
 
-{% highlight r %}
-df_ok %>% 
-  slice(1:1742) %>% 
-  select(Cabal_OK = cabal, Pressio_OK = pressio) %>% 
-  mutate(Cabal_fuites = df_fug$cabal,
-         Pressio_fuites = df_fug$pressio) %>% 
-  rename("PressiÃ³_OK" = Pressio_OK, "PressiÃ³_fuites" = Pressio_fuites) %>% 
-  map_df(~(data.frame(min = min(.x),
-                      max = max(.x),
-                      mean = mean(.x),
-                      sd = sd(.x),
-                      med = median(.x))),
-         .id= "Variable") %>% 
-  arrange(factor(Variable, levels= c("Cabal_OK", "Cabal_fuites", "PressiÃ³_OK", "PressiÃ³_fuites"))) %>% 
-  mutate_if(is.numeric, format, digits= 3) %>% 
-  kable(caption = "EstadÃ­stics:") %>% 
-  kable_styling(bootstrap_options = c("condensed"), full_width = F)
-{% endhighlight %}
-
-<table class="table table-condensed" style="width: auto !important; margin-left: auto; margin-right: auto;">
-<caption>EstadÃ­stics:</caption>
- <thead>
-  <tr>
-   <th style="text-align:left;"> Variable </th>
-   <th style="text-align:left;"> min </th>
-   <th style="text-align:left;"> max </th>
-   <th style="text-align:left;"> mean </th>
-   <th style="text-align:left;"> sd </th>
-   <th style="text-align:left;"> med </th>
-  </tr>
- </thead>
-<tbody>
-  <tr>
-   <td style="text-align:left;"> Cabal_OK </td>
-   <td style="text-align:left;"> 0.00 </td>
-   <td style="text-align:left;"> 203.81 </td>
-   <td style="text-align:left;"> 63.32 </td>
-   <td style="text-align:left;"> 54.739 </td>
-   <td style="text-align:left;"> 48.77 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Cabal_fuites </td>
-   <td style="text-align:left;"> 0.00 </td>
-   <td style="text-align:left;"> 207.57 </td>
-   <td style="text-align:left;"> 66.81 </td>
-   <td style="text-align:left;"> 54.031 </td>
-   <td style="text-align:left;"> 55.33 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> PressiÃ³_OK </td>
-   <td style="text-align:left;"> 4.44 </td>
-   <td style="text-align:left;"> 5.86 </td>
-   <td style="text-align:left;"> 5.05 </td>
-   <td style="text-align:left;"> 0.226 </td>
-   <td style="text-align:left;"> 5.04 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> PressiÃ³_fuites </td>
-   <td style="text-align:left;"> 4.40 </td>
-   <td style="text-align:left;"> 5.85 </td>
-   <td style="text-align:left;"> 4.98 </td>
-   <td style="text-align:left;"> 0.237 </td>
-   <td style="text-align:left;"> 4.96 </td>
-  </tr>
-</tbody>
-</table>
  
 Les dues sÃ¨ries presenten valors molt poc diferenciats, aspecte que dificulta una segmentaciÃ³ de diferents condicions de funcionament.  
  
-### **SÃ¨ries Temporals** {.tabset .tabset-fade}
+### **SÃ¨ries Temporals** 
  
 Convertim les observacions en una sÃ¨rie sequencial i ordenada en el temps.   
 Aquesta seqÃ¼Ã¨ncia de dades ordenades i equidistants cronologicament, mostra l'estat de la instal.laciÃ³, en referÃ¨ncia al consum i pressiÃ³ observables en diferents cicles de funcionament de mÃ quina.
@@ -237,66 +45,13 @@ Aquesta seqÃ¼Ã¨ncia de dades ordenades i equidistants cronologicament, mostr
 #### Cabal
  
 
-{% highlight r %}
-cabal_ok <-  
-  ggplot(df_ok, aes(x = temps, y=cabal))+
-    geom_line(color="grey30")+
-    theme_minimal()+
-    labs(title = "CABAL Condicions treball: OK", x="temps", y="cabal (l/min)")+
-    theme(#axis.text.x = element_blank(),
-          axis.ticks.x = element_blank(),
-          axis.line.x = element_blank(),
-          panel.grid.major.x =element_blank(),
-          title = element_text(color= "dodgerblue3"))
- 
-cabal_ko <-  
-  ggplot(df_fug, aes(x = temps, y=cabal))+
-    geom_line(color="grey30")+
-    theme_minimal()+
-    labs(title = "CABAL Condicions treball: fuites", x="temps", y="cabal (l/min)")+
-    theme(#axis.text.x = element_blank(),
-          axis.ticks.x = element_blank(),
-          axis.line.x = element_blank(),
-          panel.grid.major.x =element_blank(),
-          title = element_text(color= "orange"))
- 
-plot_grid(cabal_ok,cabal_ko, labels = "", ncol=1)
-{% endhighlight %}
-
-<img src="/figures/unnamed-chunk-7-1.png" title="plot of chunk unnamed-chunk-7" alt="plot of chunk unnamed-chunk-7" style="display: block; margin: auto;" />
  
 #### PressiÃ³
  
 
-{% highlight r %}
-pressio_ok <-  
-  ggplot(df_ok, aes(x = temps, y=pressio))+
-    geom_line(color="grey30")+
-          
-    theme_minimal()+
-    labs(title = "PRESSIÃ“â€œ Condicions treball: OK", x="temps", y="pressiÃ³ (bar)")+
-    theme(axis.ticks.x = element_blank(),
-          axis.line.x = element_blank(),
-          panel.grid.major.x =element_blank(),
-          title = element_text(color= "dodgerblue3"))
- 
-pressio_ko <-  
-  ggplot(df_fug, aes(x = temps, y=pressio))+
-  geom_line(color="grey30")+
-  theme_minimal()+
-  labs(title = "PRESSIÃ“â€œ Condicions treball: fuites", x="temps", y="pressiÃ³ (bar)")+
-  theme(axis.ticks.x = element_blank(),
-        axis.line.x = element_blank(),
-        panel.grid.major.x =element_blank(),
-        title = element_text(color= "orange"))
-  
-plot_grid(pressio_ok,pressio_ko, labels = "", ncol=1)
-{% endhighlight %}
-
-<img src="/figures/unnamed-chunk-8-1.png" title="plot of chunk unnamed-chunk-8" alt="plot of chunk unnamed-chunk-8" style="display: block; margin: auto;" />
  
  
-### **DescomposiciÃ³ SÃ¨ries Temporals**  {.tabset .tabset-fade} 
+### **DescomposiciÃ³ SÃ¨ries Temporals**   
  
 AnÃ lisi de les sÃ¨ries temporals des del punt de vista de les seves components estructurals:  
 <center>  
@@ -309,118 +64,18 @@ D'aquesta descomposiciÃ³ ens interessa especialment la informaciÃ³ de la ten
 #### Cabal  
  
 
-{% highlight r %}
-ts_qh <- ts(df_ok$cabal, frequency = 120)
- 
-d_ts_qh <- decompose(ts_qh, type = "additive")
-# plot(d_ts_qh)
- 
-d_ts_qh %>% 
-  augment() %>% 
-  rename("Estacional" = .seasonal,
-         "Trend" = .trend,
-         "Random" = .remainder,
-         "Data" = .seasadj) %>% 
-  gather(variable, valor) %>% 
-  mutate(temps = as.numeric(rownames(.))) %>% 
-  ggplot(aes(x= temps, y= valor))+
-  geom_line(aes(color=as.factor(variable)))+
-  theme_minimal()+
-  theme(legend.position = "none",
-        title = element_text(color= "dodgerblue3"),
-        plot.title = element_text(hjust = 0.5))+
-  labs(title = "Condicions Treball: OK", x="", y="")+
-  facet_wrap(~variable, scales="free", ncol = 1)
-{% endhighlight %}
-
-<img src="/figures/unnamed-chunk-9-1.png" title="plot of chunk unnamed-chunk-9" alt="plot of chunk unnamed-chunk-9" style="display: block; margin: auto;" />
  
  
 
-{% highlight r %}
-ts_qi <- ts(df_fug$cabal, frequency = 120)
- 
-d_ts_qi <- decompose(ts_qi, type = "additive")
-# plot(d_ts_qi)
- 
-d_ts_qi %>% 
-  augment() %>% 
-  rename("Estacional" = .seasonal,
-         "Trend" = .trend,
-         "Random" = .remainder,
-         "Data" = .seasadj) %>% 
-  gather(variable, valor) %>% 
-  mutate(temps = as.numeric(rownames(.))) %>% 
-  ggplot(aes(x= temps, y= valor))+
-  geom_line(aes(color=as.factor(variable)))+
-  theme_minimal()+
-  theme(legend.position = "none",
-        title = element_text(color= "dodgerblue3"),
-        plot.title = element_text(hjust = 0.5))+
-  labs(title = "Condicions Treball: fuites", x="", y="")+
-  facet_wrap(~variable, scales="free", ncol = 1)
-{% endhighlight %}
-
-<img src="/figures/unnamed-chunk-10-1.png" title="plot of chunk unnamed-chunk-10" alt="plot of chunk unnamed-chunk-10" style="display: block; margin: auto;" />
  
 #### PressiÃ³
  
 
-{% highlight r %}
-ts_ph <- ts(df_ok$pressio, frequency = 120)
- 
-d_ts_ph <- decompose(ts_ph, type = "additive")
-# plot(d_ts_ph)
- 
-d_ts_ph %>% 
-  augment() %>% 
-  rename("Estacional" = .seasonal,
-         "Trend" = .trend,
-         "Random" = .remainder,
-         "Data" = .seasadj) %>% 
-  gather(variable, valor) %>% 
-  mutate(temps = as.numeric(rownames(.))) %>% 
-  ggplot(aes(x= temps, y= valor))+
-  geom_line(aes(color=as.factor(variable)))+
-  theme_minimal()+
-  theme(legend.position = "none",
-        title = element_text(color= "dodgerblue3"),
-        plot.title = element_text(hjust = 0.5))+
-  labs(title = "Condicions Treball: OK", x="", y="")+
-  facet_wrap(~variable, scales="free", ncol = 1)
-{% endhighlight %}
-
-<img src="/figures/unnamed-chunk-11-1.png" title="plot of chunk unnamed-chunk-11" alt="plot of chunk unnamed-chunk-11" style="display: block; margin: auto;" />
  
    
 
-{% highlight r %}
-ts_pi <- ts(df_fug$pressio, frequency = 120)
  
-d_ts_pi <- decompose(ts_pi, type = "additive")
-# plot(d_ts_pi)
- 
-d_ts_pi %>% 
-  augment() %>% 
-  rename("Estacional" = .seasonal,
-         "Trend" = .trend,
-         "Random" = .remainder,
-         "Data" = .seasadj) %>% 
-  gather(variable, valor) %>% 
-  mutate(temps = as.numeric(rownames(.))) %>% 
-  ggplot(aes(x= temps, y= valor))+
-  geom_line(aes(color=as.factor(variable)))+
-  theme_minimal()+
-  theme(legend.position = "none",
-        title = element_text(color= "dodgerblue3"),
-        plot.title = element_text(hjust = 0.5))+
-  labs(title = "Condicions Treball: fuites", x="", y="")+
-  facet_wrap(~variable, scales="free", ncol = 1)
-{% endhighlight %}
-
-<img src="/figures/unnamed-chunk-12-1.png" title="plot of chunk unnamed-chunk-12" alt="plot of chunk unnamed-chunk-12" style="display: block; margin: auto;" />
- 
-### **Changepoint Detection Algorithms** {.tabset .tabset-fade}
+### **Changepoint Detection Algorithms** 
  
 Algoritme de detecciÃ³ de variacions sobtades en una serie temporal.  
 Aquests canvis poden representar transicions entre estats de condiciÃ³ de treball.  
@@ -428,19 +83,6 @@ Aquests canvis poden representar transicions entre estats de condiciÃ³ de treb
 #### Cabal   
  
 
-{% highlight r %}
-penalty_val_q <- 25000
- 
-cptm_qh <- cpt.mean(ts_qh, penalty = "Manual", pen.value = penalty_val_q, method = "PELT")
- 
-cptm_qi <- cpt.mean(ts_qi, penalty = "Manual", pen.value = penalty_val_q, method = "PELT")
- 
-par(mfrow = c(2,1))
-plot(cptm_qh, col= "grey", main= "Cabal. MonitoritzaciÃ³ Condicions: OK", col.main= "dodgerblue3")
-plot(cptm_qi, col= "grey", main= "Cabal. MonitoritzaciÃ³ Condicions: fuites", col.main= "orange")
-{% endhighlight %}
-
-<img src="/figures/unnamed-chunk-13-1.png" title="plot of chunk unnamed-chunk-13" alt="plot of chunk unnamed-chunk-13" style="display: block; margin: auto;" />
  
 
  
@@ -451,18 +93,6 @@ Mitjanes segments :     **64.5360248, 164.4265375, 72.0762343, 159.8938775, 60.3
 #### PressiÃ³  
  
 
-{% highlight r %}
-penalty_val_p <- 2
-cptm_ph <- cpt.mean(ts_ph, penalty = "Manual", pen.value = penalty_val_p, method = "PELT")
- 
-cptm_pi <- cpt.mean(ts_pi, penalty = "Manual", pen.value = penalty_val_p, method = "PELT")
- 
-par(mfrow = c(2,1))
-plot(cptm_ph, col= "grey", main= "PressiÃ³. MonitoritzaciÃ³ Condicions: OK", col.main= "dodgerblue3")
-plot(cptm_pi, col= "grey", main= "PressiÃ³. MonitoritzaciÃ³ Condicions: fuites", col.main= "orange")
-{% endhighlight %}
-
-<img src="/figures/unnamed-chunk-15-1.png" title="plot of chunk unnamed-chunk-15" alt="plot of chunk unnamed-chunk-15" style="display: block; margin: auto;" />
  
 
  
@@ -470,74 +100,21 @@ Punt Canvi PRESSIÃƒâ€œ 1: **583**
 Punt Canvi PRESSIÃƒâ€œ 2: **1367**  
 Mitjanes segments   : **5.0419655, 4.8692441, 5.1152011**  
  
-### **AnÃ lisi TendÃ¨ncia** {.tabset .tabset-fade}
+### **AnÃ lisi TendÃ¨ncia** 
  
 
-{% highlight r %}
-# Decompose: Cabal
-ts_qh.mstl <- mstl(ts_qh)
-tend_qh <- as.data.frame(ts_qh.mstl)
-df_ok$tend_qh <- tend_qh$Trend
- 
-ts_qi.mstl <- mstl(ts_qi)
-tend_qi <- as.data.frame(ts_qi.mstl)
-df_fug$tend_qi <- tend_qi$Trend
- 
-# Decompose: PressiÃ³
-ts_ph.mstl <- mstl(ts_ph)
-tend_ph <- as.data.frame(ts_ph.mstl)
-df_ok$tend_ph <- tend_ph$Trend
- 
-ts_pi.mstl <- mstl(ts_pi)
-tend_pi <- as.data.frame(ts_pi.mstl)
-df_fug$tend_pi <- tend_pi$Trend
-{% endhighlight %}
  
 #### Cabal  
  
 
-{% highlight r %}
-ggplot()+
-  geom_line(data = df_ok, aes(x = temps, y = tend_qh), color = "#00AFBB")+
-  geom_line(data = df_fug, aes(x = temps, y=tend_qi), color = "#E7B800")+
-  theme_minimal()+
-  labs(title = "CABAL", x="temps", y="cabal (l/min)")+
-  theme(#axis.text.x = element_blank(),
-    axis.ticks.x = element_blank(),
-    axis.line.x = element_blank(),
-    panel.grid.major.x =element_blank(),
-    title = element_text(color= "gray30"),
-    plot.title = element_text(hjust = 0.5))+
-    annotate("text", x= 1525, y= 71, label= "SÃ¨rie OK", hjust= 0, size= 4, color= "#00AFBB")+
-    annotate("text", x= 890, y= 81, label= "SÃ¨rie fuites", hjust= 0, size= 4, color= "#E7B800")
-{% endhighlight %}
-
-<img src="/figures/unnamed-chunk-18-1.png" title="plot of chunk unnamed-chunk-18" alt="plot of chunk unnamed-chunk-18" style="display: block; margin: auto;" />
  
  
 #### PressiÃ³   
  
 
-{% highlight r %}
-ggplot()+
-  geom_line(data = df_ok, aes(x = temps, y = tend_ph), color = "#00AFBB")+
-  geom_line(data = df_fug, aes(x = temps, y=tend_pi), color = "#E7B800")+
-  theme_minimal()+
-  labs(title = "PRESSIÃ“", x="temps", y="pressiÃ³ (bar)")+
-  theme(#axis.text.x = element_blank(),
-    axis.ticks.x = element_blank(),
-    axis.line.x = element_blank(),
-    panel.grid.major.x =element_blank(),
-    title = element_text(color= "gray30"),
-    plot.title = element_text(hjust = 0.5))+
-    annotate("text", x= 725, y= 5.1, label= "SÃ¨rie OK", hjust= 0, size= 4, color= "#00AFBB")+
-    annotate("text", x= 750, y= 4.9, label= "SÃ¨rie fuites", hjust= 0, size= 4, color= "orange")
-{% endhighlight %}
-
-<img src="/figures/unnamed-chunk-19-1.png" title="plot of chunk unnamed-chunk-19" alt="plot of chunk unnamed-chunk-19" style="display: block; margin: auto;" />
  
  
-### **InterdependÃ¨ncia** {.tabset .tabset-fade}
+### **InterdependÃ¨ncia** 
  
 Un canvi de les condicions de treball pot suposar un canvi de les dependÃ¨ncies entre els diferents sensors.  
 Correlacionar la situaciÃ³ de canvi de les dues variables amplifica els punts d'anomalia a partir de les grÃ fiques de tendÃ¨ncia.  
@@ -546,54 +123,8 @@ GrÃ fiques dels valors escalats de la tendÃ¨ncia de pressiÃ³ i cabal de le
 #### OK
  
 
-{% highlight r %}
-df_ok %>% 
-  select(tend_qh, tend_ph) %>% 
-  scale() %>% 
-  as.data.frame() %>% 
-  mutate(t= df_ok$temps) %>%
-  ggplot()+
-  geom_line(aes(x= t, y= tend_qh), color = "blue") +
-  geom_line(aes(x= t, y= tend_ph), color = "cyan3") +
-  geom_hline(yintercept=0, linetype="dashed", color="gray30", size= 1)+
-  theme_minimal()+
-  annotate("text", x= 1450, y= -1, label= "Cabal", hjust= 0, size= 5, color= "blue")+
-  annotate("text", x= 1600, y= 0.5, label= "PressiÃ³", hjust= 0, size= 5, color= "cyan3")+
-  labs(title = "Condicions Treball: OK", x="", y="")+
-  theme(axis.ticks.x = element_blank(),
-        axis.line.x = element_blank(),
-        panel.grid.major.x =element_blank(),
-        title = element_text(color= "blue"),
-        plot.title = element_text(hjust = 0.5))
-{% endhighlight %}
-
-<img src="/figures/unnamed-chunk-20-1.png" title="plot of chunk unnamed-chunk-20" alt="plot of chunk unnamed-chunk-20" style="display: block; margin: auto;" />
  
 #### Fuites
  
 
-{% highlight r %}
-df_fug %>% 
-  select(tend_qi, tend_pi) %>% 
-  scale() %>% 
-  as.data.frame() %>% 
-  mutate(t= df_fug$temps) %>%
-  ggplot()+
-  geom_line(aes(x= t, y= tend_qi), color = "blue") +
-  geom_line(aes(x= t, y= tend_pi), color = "cyan3") +
-  geom_hline(yintercept=0, linetype="dashed", color="gray30", size= 1)+
-  theme_minimal()+
-  annotate("text", x= 1450, y= -0.2, label= "Cabal", hjust= 0, size= 5, color= "blue")+
-  annotate("text", x= 1450, y= 1.8, label= "PressiÃ³", hjust= 0, size= 5, color= "cyan3")+
-  annotate("text", x= 800, y= 0.5, label= "Anomalia", hjust= 0, size= 5, color= "firebrick3")+
-  annotate("rect", xmin = 565, xmax = 1215, ymin = -2, ymax = 2.5, fill= "red", alpha= 0.2)+
-  labs(title = "Condicions Treball: fuites", x="", y="")+
-  theme(axis.ticks.x = element_blank(),
-        axis.line.x = element_blank(),
-        panel.grid.major.x =element_blank(),
-        title = element_text(color= "orange"),
-        plot.title = element_text(hjust = 0.5))
-{% endhighlight %}
-
-<img src="/figures/unnamed-chunk-21-1.png" title="plot of chunk unnamed-chunk-21" alt="plot of chunk unnamed-chunk-21" style="display: block; margin: auto;" />
  

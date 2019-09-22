@@ -8,15 +8,8 @@ draft: false
 tags: industrial  
 ---
 
-```{r, echo=FALSE}
-htmltools::img(src = knitr::image_uri("C:/Users/josep/OneDrive/R/Air/logo1.jpg"), 
-               alt = 'logo1', 
-               style = 'position:absolute; top:0; right:0; padding:10px;')
-
-```
-
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(warning = FALSE, message = FALSE)
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, include=FALSE)
 ```
 
 ***
@@ -67,7 +60,7 @@ df_2 %>%
 
 df_fug %>% 
   select(-temps) %>% 
-  rename("pressió" = "pressio") %>% 
+  rename("pressio" = "pressio") %>% 
   head() %>% 
   kable() %>% 
   kable_styling(bootstrap_options = c("condensed"), full_width = F)
@@ -119,7 +112,7 @@ ggplot()+
   theme_minimal()+
   theme(title = element_text(color= "grey30"),
         plot.title = element_text(hjust = 0.5))+
-  labs(title = "Pressió", x="", y="")
+  labs(title = "Pressio", x="", y="")
 
 plot_grid(p_dens_q, p_dens_p, ncol = 2)
 ```
@@ -130,22 +123,22 @@ df_ok %>%
   select(Cabal_OK = cabal, Pressio_OK = pressio) %>% 
   mutate(Cabal_fuites = df_fug$cabal,
          Pressio_fuites = df_fug$pressio) %>% 
-  rename("Pressió_OK" = Pressio_OK, "Pressió_fuites" = Pressio_fuites) %>% 
+  rename("Pressio_OK" = Pressio_OK, "Pressio_fuites" = Pressio_fuites) %>% 
   map_df(~(data.frame(min = min(.x),
                       max = max(.x),
                       mean = mean(.x),
                       sd = sd(.x),
                       med = median(.x))),
          .id= "Variable") %>% 
-  arrange(factor(Variable, levels= c("Cabal_OK", "Cabal_fuites", "Pressió_OK", "Pressió_fuites"))) %>% 
+  arrange(factor(Variable, levels= c("Cabal_OK", "Cabal_fuites", "Pressio_OK", "Pressio_fuites"))) %>% 
   mutate_if(is.numeric, format, digits= 3) %>% 
-  kable(caption = "Estadístics:") %>% 
+  kable(caption = "Estadistics:") %>% 
   kable_styling(bootstrap_options = c("condensed"), full_width = F)
 ```
 
 Les dues sèries presenten valors molt poc diferenciats, aspecte que dificulta una segmentació de diferents condicions de funcionament.  
 
-### **Sèries Temporals** {.tabset .tabset-fade}
+### **Sèries Temporals** 
 
 Convertim les observacions en una sèrie sequencial i ordenada en el temps.   
 Aquesta seqüència de dades ordenades i equidistants cronologicament, mostra l'estat de la instal.lació, en referència al consum i pressió observables en diferents cicles de funcionament de màquina.
@@ -187,7 +180,7 @@ pressio_ok <-
     geom_line(color="grey30")+
           
     theme_minimal()+
-    labs(title = "PRESSIÓ“ Condicions treball: OK", x="temps", y="pressió (bar)")+
+    labs(title = "PRESSIO“ Condicions treball: OK", x="temps", y="pressio (bar)")+
     theme(axis.ticks.x = element_blank(),
           axis.line.x = element_blank(),
           panel.grid.major.x =element_blank(),
@@ -197,7 +190,7 @@ pressio_ko <-
   ggplot(df_fug, aes(x = temps, y=pressio))+
   geom_line(color="grey30")+
   theme_minimal()+
-  labs(title = "PRESSIÓ“ Condicions treball: fuites", x="temps", y="pressió (bar)")+
+  labs(title = "PRESSIO“ Condicions treball: fuites", x="temps", y="pressio (bar)")+
   theme(axis.ticks.x = element_blank(),
         axis.line.x = element_blank(),
         panel.grid.major.x =element_blank(),
@@ -208,7 +201,7 @@ plot_grid(pressio_ok,pressio_ko, labels = "", ncol=1)
 ```
 
 
-### **Descomposició Sèries Temporals**  {.tabset .tabset-fade} 
+### **Descomposició Sèries Temporals**   
 
 Anàlisi de les sèries temporals des del punt de vista de les seves components estructurals:  
 <center>  
@@ -320,7 +313,7 @@ d_ts_pi %>%
   facet_wrap(~variable, scales="free", ncol = 1)
 ```
 
-### **Changepoint Detection Algorithms** {.tabset .tabset-fade}
+### **Changepoint Detection Algorithms** 
 
 Algoritme de detecció de variacions sobtades en una serie temporal.  
 Aquests canvis poden representar transicions entre estats de condició de treball.  
@@ -335,8 +328,8 @@ cptm_qh <- cpt.mean(ts_qh, penalty = "Manual", pen.value = penalty_val_q, method
 cptm_qi <- cpt.mean(ts_qi, penalty = "Manual", pen.value = penalty_val_q, method = "PELT")
 
 par(mfrow = c(2,1))
-plot(cptm_qh, col= "grey", main= "Cabal. Monitorització Condicions: OK", col.main= "dodgerblue3")
-plot(cptm_qi, col= "grey", main= "Cabal. Monitorització Condicions: fuites", col.main= "orange")
+plot(cptm_qh, col= "grey", main= "Cabal. Monitoritzacio Condicions: OK", col.main= "dodgerblue3")
+plot(cptm_qi, col= "grey", main= "Cabal. Monitoritzacio Condicions: fuites", col.main= "orange")
 ```
 
 ```{r, echo=FALSE}
@@ -356,8 +349,8 @@ cptm_ph <- cpt.mean(ts_ph, penalty = "Manual", pen.value = penalty_val_p, method
 cptm_pi <- cpt.mean(ts_pi, penalty = "Manual", pen.value = penalty_val_p, method = "PELT")
 
 par(mfrow = c(2,1))
-plot(cptm_ph, col= "grey", main= "Pressió. Monitorització Condicions: OK", col.main= "dodgerblue3")
-plot(cptm_pi, col= "grey", main= "Pressió. Monitorització Condicions: fuites", col.main= "orange")
+plot(cptm_ph, col= "grey", main= "Pressió. Monitoritzacio Condicions: OK", col.main= "dodgerblue3")
+plot(cptm_pi, col= "grey", main= "Pressió. Monitoritzacio Condicions: fuites", col.main= "orange")
 ```
 
 ```{r, echo=FALSE}
@@ -368,7 +361,7 @@ Punt Canvi PRESSIÃ“ 1: **`r cpts_p[1]`**
 Punt Canvi PRESSIÃ“ 2: **`r cpts_p[2]`**  
 Mitjanes segments   : **`r  cptm_pi@param.est$mean`**  
 
-### **Anàlisi Tendència** {.tabset .tabset-fade}
+### **Anàlisi Tendència** 
 
 ```{r}
 # Decompose: Cabal
@@ -404,8 +397,8 @@ ggplot()+
     panel.grid.major.x =element_blank(),
     title = element_text(color= "gray30"),
     plot.title = element_text(hjust = 0.5))+
-    annotate("text", x= 1525, y= 71, label= "Sèrie OK", hjust= 0, size= 4, color= "#00AFBB")+
-    annotate("text", x= 890, y= 81, label= "Sèrie fuites", hjust= 0, size= 4, color= "#E7B800")
+    annotate("text", x= 1525, y= 71, label= "Serie OK", hjust= 0, size= 4, color= "#00AFBB")+
+    annotate("text", x= 890, y= 81, label= "Serie fuites", hjust= 0, size= 4, color= "#E7B800")
   
 ```
 
@@ -417,19 +410,19 @@ ggplot()+
   geom_line(data = df_ok, aes(x = temps, y = tend_ph), color = "#00AFBB")+
   geom_line(data = df_fug, aes(x = temps, y=tend_pi), color = "#E7B800")+
   theme_minimal()+
-  labs(title = "PRESSIÓ", x="temps", y="pressió (bar)")+
+  labs(title = "PRESSIO", x="temps", y="pressió (bar)")+
   theme(#axis.text.x = element_blank(),
     axis.ticks.x = element_blank(),
     axis.line.x = element_blank(),
     panel.grid.major.x =element_blank(),
     title = element_text(color= "gray30"),
     plot.title = element_text(hjust = 0.5))+
-    annotate("text", x= 725, y= 5.1, label= "Sèrie OK", hjust= 0, size= 4, color= "#00AFBB")+
-    annotate("text", x= 750, y= 4.9, label= "Sèrie fuites", hjust= 0, size= 4, color= "orange")
+    annotate("text", x= 725, y= 5.1, label= "Serie OK", hjust= 0, size= 4, color= "#00AFBB")+
+    annotate("text", x= 750, y= 4.9, label= "Serie fuites", hjust= 0, size= 4, color= "orange")
 ```
 
 
-### **Interdependència** {.tabset .tabset-fade}
+### **Interdependència** 
 
 Un canvi de les condicions de treball pot suposar un canvi de les dependències entre els diferents sensors.  
 Correlacionar la situació de canvi de les dues variables amplifica els punts d'anomalia a partir de les gràfiques de tendència.  
@@ -449,7 +442,7 @@ df_ok %>%
   geom_hline(yintercept=0, linetype="dashed", color="gray30", size= 1)+
   theme_minimal()+
   annotate("text", x= 1450, y= -1, label= "Cabal", hjust= 0, size= 5, color= "blue")+
-  annotate("text", x= 1600, y= 0.5, label= "Pressió", hjust= 0, size= 5, color= "cyan3")+
+  annotate("text", x= 1600, y= 0.5, label= "Pressio", hjust= 0, size= 5, color= "cyan3")+
   labs(title = "Condicions Treball: OK", x="", y="")+
   theme(axis.ticks.x = element_blank(),
         axis.line.x = element_blank(),
@@ -472,7 +465,7 @@ df_fug %>%
   geom_hline(yintercept=0, linetype="dashed", color="gray30", size= 1)+
   theme_minimal()+
   annotate("text", x= 1450, y= -0.2, label= "Cabal", hjust= 0, size= 5, color= "blue")+
-  annotate("text", x= 1450, y= 1.8, label= "Pressió", hjust= 0, size= 5, color= "cyan3")+
+  annotate("text", x= 1450, y= 1.8, label= "Pressio", hjust= 0, size= 5, color= "cyan3")+
   annotate("text", x= 800, y= 0.5, label= "Anomalia", hjust= 0, size= 5, color= "firebrick3")+
   annotate("rect", xmin = 565, xmax = 1215, ymin = -2, ymax = 2.5, fill= "red", alpha= 0.2)+
   labs(title = "Condicions Treball: fuites", x="", y="")+

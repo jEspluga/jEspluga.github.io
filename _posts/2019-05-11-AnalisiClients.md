@@ -35,7 +35,7 @@ Discretitzem les variables numèriques per facilitar l'interpretabilitat.
  
 &nbsp;  
  
-<img src="./figures/unnamed-chunk-8-1.png" title="plot of chunk unnamed-chunk-8" alt="plot of chunk unnamed-chunk-8" style="display: block; margin: auto;" />
+<img src="/figures/unnamed-chunk-8-1.png" />
  
 * #### **Sexe**
  

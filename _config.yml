@@ -9,7 +9,7 @@ name: Josep Espluga Cuberta    #- pon tu nombre en lugar del mio [AQUI+]
 description: Projectes R  #- pon tu descripcion de lo que quires hacer en el blog [AQUI+]
 
 # URL of your avatar or profile pic (you could use your GitHub profile pic)
-avatar: /images/meSmall.jpg
+avatar: /images/DNI.jpg
 
 #
 # Flags below are optional
@@ -18,7 +18,7 @@ avatar: /images/meSmall.jpg
 # Includes an icon in the footer for each username you enter
 footer-links:
   dribbble: 
-  email:    j.esplugagmail.com        #- put here your e-mail [AQUI+]
+  email:    j.espluga@gmail.com        #- put here your e-mail [AQUI+]
   facebook: 
   flickr: 
   github: jEspluga  #- put here your github account [AQUI+]

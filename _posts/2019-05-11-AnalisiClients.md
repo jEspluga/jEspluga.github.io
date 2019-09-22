@@ -13,7 +13,7 @@ tags: myblog
 ### **Anàlisi Descriptiu**
  
 L'anàlisi descriptiu ens ha de permetre conàixer la tipologia actual dels clients.  
-Discretitzem les variables numÃ©riques per facilitar l'interpretabilitat.  
+Discretitzem les variables numèriques per facilitar l'interpretabilitat.  
   
 
  
@@ -90,9 +90,9 @@ El tamay del punt ens indica l'edat i el color refereix sexe.
   
 Aquesta classificació ens permet intuir una certa distribució, a la vegada que ens dona dades del perfil de client de cada grup:  
 - S' insinuen 5 grups diferenciats  
-- No hi ha una clara distinciÃ³ determinada pel sexe  
-- Per ordre de valoraciÃ³ de client:  
-    - clients TOP 1: perfil de baix ingrés, els mÃ©s joves. Valoració positiva probablement pel volum de compres i no per l'import.  
+- No hi ha una clara distinció determinada pel sexe  
+- Per ordre de valoració de client:  
+    - clients TOP 1: perfil de baix ingrés, els més joves. Valoració positiva probablement pel volum de compres i no per l'import.  
     - clients TOP 2: perfil ingressos superiors a la mitjana, edat al voltant dels 40 anys  
     - clients PROMIG: clients amb valoració 50 de 100 i centrats segins nivell d'ingressos. Edat al voltant dels 50 anys  
     

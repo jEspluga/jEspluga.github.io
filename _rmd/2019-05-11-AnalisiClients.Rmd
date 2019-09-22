@@ -64,7 +64,7 @@ p_sexe <- ggplot(dades, aes(Gender, fill = Gender))+
             theme_minimal()+
             geom_text(stat='count', aes(label=..count.., group = Gender), vjust=1.2, position = position_stack(), color= "white", size=4.5)+
             geom_text(stat='count', aes(label= paste((stat(count))/2,'%'), group= 1), vjust=-1, color= "dimgrey", size=5)+
-            labs(title = "Distribució Homes/Dones", x= "", y= "Total Observacions")+
+            labs(title = "Distribucio Homes/Dones", x= "", y= "Total Observacions")+
             scale_y_continuous(limits= c(0,120), breaks = seq(0, 120, 20)) +
             scale_fill_brewer(palette = "Pastel1")+
             theme(

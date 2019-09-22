@@ -35,7 +35,7 @@ Discretitzem les variables numèriques per facilitar l'interpretabilitat.
  
 &nbsp;  
  
-<img src="github.com/jEspluga/jEspluga.github.io/figures/unnamed-chunk-8-1.png" title="plot of chunk unnamed-chunk-8" alt="plot of chunk unnamed-chunk-8" style="display: block; margin: auto;" />
+<img src="figures/unnamed-chunk-8-1.png" title="plot of chunk unnamed-chunk-8" alt="plot of chunk unnamed-chunk-8" style="display: block; margin: auto;" />
  
 * #### **Sexe**
  
@@ -50,7 +50,7 @@ Al voltant dels 50 anys hi ha un augment d'activitat en les dones  i a partir de
   
 &nbsp;  
  
-<img src="jEspluga.github.io/figures/unnamed-chunk-9-1.png" title="plot of chunk unnamed-chunk-9" alt="plot of chunk unnamed-chunk-9" style="display: block; margin: auto;" />
+<img src="figures/unnamed-chunk-9-1.png" title="plot of chunk unnamed-chunk-9" alt="plot of chunk unnamed-chunk-9" style="display: block; margin: auto;" />
  
 * #### **Ingressos**  
  

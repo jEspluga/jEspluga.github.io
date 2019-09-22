@@ -209,7 +209,7 @@ Existeix un cert equilibri homes-dones excepte al ranking 'mig-baix' on predomin
 p_is <- ggplot(clients, aes(x= Ingressos, y=Score, color= Sexe, size= Edat))+
             geom_point()+
             theme_light()+
-            labs(title = "Ingressos-Classificació \n ", x= "Ingressos", y= "Score")+
+            labs(title = "Ingressos-Classificacio \n ", x= "Ingressos", y= "Score")+
             scale_y_continuous(limits= c(0,100), breaks = seq(0, 100, 20)) +
             #geom_text( aes(label= ifelse(CustomerID == 1 | CustomerID == 3 | CustomerID == 199, as.character(CustomerID), '')), vjust=-1, color= "dimgrey", size=3)+
             scale_color_brewer(palette = "Pastel1")+
@@ -232,7 +232,7 @@ p_is <- ggplot(clients, aes(x= Ingressos, y=Score, color= Sexe, size= Edat))+
 p_es <- ggplot(clients, aes(x= Edat, y=Score, color= Sexe, size= Ingressos))+
             geom_point()+
             theme_light()+
-            labs(title = "Edat-Classificació \n ", x= "Edat", y= "Score")+
+            labs(title = "Edat-Classificacio \n ", x= "Edat", y= "Score")+
             scale_y_continuous(limits= c(0,100), breaks = seq(0, 100, 20)) +
             #geom_text( aes(label= ifelse(CustomerID == 1 | CustomerID == 3 | CustomerID == 199, as.character(CustomerID), '')), vjust=-1, color= "dimgrey", size=3)+
             scale_color_brewer(palette = "Pastel1")+
@@ -366,7 +366,7 @@ pclu_tot <- ggplot(pep, aes(k_5, fill = as.factor(k_5), color= as.factor(k_5)))+
             theme_minimal()+
             geom_text(stat='count', aes(label=..count.., group = k_5), vjust=1.2, position = position_stack(), color= "white", size=4.5)+
             geom_text(stat='count', aes(label= paste((stat(count))/2,'%'), group= 1), vjust=-1, color= "dimgrey", size=5)+
-            labs(title = "Total Clients per Clúster", x= "", y= "Total Observacions")+
+            labs(title = "Total Clients per Cluster", x= "", y= "Total Observacions")+
             scale_y_continuous(limits= c(0,100), breaks = seq(0, 100, 20)) +
             scale_fill_manual(values = c("grey","darkolivegreen3","#E7B800","limegreen", "#F6CED8"))+
             scale_color_manual(values = c("grey","darkolivegreen3","#E7B800","limegreen", "#F6CED8"))+
@@ -390,7 +390,7 @@ pclu_sex <- ggplot(pep, aes(factor(k_5)))+
     geom_text(stat='count', aes(label=..count.., group = sexe), vjust=1.2, position = position_stack(), color= "white", size=4.5)+
     geom_text(stat='count', aes(label= paste((stat(count))/2,'%'), group= 1), vjust=-1, color= "dimgrey", size=5)+
     geom_text(stat='count', aes(y=56*(..count..)/100, group= factor(k_5)), label="__            __", size=6, color="darkblue")+ 
-    labs(title = "Sexe per Clúster", x= "", y= "Total Observacions")+
+    labs(title = "Sexe per Cluster", x= "", y= "Total Observacions")+
     scale_y_continuous(limits= c(0,100), breaks = seq(0, 100, 20)) +
     scale_fill_brewer(palette = "Pastel1")+
     theme(

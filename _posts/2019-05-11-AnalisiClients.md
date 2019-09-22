@@ -1,6 +1,6 @@
 ---
 layout: post
-title: AnÃ lisi Clients
+title: Anàlisi Clients
 author: Josep Espluga
 published: true
 status: publish
@@ -10,10 +10,10 @@ tags: myblog
  
 ***  
  
-### **AnÃ lisi Descriptiu**
+### **Anàlisi Descriptiu**
  
-L'anÃ lisi descriptiu ens ha de permetre conÃ¨ixer la tipologia actual dels nostres clients.  
-Discretitzem les variÃ bles numÃ©riques per facilitar l'interpretabilitat.  
+L'anàlisi descriptiu ens ha de permetre conèixer la tipologia actual dels nostres clients.  
+Discretitzem les variables numèriques per facilitar l'interpretabilitat.  
   
 
  

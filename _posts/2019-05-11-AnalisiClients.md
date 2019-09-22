@@ -50,7 +50,7 @@ Al voltant dels 50 anys hi ha un augment d'activitat en les dones  i a partir de
   
 &nbsp;  
  
-<img src="figures/unnamed-chunk-9-1.png" />
+<img src="/figures/unnamed-chunk-9-1.png" />
  
 * #### **Ingressos**  
  
@@ -79,7 +79,7 @@ Existeix un cert equilibri homes-dones excepte al ranking 'mig-baix' on predomin
  
 
 
-<img src="figures/unnamed-chunk-12-1.png" /> 
+<img src="/figures/unnamed-chunk-12-1.png" /> 
  
 * #### **Ingressos - Score**  
   
@@ -117,7 +117,7 @@ agrupar automàticament les observacions de la mostra.
 
  
  
-<img src="figures/unnamed-chunk-17-1.png" />
+<img src="/figures/unnamed-chunk-17-1.png" />
  
 * #### **Resum per Clusters** 
     

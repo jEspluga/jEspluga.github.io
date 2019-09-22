@@ -69,33 +69,33 @@ df_fug %>%
 <tbody>
   <tr>
    <td style="text-align:left;"> 10:11:05 </td>
-   <td style="text-align:right;"> 0.00000 </td>
-   <td style="text-align:right;"> 5.849588 </td>
+   <td style="text-align:right;"> 0.00 </td>
+   <td style="text-align:right;"> 5.84 </td>
   </tr>
   <tr>
    <td style="text-align:left;"> 10:11:06 </td>
-   <td style="text-align:right;"> 0.00000 </td>
-   <td style="text-align:right;"> 5.849588 </td>
+   <td style="text-align:right;"> 0.00 </td>
+   <td style="text-align:right;"> 5.84 </td>
   </tr>
   <tr>
    <td style="text-align:left;"> 10:11:06 </td>
-   <td style="text-align:right;"> 109.40930 </td>
-   <td style="text-align:right;"> 5.008753 </td>
+   <td style="text-align:right;"> 109.40 </td>
+   <td style="text-align:right;"> 5.00 </td>
   </tr>
   <tr>
    <td style="text-align:left;"> 10:11:07 </td>
-   <td style="text-align:right;"> 108.78418 </td>
-   <td style="text-align:right;"> 4.936235 </td>
+   <td style="text-align:right;"> 108.78 </td>
+   <td style="text-align:right;"> 4.93 </td>
   </tr>
   <tr>
    <td style="text-align:left;"> 10:11:07 </td>
-   <td style="text-align:right;"> 57.20557 </td>
-   <td style="text-align:right;"> 4.628658 </td>
+   <td style="text-align:right;"> 57.20 </td>
+   <td style="text-align:right;"> 4.62 </td>
   </tr>
   <tr>
    <td style="text-align:left;"> 10:11:08 </td>
-   <td style="text-align:right;"> 55.32996 </td>
-   <td style="text-align:right;"> 5.048763 </td>
+   <td style="text-align:right;"> 55.32 </td>
+   <td style="text-align:right;"> 5.04 </td>
   </tr>
 </tbody>
 </table>
@@ -181,12 +181,12 @@ df_ok %>%
 <caption>Estadistics:</caption>
  <thead>
   <tr>
-   <th style="text-align:left;"> Variable </th>
-   <th style="text-align:left;"> min </th>
-   <th style="text-align:left;"> max </th>
-   <th style="text-align:left;"> mean </th>
-   <th style="text-align:left;"> sd </th>
-   <th style="text-align:left;"> med </th>
+   <th style="text-align:center;"> Variable </th>
+   <th style="text-align:center;"> min </th>
+   <th style="text-align:center;"> max </th>
+   <th style="text-align:center;"> mean </th>
+   <th style="text-align:center;"> sd </th>
+   <th style="text-align:center;"> med </th>
   </tr>
  </thead>
 <tbody>
@@ -195,7 +195,7 @@ df_ok %>%
    <td style="text-align:left;"> 0.00 </td>
    <td style="text-align:left;"> 203.81 </td>
    <td style="text-align:left;"> 63.32 </td>
-   <td style="text-align:left;"> 54.739 </td>
+   <td style="text-align:left;"> 54.73 </td>
    <td style="text-align:left;"> 48.77 </td>
   </tr>
   <tr>
@@ -203,7 +203,7 @@ df_ok %>%
    <td style="text-align:left;"> 0.00 </td>
    <td style="text-align:left;"> 207.57 </td>
    <td style="text-align:left;"> 66.81 </td>
-   <td style="text-align:left;"> 54.031 </td>
+   <td style="text-align:left;"> 54.03 </td>
    <td style="text-align:left;"> 55.33 </td>
   </tr>
   <tr>
@@ -211,7 +211,7 @@ df_ok %>%
    <td style="text-align:left;"> 4.44 </td>
    <td style="text-align:left;"> 5.86 </td>
    <td style="text-align:left;"> 5.05 </td>
-   <td style="text-align:left;"> 0.226 </td>
+   <td style="text-align:left;"> 0.22 </td>
    <td style="text-align:left;"> 5.04 </td>
   </tr>
   <tr>
@@ -219,7 +219,7 @@ df_ok %>%
    <td style="text-align:left;"> 4.40 </td>
    <td style="text-align:left;"> 5.85 </td>
    <td style="text-align:left;"> 4.98 </td>
-   <td style="text-align:left;"> 0.237 </td>
+   <td style="text-align:left;"> 0.23 </td>
    <td style="text-align:left;"> 4.96 </td>
   </tr>
 </tbody>
@@ -537,8 +537,10 @@ ggplot()+
     panel.grid.major.x =element_blank(),
     title = element_text(color= "gray30"),
     plot.title = element_text(hjust = 0.5))+
-    annotate("text", x= 725, y= 5.1, label= "Serie OK", hjust= 0, size= 4, color= "#00AFBB")+
-    annotate("text", x= 750, y= 4.9, label= "Serie fuites", hjust= 0, size= 4, color= "orange")
+    annotate("text", x= 725, y= 5.1, label= "Serie OK", hjust= 0, 
+            size= 4, color= "#00AFBB")+
+    annotate("text", x= 750, y= 4.9, label= "Serie fuites", hjust= 0, 
+            size= 4, color= "orange")
 {% endhighlight %}
 
 <img src="/figures/unnamed-chunk-18-1.png" title="plot of chunk unnamed-chunk-18" alt="plot of chunk unnamed-chunk-18" style="display: block; margin: auto;" />

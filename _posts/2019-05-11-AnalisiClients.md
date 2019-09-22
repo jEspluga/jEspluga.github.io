@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Anàlisi Clients
+title: Segmentació Clients
 author: Josep Espluga
 published: true
 status: publish

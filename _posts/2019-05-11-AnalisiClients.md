@@ -10,10 +10,10 @@ tags: myblog
  
 ***  
  
-### **AnÃ lisi Descriptiu**
+### **Anàlisi Descriptiu**
  
-L'anÃ lisi descriptiu ens ha de permetre conÃ¨ixer la tipologia actual dels nostres clients.  
-Discretitzem les variÃ bles numÃ©riques per facilitar l'interpretabilitat.  
+L'anàlisi descriptiu ens ha de permetre conèixer la tipologia actual dels nostres clients.  
+Discretitzem les variables numèriques per facilitar l'interpretabilitat.  
   
 
  
@@ -35,7 +35,7 @@ Discretitzem les variÃ bles numÃ©riques per facilitar l'interpretabilitat.
  
 &nbsp;  
  
-<img src="/figures/unnamed-chunk-8-1.png" title="plot of chunk unnamed-chunk-8" alt="plot of chunk unnamed-chunk-8" style="display: block; margin: auto;" />
+<img src="jEspluga.github.io/figures/unnamed-chunk-8-1.png" title="plot of chunk unnamed-chunk-8" alt="plot of chunk unnamed-chunk-8" style="display: block; margin: auto;" />
  
 * #### **Sexe**
  

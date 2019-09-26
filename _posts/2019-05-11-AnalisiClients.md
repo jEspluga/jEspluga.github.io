@@ -44,8 +44,9 @@ Diferència entre homes i dones del 12% (24 persones d'una mostra de 200).
 * #### **Edat**
  
 Un 30% dels clients estan entre els 26-35 anys.  
-La resta de franges d'edat està molt igualada. Amb un descens natural en la última franja d'edat.   
-Entre els 26 i els 55 anys (66,5%) el percentatge de dones és superior a la diferència global homes-dones (81 dones - 52 homes). 
+La resta de franges d'edat està molt igualada. 
+Descens natural en la última franja d'edat.   
+Entre els 26 i els 55 anys (66,5%) el percentatge de dones és superior a la diferència global homes-dones (81 dones - 52 homes).  
 Al voltant dels 50 anys hi ha un augment d'activitat en les dones  i a partir dels 55 anys és millor la participació d'homes.  
   
 &nbsp;  
@@ -55,8 +56,8 @@ Al voltant dels 50 anys hi ha un augment d'activitat en les dones  i a partir de
 * #### **Ingressos**  
  
 La franja més important de nivells d'ingressos es troba entre els  60 i $90.000.  
-Entre els 30 i $90.000 acumulem el 73% dels enquestats.
-Entre els 0 i $90.000 dolars tenim el 89% dels enquestats.  
+Entre els 30 i $90.000 acumulem el 73% dels enquestats.  
+Entre els 0 i $90.000 tenim el 89% dels enquestats.  
 Les rendes son molt homogenies entre els dos sexes.  
 Les rendes altes son poc significatives.  
  
@@ -65,8 +66,8 @@ Les rendes altes son poc significatives.
 El 37,5% dels clients estan en un ranking 'average'.  
 La segona posició amb un 18% correspon a un ranking 'baix'.  
 La resta estan molt equilibrats.  
-La suma dels rankings top + alt suposen un 31%.
-Podriem parlar d'un 31% de bons clients, un 37% de normals i un 31 de dolents.
+La suma dels rankings top + alt suposen un 31%.  
+Podriem parlar d'un 31% de bons clients, un 37% de normals i un 31 de dolents.  
 Existeix un cert equilibri homes-dones excepte al ranking 'mig-baix' on predominen les dones. 
 
 
@@ -83,8 +84,8 @@ Existeix un cert equilibri homes-dones excepte al ranking 'mig-baix' on predomin
  
 * #### **Ingressos - Score**  
   
-Gràfica que relaciona els ingressos amb la classificació del client.
-El tamay del punt ens indica l'edat i el color refereix sexe.  
+Gràfica que relaciona els ingressos amb la classificació del client.  
+El tamany del punt ens indica l'edat i el color refereix al sexe.  
 Aquesta classificació ens permet intuir una certa distribució, a la vegada que ens dona dades del perfil de client de cada grup:  
 - S' insinuen 5 grups diferenciats  
 - No hi ha una clara distinció determinada pel sexe  
@@ -95,8 +96,8 @@ Aquesta classificació ens permet intuir una certa distribució, a la vegada que
     
 * #### **Edat - Score** 
 
-Gràfica que relaciona la edat amb la classificació del client. 
-La mida del punt ens indica els ingressos i el color refereix el sexe.  
+Gràfica que relaciona la edat amb la classificació del client.  
+La mida del punt ens indica els ingressos i el color refereix al sexe.  
 No hi ha clients ben valorats a partir dels 40 anys.  
 Predominen les dones en una franja mitjana de valoració entre els 20 i 40 anys.  
 Predominen els homes en una franja baixa de valoració entre els 20 i 40 anys (ingressos alts).  

@@ -44,7 +44,7 @@ Diferència entre homes i dones del 12% (24 persones d'una mostra de 200).
 * #### **Edat**
  
 Un 30% dels clients estan entre els 26-35 anys.  
-La resta de franges d'edat està molt igualada. 
+La resta de franges d'edat està molt igualada.  
 Descens natural en la última franja d'edat.   
 Entre els 26 i els 55 anys (66,5%) el percentatge de dones és superior a la diferència global homes-dones (81 dones - 52 homes).  
 Al voltant dels 50 anys hi ha un augment d'activitat en les dones  i a partir dels 55 anys és millor la participació d'homes.  

@@ -605,7 +605,7 @@ adult_n %>%
     labs(x = "", y = "")
 {% endhighlight %}
 
-<img src="/figures/census1-1.png" title="plot of chunk census1" alt="plot of chunk census1" style="display: block; margin: auto;" />
+<img src="/figures/census1-1.png" />
  
 Grafics de densitat:
  
@@ -622,7 +622,7 @@ adult_n %>%
   labs(title = "", x="", y="")
 {% endhighlight %}
 
-<img src="/figures/census2-1.png" title="plot of chunk census2" alt="plot of chunk census2" style="display: block; margin: auto;" />
+<img src="/figures/census2-1.png" />
  
  
 ### **Outliers**

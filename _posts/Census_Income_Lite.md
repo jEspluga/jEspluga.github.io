@@ -1,11 +1,11 @@
 ---
 layout: post  
-title: ClassifiaciÃ³  
+title: Classifiació  
 author: Josep Espluga  
 published: true
 status: publish
 draft: false  
-tags: classificaciÃ³  
+tags: classificació
 ---
  
 Prediccio d'ingressos superiors/inferiors a $50k/any en funcio de les dades del cens.
@@ -48,17 +48,6 @@ library(pROC)
 
 {% highlight r %}
 adult <- read_csv("adult.csv", na="?")
-{% endhighlight %}
-
-
-
-{% highlight text %}
-## Error: 'adult.csv' does not exist in current working directory ('C:/Users/jespl/Documents/R/PROJECTES/jespluga.github.io').
-{% endhighlight %}
-
-
-
-{% highlight r %}
 head(adult)
 {% endhighlight %}
 

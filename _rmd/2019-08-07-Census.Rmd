@@ -238,6 +238,7 @@ adult %>%
          lo_wi= ifelse(lo_wi < 0, 0, lo_wi)) %>% 
   mutate(p_out = cell_spec(p_out, "html", color = "red")) %>% 
   kable(caption = "Descriptius Outliers", format = "html", escape = F) %>% 
-  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), full_width = TRUE, font_size = 7)
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), full_width = TRUE) %>% 
+  column_spec(2:8, width = "2in", include_thead = T)
 
 ```

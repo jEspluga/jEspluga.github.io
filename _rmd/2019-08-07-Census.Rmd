@@ -65,8 +65,8 @@ df_x %>%
   )
   ),
   .id= "variable") %>% 
-  mutate(NA_p = percent(NA_q / nrow(df_x)),
-         zero_p = percent(zero_q / nrow(df_x)),
+  mutate(NA_p = round(NA_q / nrow(df_x),2),
+         zero_p = round(zero_q / nrow(df_x),2),
          NA_q = cell_spec(NA_q, "html", color = ifelse(NA_q > 0, "white", "black"), background = ifelse(NA_q > 0, "red", "")),
          NA_p = cell_spec(NA_p, "html", color = ifelse(NA_p > 0.001, "white", "black"), background = ifelse(NA_p > 0.001, "red", "")),
          zero_q = cell_spec(zero_q, "html", color = ifelse(zero_q > 0.001, "white", "black"), background = ifelse(zero_q > 0.001, "orange", "")),
@@ -75,8 +75,8 @@ df_x %>%
          unics = cell_spec(unics, align = "c")) %>% 
   select(1,3,2,4,6,5,7) %>% 
   arrange(classe) %>% 
-  kable() %>% 
-  kable_styling(bootstrap_options = c("condensed"), full_width = F) %>% 
+  kable(format = "html", escape = F) %>% 
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), full_width = FALSE) %>% 
   add_header_above(c(" " = 1, " " = 1," " = 1, "NA" = 2, "ZERO" = 2))
 
 ```
@@ -113,7 +113,7 @@ adult %>%
   map_df(~sum(is.na(.x))) %>% 
   pivot_longer(cols = everything(), names_to = "variable", values_to = "q_na") %>% 
   # gather(key= "variable", value = "q_na") %>% 
-  mutate(p_na= percent(q_na/nrow(adult))) %>% 
+  mutate(p_na= round(q_na/nrow(adult),2)) %>% 
   arrange(desc(p_na)) %>% 
   filter(q_na > 0) %>% 
   kable(caption = "NA's") %>% 

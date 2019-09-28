@@ -117,8 +117,8 @@ adult %>%
   mutate(p_na= round(q_na/nrow(adult),2)) %>% 
   arrange(desc(p_na)) %>% 
   filter(q_na > 0) %>% 
-  kable(caption = "NA's") %>% 
-  kable_styling(bootstrap_options = c("condensed"), full_width = F)
+  kable(caption = "NA's", format = "html", escape = F) %>% 
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), full_width = F)
 
   
 ```
@@ -170,8 +170,8 @@ adult %>%
          zero_p = cell_spec(zero_p, "html", color = ifelse(zero_p > 0.001, "white", "black"), background = ifelse(zero_p > 0.001, "orange", ""))) %>% 
   # select(1,3,4,6,5,7,2) %>% 
   mutate_if(is.numeric, format, digits = 3, nsmall = 0, big.mark=',', small.interval = 3) %>% 
-  kable(caption = "Estadistica Descriptiva") %>% 
-  kable_styling(bootstrap_options = c("condensed"), full_width = F)
+  kable(caption = "Estadistica Descriptiva", format = "html", escape = F) %>% 
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), full_width = F)
 ```
 
 Histogrames:
@@ -238,7 +238,7 @@ adult %>%
          lo_wi= ifelse(lo_wi < 0, 0, lo_wi)) %>% 
   mutate(p_out = cell_spec(p_out, "html", color = "red")) %>% 
   # select(1,3,4,6,5,7,2) %>% 
-  kable(caption = "Descriptius Outliers") %>% 
-  kable_styling(bootstrap_options = c("condensed"), full_width = F)
+  kable(caption = "Descriptius Outliers", format = "html", escape = F) %>% 
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), full_width = F)
 
 ```

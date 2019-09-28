@@ -415,8 +415,8 @@ Separem per edats de mes i menys de 50k/any i calculem mitjanes:
 income_h <- adult$age[adult$income == "<=50K"]
 income_l <- adult$age[adult$income == ">50K"]
 
-m1 <- mean(income_h, na.rm = T)
-m2 <- mean(income_l, na.rm = T)
+m1 <- round(mean(income_h, na.rm = T),2)
+m2 <- round(mean(income_l, na.rm = T),2)
 ```
 
 Mitjana edat <=50k: **`r m1`**  
@@ -471,8 +471,8 @@ ggplot(ci, aes(x=income, y=age, color = income))+
 edu_h <- adult$education.num[adult$income == "<=50K"]
 edu_l <- adult$education.num[adult$income == ">50K"]
 
-m3 <- mean(edu_h, na.rm = T)
-m4 <- mean(edu_l, na.rm = T)
+m3 <- round(mean(edu_h, na.rm = T),2)
+m4 <- round(mean(edu_l, na.rm = T),2)
 ```
 
 Mitjana education <=50k: **`r m3`**  
@@ -507,8 +507,8 @@ p << 0.5, podem refusar hipotesi nula --> mitjanes DIFERENTS.
 hw_h <- adult$hours.per.week[adult$income == "<=50K"]
 hw_l <- adult$hours.per.week[adult$income == ">50K"]
 
-m5 <- mean(hw_h, na.rm = T)
-m6 <- mean(hw_l, na.rm = T)
+m5 <- round(mean(hw_h, na.rm = T),2)
+m6 <- round(mean(hw_l, na.rm = T),2)
 ```
 
 Mitjana hours.week <=50k: **`r m5`**  
@@ -609,7 +609,9 @@ adult_n %>%
          -level, -hist) %>% 
   filter(variable %in% c("capital.gain", "capital.loss")) %>% 
   kable(format = "html", escape = F) %>% 
-    kable_styling(bootstrap_options = c("striped", "hover", "condensed"), full_width = FALSE)
+    kable_styling(bootstrap_options = c("striped", "hover", "condensed"), 
+                  full_width = TRUE) %>% 
+    column_spec(2:11, width = "1.5in", include_thead = T)
 ```
 
 ```{r}
@@ -626,10 +628,10 @@ adult %>%
          up_wi= q_75 + (iqr * 1.5),
          lo_wi= ifelse(lo_wi < 0, 0, lo_wi)) %>% 
   mutate(p_out = cell_spec(p_out, "html", color = "red")) %>% 
-  # select(1,3,4,6,5,7,2) %>% 
   kable(format = "html", escape = F, caption = "Descriptius Outliers") %>% 
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), 
-                full_width = FALSE)
+                full_width = TRUE) %>% 
+    column_spec(2:8, width = "2in", include_thead = T)
 
 ```
 
@@ -642,10 +644,8 @@ adult %>%
 ```
 
 159 observacions amb el valor 99999.  
-L'anterior valor es 41310.     
-Semblan errors. 
-Tambe podria ser que no hi havia mes digits i eren valors mes alts.  
-Pero no s'entendria el gap entre 43310 i mes de 99999.  
+L'anterior valor es 41.310.     
+Possibles errors.  
 
 ```{r}
 adult %>% 
@@ -668,7 +668,8 @@ adult_n <-
 
 kor <- cor(adult_n, use = "pairwise.complete.obs")
 
-corrplot(kor, method = "color", order = "hclust", addCoef.col = "black", tl.col = "black",
+corrplot(kor, method = "color", order = "hclust", addCoef.col = "black", 
+         tl.col = "black",
          type="upper", diag = FALSE,
          outline= T, addgrid.col= "darkgray")
 ```
@@ -684,14 +685,17 @@ df_mic <- mine(kor)
 
 kable(round(df_mic$MIC, 2), caption = "MIC", format = "html", escape = F) %>% 
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), 
-                full_width = T)
+                full_width = T) %>% 
+    column_spec(2:7, width = "2in", include_thead = T)
+    
 ```
 
 MINERVA: MICR2 Relacio no lineal
 
 ```{r}
 kable(round(df_mic$MICR2, 2),caption = "MICR2", format = "html", escape = F ) %>% 
-  kable_styling(bootstrap_options = c("condensed"), full_width = F)
+  kable_styling(bootstrap_options = c("condensed"), full_width = F) %>% 
+    column_spec(2:6, width = "2in", include_thead = T)
 ```
 
 ```{r,census12, fig.height= 6, fig.width= 8, fig.align= "center"}
@@ -856,7 +860,6 @@ prop_xi %>%
     coord_fixed(ratio= 0.9)+
     tema3
     
-
 plot_grid(pr_sex1, pr_sex2, pr_sex3, nrow= 1, ncol= 3, rel_widths = c(2,2,0.8), 
           axis= "b", align = "hv")
 
@@ -878,7 +881,6 @@ pr_race1 <-
       scale_fill_manual("income", values=c("gray70","steelblue3"))+ 
       labs(x="", y="", title = "Race - Income")+
       tema1
-
 
 pr_race2 <- 
 adult_m %>%
@@ -917,7 +919,6 @@ prop_xi %>%
     coord_fixed(ratio= 0.9)+
     tema3
 
-
 plot_grid(pr_race1, pr_race2, pr_race3, nrow= 1, ncol= 3, rel_widths = c(2,2,0.8), 
           axis= "b", align = "hv")
 
@@ -939,7 +940,6 @@ pr_rel1 <-
       scale_fill_manual("income", values=c("gray70","steelblue3"))+ 
       labs(x="", y="", title = "Relationship - Income")+
       tema1
-
 
 pr_rel2 <- 
 adult_m %>%
@@ -1000,7 +1000,6 @@ pr_occ1 <-
       labs(x="", y="", title = "Occupation - Income")+
       tema1
 
-
 pr_occ2 <- 
 adult_m %>%
   group_by(occupation) %>%
@@ -1039,11 +1038,8 @@ prop_xi %>%
     coord_fixed(ratio= 0.9)+
     tema3
 
-
 plot_grid(pr_occ1, pr_occ2, pr_occ3, nrow= 1, ncol= 3, rel_widths = c(2,2,0.8), 
           axis= "b", align = "hv")
-
-
 ```
 
 ### **Workclass**
@@ -1061,7 +1057,6 @@ pr_wok1 <-
       scale_fill_manual("income", values=c("gray70","steelblue3"))+ 
       labs(x="", y="", title = "Workclass - Income")+
       tema1
-
 
 pr_wok2 <- 
 adult_m %>%
@@ -1102,10 +1097,8 @@ prop_xi %>%
     coord_fixed(ratio= 0.9)+
     tema3
 
-
 plot_grid(pr_wok1, pr_wok2, pr_wok3, nrow= 1, ncol= 3, rel_widths = c(2,2,0.8), 
           axis= "b", align = "hv")
-
 ```
 
 ### **Marital.Status**
@@ -1123,7 +1116,6 @@ pr_mar1 <-
       scale_fill_manual("income", values=c("gray70","steelblue3"))+ 
       labs(x="", y="", title = "Marital.Status - Income")+
       tema1
-
 
 pr_mar2 <- 
 adult_m %>%
@@ -1164,8 +1156,6 @@ prop_xi %>%
     coord_fixed(ratio= 0.9)+
     tema3
 
-
-
 plot_grid(pr_mar1, pr_mar2, pr_mar3, nrow= 1, ncol=3, rel_widths = c(2,2,0.8), 
           axis= "b", align = "hv")
 
@@ -1186,7 +1176,6 @@ pr_edu1 <-
       scale_fill_manual("income", values=c("gray70","steelblue3"))+ 
       labs(x="", y="", title = "Education - Income")+
       tema1
-
 
 pr_edu2 <- 
 adult_m %>%
@@ -1227,8 +1216,6 @@ prop_xi %>%
     coord_fixed(ratio= 0.9)+
     tema3
 
-
-
 plot_grid(pr_edu1, pr_edu2, pr_edu3, nrow= 1, ncol=3, rel_widths = c(2,2,0.8), 
           axis= "b", align = "hv")
 
@@ -1249,7 +1236,6 @@ plot_grid(pr_edu1, pr_edu2, pr_edu3, nrow= 1, ncol=3, rel_widths = c(2,2,0.8),
       scale_fill_manual("income", values=c("gray70","steelblue3"))+ 
       labs(x="", y="", title = "Country - Income")+
       tema1
-
 ```
  
 ### **Intensitat Relacions Cramer-V**
@@ -1309,7 +1295,7 @@ Aquestes dues estan relacionades entre elles.
 - Relationship - Sex  
 
 El percentatge d'homes es molt elevat respecte a dones.  
-Aixo implica que el percentatge de 'marits' es molt mes elevat que el de 'esposes'.  
+Aixo implica que el percentatge de 'husband' es molt mes elevat que el de 'wife'.  
 
 ```{r}
 adult_f %>% 
@@ -1319,14 +1305,15 @@ adult_f %>%
   select(-n) %>% 
   spread(sex, prop)%>%
   kable(caption = "Percentatges:", format = "html", escape = F) %>% 
-  kable_styling(bootstrap_options = c("stripped", "hover", "condensed"), 
-                full_width = T)
+    kable_styling(bootstrap_options = c("stripped", "hover", "condensed"), 
+                full_width = T) %>% 
+    column_spec(2:3, width = "2in", include_thead = T)
 ```
 
 - Marital.Status - Sex  
 
 El percentatge d'homes es molt elevat respecte a dones.  
-Homes casats, mot mes gran que dones casade.  
+Homes casats, molt mes gran que dones casades.  
 
 ```{r}
 adult_f %>% 
@@ -1336,19 +1323,17 @@ adult_f %>%
   select(-n) %>% 
   spread(sex, prop)%>%
   kable(caption = "Percentatges:", format = "html", escape = F) %>% 
-  kable_styling(bootstrap_options = c("stripped", "hover", "condensed"), 
-                full_width = T)
+    kable_styling(bootstrap_options = c("stripped", "hover", "condensed"), 
+                full_width = T) %>% 
+    column_spec(2:3, width = "2in", include_thead = T)
 ```
 
 
-- Marital.Status - Relationship  
-Homes - HOmes Casats - Marits
+- Marital.Status - Relationship: Homes - Homes Casats - Marits  
 
 - Native.Country - race  
-Evident
 
-- Sex - Occupation  
-Nomes hi ha dos casos on la proporcio de dones es superior: Adm-clerical, Other-sevice, Pri-house-serv.  
+- Sex - Occupation: Unicament res casos on la proporcio de dones es superior: Adm-clerical, Other-sevice, Pri-house-serv.  
 
 ```{r}
 adult_f %>% 
@@ -1358,8 +1343,9 @@ adult_f %>%
   select(-n) %>% 
   spread(sex, prop)%>%
   kable(caption = "Percentatges:", format = "html", escape = F) %>% 
-  kable_styling(bootstrap_options = c("stripped", "hover", "condensed"), 
-                full_width = T)
+    kable_styling(bootstrap_options = c("stripped", "hover", "condensed"), 
+                full_width = T) %>% 
+    column_spec(2:3, width = "2in", include_thead = T)
 ```
 
 # **Transformacio**
@@ -1535,10 +1521,10 @@ adult_m$age2 <-  cut(adult$age, breaks = c(-Inf,20,25,30,35,40,45,50,55,60,Inf),
                      labels = c("m20","25","30","35","40","45","50","55","60","M60"))
 
 adult_m$age2 %>% 
-  fct_count(sort = T, prop = T) %>% 
-  mutate(p = round(100*p , 2)) %>% 
-  kable(format = "html", escape = F) %>% 
-  kable_styling(bootstrap_options = c("condensed"), full_width = F)
+    fct_count(sort = T, prop = T) %>% 
+    mutate(p = percent(p)) %>% 
+    rename(tall = f,
+           prop. = p)
 ```
 
 ## **Hours.per.week**  
@@ -1548,10 +1534,10 @@ adult_m$hours2 <-  cut(adult$hours.per.week, breaks = c(-Inf,25,35,45,55,Inf),
                        labels = c("m25","35","45","55","M55"))
 
 adult_m$hours2 %>% 
-  fct_count(sort = T, prop = T) %>% 
-  mutate(p = round(100*p , 2)) %>% 
-  kable(format = "html", escape = F) %>% 
-  kable_styling(bootstrap_options = c("condensed"), full_width = F)
+    fct_count(sort = T, prop = T) %>% 
+    mutate(p = percent(p)) %>% 
+    rename(tall = f,
+           prop. = p)
 ```
 
 ## **Capital.gain** 
@@ -1561,10 +1547,10 @@ adult_m$gain <-  cut(adult$capital.gain, breaks = c(-Inf,3000,4300,Inf),
                      labels = c("m30","35-43","M43"))
 
 adult_m$gain %>% 
-  fct_count(sort = T, prop = T) %>% 
-  mutate(p = round(100*p , 2)) %>% 
-  kable(format = "html", escape = F) %>% 
-  kable_styling(bootstrap_options = c("condensed"), full_width = F)
+    fct_count(sort = T, prop = T) %>% 
+    mutate(p = percent(p)) %>% 
+    rename(tall = f,
+           prop. = p)
 ```
 
 ## **Capital.loss**
@@ -1574,10 +1560,10 @@ adult_m$loss <-  cut(adult$capital.loss, breaks = c(-Inf,0,1800,Inf),
                           labels = c("0","0-18","M18")) 
 
 adult_m$loss %>% 
-  fct_count(sort = T, prop = T) %>% 
-  mutate(p = round(100*p , 2)) %>% 
-  kable(format = "html", escape = F) %>% 
-  kable_styling(bootstrap_options = c("condensed"), full_width = F)
+    fct_count(sort = T, prop = T) %>% 
+    mutate(p = percent(p)) %>% 
+    rename(tall = f,
+           prop. = p)
 ```
 
 ## **Varibles descartades**  
@@ -1607,21 +1593,22 @@ df_x %>%
   mutate(NA_p = round(100 * NA_q / nrow(df_x), 2),
      zero_p = round(100 * zero_q / nrow(df_x), 2),
      NA_q = cell_spec(NA_q, "html", color = ifelse(NA_q > 0, "white", "black"), 
-                      background = ifelse(NA_q > 0, "red", "")),
+                  background = ifelse(NA_q > 0, "red", "")),
      NA_p = cell_spec(NA_p, "html", color = ifelse(NA_p > 0.001, "white", "black"), 
-                      background = ifelse(NA_p > 0.001, "red", "")),
+                  background = ifelse(NA_p > 0.001, "red", "")),
      zero_q = cell_spec(zero_q, "html", color = ifelse(zero_q > 0.001, "white", "black"), 
-                        background = ifelse(zero_q > 0.001, "orange", "")),
+                  background = ifelse(zero_q > 0.001, "orange", "")),
      zero_p = cell_spec(zero_p, "html", color = ifelse(zero_p > 0.001, "white", "black"), 
-                        background = ifelse(zero_p > 0.001, "orange", "")),
+                  background = ifelse(zero_p > 0.001, "orange", "")),
      classe = cell_spec(classe, "html", color= ifelse(classe == "character", "blue", "")),
      unics = cell_spec(unics, align = "c")) %>% 
   select(1,3,2,4,6,5,7) %>% 
   arrange(classe) %>% 
   kable(format = "html", escape = F) %>% 
-    kable_styling(bootstrap_options = c("striped", "hover", "condensed"), full_width = T) %>% 
+    kable_styling(bootstrap_options = c("striped", "hover", "condensed"), 
+                  full_width = T) %>% 
     add_header_above(c(" " = 1, " " = 1," " = 1, "NA" = 2, "ZERO" = 2)) %>% 
-    column_spec(2:7, width = "2in", include_thead = T)
+    column_spec(1:7, width = "2in", include_thead = T)
 ```
 
 
@@ -1774,8 +1761,7 @@ rsam %>%
   select(.estimate) %>% 
   kable(caption = "Accuracy 10 cv-fold") %>% 
     kable_styling(bootstrap_options = c("striped", "hover", "condensed"), 
-                  full_width = TRUE) %>% 
-    column_spec(1:2, width = "2in", include_thead = T)
+                  full_width = TRUE)  
 
 rsam %>% 
   select(metrics) %>% 
@@ -1784,8 +1770,7 @@ rsam %>%
   summarise(mean_accuracy = mean(.estimate)) %>% 
   kable(caption = "Mitjana 10 cv-fold", format = "html", escape = F) %>% 
     kable_styling(bootstrap_options = c("striped", "hover", "condensed"), 
-                  full_width = TRUE) %>% 
-    column_spec(1:2, width = "2in", include_thead = T)
+                  full_width = TRUE)
 
 ```
 

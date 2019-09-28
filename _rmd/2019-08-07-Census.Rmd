@@ -232,7 +232,7 @@ adult %>%
                       iqr= IQR(.x),
                       n_out= length(boxplot(.x, plot = FALSE)$out))),
          .id="variable") %>% 
-  mutate(p_out = percent(n_out / nrow(adult)),
+  mutate(p_out = round(n_out / nrow(adult),2),
          lo_wi= q_25 - (iqr * 1.5),
          up_wi= q_75 + (iqr * 1.5),
          lo_wi= ifelse(lo_wi < 0, 0, lo_wi)) %>% 

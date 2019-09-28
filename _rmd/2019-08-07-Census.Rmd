@@ -116,7 +116,7 @@ adult %>%
   mutate(p_na= percent(q_na/nrow(adult))) %>% 
   arrange(desc(p_na)) %>% 
   filter(q_na > 0) %>% 
-  kable(caption = "NA's", format = "markdown") %>% 
+  knitr::kable(caption = "NA's", format = "markdown") %>% 
   kable_styling()
   
 ```
@@ -168,7 +168,7 @@ adult %>%
          zero_p = cell_spec(zero_p, "html", color = ifelse(zero_p > 0.001, "white", "black"), background = ifelse(zero_p > 0.001, "orange", ""))) %>% 
   # select(1,3,4,6,5,7,2) %>% 
   mutate_if(is.numeric, format, digits = 3, nsmall = 0, big.mark=',', small.interval = 3) %>% 
-  kable(format = "markdown", caption = "Estadistica Descriptiva") %>% 
+  knitr::kable(format = "markdown", caption = "Estadistica Descriptiva") %>% 
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), full_width = FALSE)
 ```
 
@@ -236,7 +236,7 @@ adult %>%
          lo_wi= ifelse(lo_wi < 0, 0, lo_wi)) %>% 
   mutate(p_out = cell_spec(p_out, "html", color = "red")) %>% 
   # select(1,3,4,6,5,7,2) %>% 
-  kable(format = "markdown", caption = "Descriptius Outliers") %>% 
+  knitr::kable(format = "markdown", caption = "Descriptius Outliers") %>% 
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), full_width = FALSE)
 
 ```

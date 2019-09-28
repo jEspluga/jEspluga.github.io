@@ -85,13 +85,16 @@ df_x %>%
          zero_p = cell_spec(zero_p, "html", 
                             color = ifelse(zero_p > 0.001, "white", "black"), 
                             background = ifelse(zero_p > 0.001, "orange", "")),
-         classe = cell_spec(classe, "html", color= ifelse(classe == "character", "blue", "")),
+         classe = cell_spec(classe, "html", 
+                            color= ifelse(classe == "character", "blue", "")),
          unics = cell_spec(unics, align = "c")) %>% 
   select(1,3,2,4,6,5,7) %>% 
   arrange(classe) %>% 
   kable(format = "html", escape = F) %>% 
-  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), full_width = TRUE) %>% 
-  add_header_above(c(" " = 1, " " = 1," " = 1, "NA" = 2, "ZERO" = 2))
+    kable_styling(bootstrap_options = c("striped", "hover", "condensed"), 
+                  full_width = TRUE) %>% 
+    add_header_above(c(" " = 1, " " = 1," " = 1, "NA" = 2, "ZERO" = 2)) %>% 
+    column_spec(2:7, width = "2in", include_thead = T)
 ```
 
 NA: workclass, occupation, native.country.  
@@ -130,7 +133,9 @@ adult %>%
   arrange(desc(p_na)) %>% 
   filter(q_na > 0) %>% 
   kable(caption = "NA's", format = "html", escape = F) %>% 
-  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), full_width = TRUE)
+    kable_styling(bootstrap_options = c("striped", "hover", "condensed"), 
+                  full_width = TRUE) %>% 
+    column_spec(2:3, width = "2in", include_thead = T)
 
   
 ```
@@ -187,7 +192,9 @@ adult %>%
   mutate_if(is.numeric, format, digits = 3, 
             nsmall = 0, big.mark=',', small.interval = 3) %>% 
   kable(caption = "Estadistica Descriptiva", format = "html", escape = F) %>% 
-  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), full_width = TRUE)
+    kable_styling(bootstrap_options = c("striped", "hover", "condensed"), 
+                  full_width = TRUE) %>% 
+    column_spec(2:8, width = "2in", include_thead = T)
 ```
 
 Histogrames:
@@ -254,7 +261,8 @@ adult %>%
          lo_wi= ifelse(lo_wi < 0, 0, lo_wi)) %>% 
   mutate(p_out = cell_spec(p_out, "html", color = "red")) %>% 
   kable(caption = "Descriptius Outliers", format = "html", escape = F) %>% 
-  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), full_width = TRUE) %>% 
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), 
+                full_width = TRUE) %>% 
   column_spec(2:8, width = "2in", include_thead = T)
 
 ```
@@ -274,7 +282,8 @@ adult_m %>%
   group_by(education.num, education) %>% 
   summarise() %>% 
   kable(format = "html", escape = F) %>% 
-  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), full_width = F)
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), 
+                full_width = F)
 ```
 
 ```{r}
@@ -316,7 +325,8 @@ adult_m %>%
     geom_bar(alpha = 1)+
     theme_light()+
     coord_flip(ylim = c(0, nrow(adult)))+
-    geom_text(stat='count', aes(label= paste((..count..), "/", round((..prop..)*100,2), "%")  , group= 1),
+    geom_text(stat='count', 
+              aes(label= paste((..count..), "/", round((..prop..)*100,2), "%")  , group= 1),
               hjust=-0.1, position = position_stack(), color= "black", size=3.5)+
     theme(legend.position = "none",
           panel.grid.major.y = element_blank(),
@@ -346,7 +356,8 @@ adult_m %>%
     theme_light()+
     coord_flip(ylim = c(0, nrow(adult)))+
     facet_wrap(~key, scales = 'free')+
-    geom_text(stat='count', aes(label= paste((..count..), "/", round((..prop..)*100,2), "%")  , group= 1),
+    geom_text(stat='count', 
+              aes(label= paste((..count..), "/", round((..prop..)*100,2), "%")  , group= 1),
               hjust=-0.1, position = position_stack(), color= "black", size=3.5)+
     theme(legend.position = "none",
           panel.grid.major.y = element_blank(),
@@ -468,7 +479,8 @@ Mitjana education <=50k: **`r m3`**
 Mitjana education  >50k: **`r m4`**  
 
 ```{r}
-ci_edu <- summarySE(data= adult, measurevar = 'education.num', groupvars = 'income', na.rm = T)
+ci_edu <- summarySE(data= adult, measurevar = 'education.num', 
+                    groupvars = 'income', na.rm = T)
 ci_edu
 ```
 
@@ -616,7 +628,8 @@ adult %>%
   mutate(p_out = cell_spec(p_out, "html", color = "red")) %>% 
   # select(1,3,4,6,5,7,2) %>% 
   kable(format = "html", escape = F, caption = "Descriptius Outliers") %>% 
-  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), full_width = FALSE)
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), 
+                full_width = FALSE)
 
 ```
 
@@ -670,7 +683,8 @@ MINERVA: MIC Relacio funcional (lineal + no lineal)
 df_mic <- mine(kor)
 
 kable(round(df_mic$MIC, 2), caption = "MIC", format = "html", escape = F) %>% 
-  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), full_width = T)
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), 
+                full_width = T)
 ```
 
 MINERVA: MICR2 Relacio no lineal
@@ -696,12 +710,10 @@ Representem graficament filtrant els valors mes grans de zero i mes petits de 99
 
 ```{r,census13, fig.height= 6, fig.width= 10, fig.align= "center"}
 
-cap_gain <- 
 adult %>% 
   filter(capital.gain > 0 & capital.gain < 99999) %>% 
   ggplot(aes(hours.per.week, capital.gain, color= income, 
                         text= paste(
-                                    # "relationship:", relationship, "\n",
                                     "marital:", marital.status, "\n",
                                     "workclass:", workclass, "\n",
                                     "occupation:", occupation, "\n",
@@ -714,15 +726,10 @@ adult %>%
                                     )))+
       geom_point(size= 3)+
       coord_trans(x="log10", y="log10")
-
-ggplotly(cap_gain) %>% layout(yaxis = list(type="log", autorange=TRUE), 
-                              xaxis = list(type="log", autorange=TRUE))
-
 ```
 
 ```{r,census14, fig.height= 6, fig.width= 10, fig.align= "center"}
 
-educa <- 
 adult %>% 
   filter(capital.gain > 0 & capital.gain < 99999) %>% 
   ggplot(aes(capital.gain, education.num,  color= income, 
@@ -739,8 +746,6 @@ adult %>%
       geom_point(size= 3)+
       coord_trans(x="log10", y="log10")
 
-ggplotly(educa) %>% layout(yaxis = list(type="log", autorange=TRUE), 
-                           xaxis = list(type="log", autorange=TRUE))
 ```
 
 
@@ -803,8 +808,11 @@ pr_sex1 <-
   adult_m %>% 
   ggplot(aes(x= sex, y= (..count..), fill= income))+
       geom_bar()+
-        geom_text(aes(y= (..count..), label=   ifelse(((..count..)/sum(..count..)) >0.01 , (percent((..count..)/sum(..count..))) , "") ), 
-                  stat="count", position = 'stack', vjust=-0.5, color= "black", size=3.5)+
+        geom_text(aes(y= (..count..), 
+                      label= ifelse(((..count..)/sum(..count..)) >0.01 , 
+                                    (percent((..count..)/sum(..count..))) , "") ), 
+                  stat="count", position = 'stack', vjust=-0.5, 
+                  color= "black", size=3.5)+
       scale_fill_manual("income", values=c("gray70","steelblue3"))+ 
       labs(x="", y="", title = "Sex - Income")+
       tema1
@@ -823,7 +831,8 @@ adult_m %>%
     scale_y_continuous(labels = scales::percent)+
     geom_text(aes(0, Bad_rate, label= paste(round(100*Bad_rate,2),"%") ), 
               vjust= -1, hjust= -0.5, color="steelblue3")+
-    geom_errorbar(aes(ymin=Lower, ymax=Upper, width=0.2), size= 1.5, color="steelblue3")+
+    geom_errorbar(aes(ymin=Lower, ymax=Upper, width=0.2), 
+                  size= 1.5, color="steelblue3")+
     labs(x="", y="Proporcio >50K", title = "")+
     tema2
 
@@ -861,7 +870,9 @@ pr_race1 <-
   adult_m %>% 
   ggplot(aes(x= race, y= (..count..), fill= income))+
       geom_bar()+
-        geom_text(aes(y= (..count..), label=   ifelse(((..count..)/sum(..count..)) >0.01 , (percent((..count..)/sum(..count..))) , "")), 
+        geom_text(aes(y= (..count..), 
+                      label= ifelse(((..count..)/sum(..count..)) >0.01 , 
+                                    (percent((..count..)/sum(..count..))) , "")), 
                            stat="count", position = 'stack', vjust=-0.5, 
                   color= "black", size=3.5)+
       scale_fill_manual("income", values=c("gray70","steelblue3"))+ 
@@ -882,7 +893,8 @@ adult_m %>%
     scale_y_continuous(labels = scales::percent)+
     geom_text(aes(0, Bad_rate, label= paste(round(100*Bad_rate,2),"%") ), 
               vjust= -1, hjust= -0.5, color="steelblue3")+
-    geom_errorbar(aes(ymin=Lower, ymax=Upper, width=0.2), size= 1.5, color="steelblue3")+
+    geom_errorbar(aes(ymin=Lower, ymax=Upper, width=0.2), 
+                  size= 1.5, color="steelblue3")+
     labs(x="", y="Proporcio >50K", title = "")+
     tema2
 
@@ -919,7 +931,9 @@ pr_rel1 <-
   adult_m %>% 
   ggplot(aes(x= relationship, y= (..count..), fill= income))+
       geom_bar()+
-        geom_text(aes(y= (..count..), label=   ifelse(((..count..)/sum(..count..)) >0.00 , (percent((..count..)/sum(..count..))) , "")     ), 
+        geom_text(aes(y= (..count..), 
+                      label= ifelse(((..count..)/sum(..count..)) >0.00 , 
+                                    (percent((..count..)/sum(..count..))) , "")     ), 
                            stat="count", position = 'stack', 
                   vjust=-0.5, color= "black", size=3.5)+
       scale_fill_manual("income", values=c("gray70","steelblue3"))+ 
@@ -941,7 +955,8 @@ adult_m %>%
     scale_y_continuous(labels = scales::percent)+
     geom_text(aes(0, Bad_rate, label= paste(round(100*Bad_rate,2),"%") ), 
               vjust= -1, hjust= -0.5, color="steelblue3")+
-    geom_errorbar(aes(ymin=Lower, ymax=Upper, width=0.2), size= 1.5, color="steelblue3")+
+    geom_errorbar(aes(ymin=Lower, ymax=Upper, width=0.2), 
+                  size= 1.5, color="steelblue3")+
     labs(x="", y="Proporcio >50K", title = "")+
     tema2
 
@@ -976,7 +991,9 @@ pr_occ1 <-
   adult_m %>% 
   ggplot(aes(x= occupation, y= (..count..), fill= income))+
       geom_bar()+
-        geom_text(aes(y= (..count..), label=   ifelse(((..count..)/sum(..count..)) >0.00 , (percent((..count..)/sum(..count..))) , "")     ), 
+        geom_text(aes(y= (..count..), 
+                      label= ifelse(((..count..)/sum(..count..)) >0.00 , 
+                                    (percent((..count..)/sum(..count..))) , "")     ), 
                            stat="count", position = 'stack', vjust=-0.5, 
                   color= "black", size=3.5)+
       scale_fill_manual("income", values=c("gray70","steelblue3"))+ 
@@ -998,7 +1015,8 @@ adult_m %>%
     scale_y_continuous(labels = scales::percent)+
     geom_text(aes(0, Bad_rate, label= paste(round(100*Bad_rate,2),"%") ), 
               vjust= -1, hjust= -0.5, color="steelblue3")+
-    geom_errorbar(aes(ymin=Lower, ymax=Upper, width=0.2), size= 1.5, color="steelblue3")+
+    geom_errorbar(aes(ymin=Lower, ymax=Upper, width=0.2), 
+                  size= 1.5, color="steelblue3")+
     labs(x="", y="Proporcio >50K", title = "")+
     tema2
 
@@ -1035,7 +1053,9 @@ pr_wok1 <-
   adult_m %>% 
   ggplot(aes(x= workclass, y= (..count..), fill= income))+
       geom_bar()+
-        geom_text(aes(y= (..count..), label=   ifelse(((..count..)/sum(..count..)) >0.00 , (percent((..count..)/sum(..count..))) , "")     ), 
+        geom_text(aes(y= (..count..), 
+                      label= ifelse(((..count..)/sum(..count..)) >0.00 , 
+                                    (percent((..count..)/sum(..count..))) , "")     ), 
                            stat="count", position = 'stack', 
                   vjust=-0.5, color= "black", size=3.5)+
       scale_fill_manual("income", values=c("gray70","steelblue3"))+ 
@@ -1058,7 +1078,8 @@ adult_m %>%
     scale_y_continuous(labels = scales::percent)+
     geom_text(aes(0, Bad_rate, label= paste(round(100*Bad_rate,2),"%") ), 
               vjust= -1, hjust= -0.5, color="steelblue3")+
-    geom_errorbar(aes(ymin=Lower, ymax=Upper, width=0.2), size= 1.5, color="steelblue3")+
+    geom_errorbar(aes(ymin=Lower, ymax=Upper, width=0.2), 
+                  size= 1.5, color="steelblue3")+
     labs(x="", y="Proporcio >50K", title = "")+
     tema2
 
@@ -1094,7 +1115,9 @@ pr_mar1 <-
   adult_m %>% 
   ggplot(aes(x= marital.status, y= (..count..), fill= income))+
       geom_bar()+
-        geom_text(aes(y= (..count..), label=   ifelse(((..count..)/sum(..count..)) >0.00 , (percent((..count..)/sum(..count..))) , "")     ), 
+        geom_text(aes(y= (..count..), 
+                      label= ifelse(((..count..)/sum(..count..)) >0.00 , 
+                                    (percent((..count..)/sum(..count..))) , "")), 
                            stat="count", position = 'stack', 
                   vjust=-0.5, color= "black", size=3.5)+
       scale_fill_manual("income", values=c("gray70","steelblue3"))+ 
@@ -1117,7 +1140,8 @@ adult_m %>%
     scale_y_continuous(labels = scales::percent)+
     geom_text(aes(0, Bad_rate, label= paste(round(100*Bad_rate,2),"%") ), 
               vjust= -1, hjust= -0.5, color="steelblue3")+
-    geom_errorbar(aes(ymin=Lower, ymax=Upper, width=0.2), size= 1.5, color="steelblue3")+
+    geom_errorbar(aes(ymin=Lower, ymax=Upper, width=0.2), 
+                  size= 1.5, color="steelblue3")+
     labs(x="", y="Proporcio >50K", title = "")+
     tema2
 
@@ -1154,7 +1178,9 @@ pr_edu1 <-
   adult_m %>% 
   ggplot(aes(x= education, y= (..count..), fill= income))+
       geom_bar()+
-        geom_text(aes(y= (..count..), label=   ifelse(((..count..)/sum(..count..)) >0.01 , (percent((..count..)/sum(..count..))) , "")     ), 
+        geom_text(aes(y= (..count..), 
+                      label= ifelse(((..count..)/sum(..count..)) >0.01 , 
+                                    (percent((..count..)/sum(..count..))) , "")), 
                            stat="count", position = 'stack', 
                   vjust=-0.5, color= "black", size=3)+
       scale_fill_manual("income", values=c("gray70","steelblue3"))+ 
@@ -1177,7 +1203,8 @@ adult_m %>%
     scale_y_continuous(labels = scales::percent)+
     geom_text(aes(0, Bad_rate, label= paste(round(100*Bad_rate,2),"%") ), 
               vjust= -1, hjust= -0.5, color="steelblue3")+
-    geom_errorbar(aes(ymin=Lower, ymax=Upper, width=0.2), size= 1.5, color="steelblue3")+
+    geom_errorbar(aes(ymin=Lower, ymax=Upper, width=0.2), 
+                  size= 1.5, color="steelblue3")+
     labs(x="", y="Proporcio >50K", title = "")+
     tema2
 
@@ -1214,7 +1241,9 @@ plot_grid(pr_edu1, pr_edu2, pr_edu3, nrow= 1, ncol=3, rel_widths = c(2,2,0.8),
   adult_m %>% 
   ggplot(aes(x= native.country, y= (..count..), fill= income))+
       geom_bar()+
-        geom_text(aes(y= (..count..), label=   ifelse(((..count..)/sum(..count..)) >0.01 , (percent((..count..)/sum(..count..))) , "")     ), 
+        geom_text(aes(y= (..count..), label= 
+                          ifelse(((..count..)/sum(..count..)) >0.01 , 
+                                 (percent((..count..)/sum(..count..))) , "")), 
                            stat="count", position = 'stack', 
                   vjust=-0.5, color= "black", size=3.5)+
       scale_fill_manual("income", values=c("gray70","steelblue3"))+ 
@@ -1226,13 +1255,13 @@ plot_grid(pr_edu1, pr_edu2, pr_edu3, nrow= 1, ncol=3, rel_widths = c(2,2,0.8),
 ### **Intensitat Relacions Cramer-V**
 
 ```{r}
-# selecci? categ?riques
+# selecci? categoriques
 adult_f <- 
   adult %>% 
   mutate_if(is.character, as.factor) %>% 
   keep(is.factor)
 
-# funci? c?lcul p.value i Cramer-V
+# funcio calcul p.value i Cramer-V
 xitest <- function(var, var2, data=adult_f){
   tt <- table(data[[var]], data[[var2]])
   ch <- chisq.test(tt)
@@ -1243,7 +1272,7 @@ xitest <- function(var, var2, data=adult_f){
              cramer.V = cra$cramer)
 }
 
-# selecci? noms variables
+# seleccio noms variables
 vars_cat <- 
   adult_f %>% 
   names()
@@ -1259,7 +1288,7 @@ names(df_cross) <- c("var1", "var2")
 df_cramer <- 
   df_cross %>% 
   mutate(x= map2(as.character(var1), as.character(var2), .f= xitest)) %>% 
-  unnest() %>%        # separa elements d'uns camp en diferets capms
+  unnest() %>%        
   bind_rows() %>% 
   select(-var11, -var21, -p.value) %>% 
   mutate(cramer.V= round(cramer.V, 2)) %>% 
@@ -1290,7 +1319,8 @@ adult_f %>%
   select(-n) %>% 
   spread(sex, prop)%>%
   kable(caption = "Percentatges:", format = "html", escape = F) %>% 
-  kable_styling(bootstrap_options = c("stripped", "hover", "condensed"), full_width = T)
+  kable_styling(bootstrap_options = c("stripped", "hover", "condensed"), 
+                full_width = T)
 ```
 
 - Marital.Status - Sex  
@@ -1306,7 +1336,8 @@ adult_f %>%
   select(-n) %>% 
   spread(sex, prop)%>%
   kable(caption = "Percentatges:", format = "html", escape = F) %>% 
-  kable_styling(bootstrap_options = c("stripped", "hover", "condensed"), full_width = T)
+  kable_styling(bootstrap_options = c("stripped", "hover", "condensed"), 
+                full_width = T)
 ```
 
 
@@ -1327,7 +1358,8 @@ adult_f %>%
   select(-n) %>% 
   spread(sex, prop)%>%
   kable(caption = "Percentatges:", format = "html", escape = F) %>% 
-  kable_styling(bootstrap_options = c("stripped", "hover", "condensed"), full_width = T)
+  kable_styling(bootstrap_options = c("stripped", "hover", "condensed"), 
+                full_width = T)
 ```
 
 # **Transformacio**
@@ -1464,16 +1496,16 @@ Agrupem per continent
 ```{r,census27, fig.height= 8, fig.width=20, fig.align= "center"}
 adult_m$country2 <- 
     fct_collapse(adult_m$native.country,
-                 EU = c("England", "France", "Germany", "Greece", "Holand-Netherlands","Scotland",
-                         "Portugal", "Ireland","Italy", "Poland", "Yugoslavia", "Hungary" ),
-                 SAme = c("Columbia", "Cuba", "Guatemala", "Mexico", "Honduras", "Nicaragua", "Puerto-Rico",
-                           "El-Salvador" , "Ecuador","Dominican-Republic", "Puerto-Rico", "Peru", "Haiti",
-                           "Trinadad&Tobago", "Jamaica"),
-                 Sasia = c("Cambodia", "Vietnam", "Laos", "Thailand"),
-                 Asia = c("Japan", "South", "Philippines", "Taiwan"),
-                 NAme = c( "United-States", "Outlying-US(Guam-USVI-etc)", "Canada"),
-                 Asia2 = c("China", "India", "Iran", "Hong"),
-                 Altres = "Altres")
+     EU = c("England", "France", "Germany", "Greece", "Holand-Netherlands","Scotland",
+             "Portugal", "Ireland","Italy", "Poland", "Yugoslavia", "Hungary" ),
+     SAme = c("Columbia", "Cuba", "Guatemala", "Mexico", "Honduras", "Nicaragua", 
+              "Puerto-Rico", "El-Salvador" , "Ecuador","Dominican-Republic", 
+              "Puerto-Rico", "Peru", "Haiti", "Trinadad&Tobago", "Jamaica"),
+     Sasia = c("Cambodia", "Vietnam", "Laos", "Thailand"),
+     Asia = c("Japan", "South", "Philippines", "Taiwan"),
+     NAme = c( "United-States", "Outlying-US(Guam-USVI-etc)", "Canada"),
+     Asia2 = c("China", "India", "Iran", "Hong"),
+     Altres = "Altres")
 
 adult_m %>% 
     group_by(country2, income) %>% 
@@ -1499,7 +1531,8 @@ adult_m %>%
 Discretitzacio de la variable per grups d'edat.  
 
 ```{r,census28, fig.height= 4, fig.width=10, fig.align= "center"}
-adult_m$age2 <-  cut(adult$age, breaks = c(-Inf,20,25,30,35,40,45,50,55,60,Inf), labels = c("m20","25","30","35","40","45","50","55","60","M60"))
+adult_m$age2 <-  cut(adult$age, breaks = c(-Inf,20,25,30,35,40,45,50,55,60,Inf), 
+                     labels = c("m20","25","30","35","40","45","50","55","60","M60"))
 
 adult_m$age2 %>% 
   fct_count(sort = T, prop = T) %>% 
@@ -1572,22 +1605,23 @@ df_x %>%
   ),
   .id= "variable") %>% 
   mutate(NA_p = round(100 * NA_q / nrow(df_x), 2),
-         zero_p = round(100 * zero_q / nrow(df_x), 2),
-         NA_q = cell_spec(NA_q, "html", color = ifelse(NA_q > 0, "white", "black"), 
-                          background = ifelse(NA_q > 0, "red", "")),
-         NA_p = cell_spec(NA_p, "html", color = ifelse(NA_p > 0.001, "white", "black"), 
-                          background = ifelse(NA_p > 0.001, "red", "")),
-         zero_q = cell_spec(zero_q, "html", color = ifelse(zero_q > 0.001, "white", "black"), 
-                            background = ifelse(zero_q > 0.001, "orange", "")),
-         zero_p = cell_spec(zero_p, "html", color = ifelse(zero_p > 0.001, "white", "black"), 
-                            background = ifelse(zero_p > 0.001, "orange", "")),
-         classe = cell_spec(classe, "html", color= ifelse(classe == "character", "blue", "")),
-         unics = cell_spec(unics, align = "c")) %>% 
+     zero_p = round(100 * zero_q / nrow(df_x), 2),
+     NA_q = cell_spec(NA_q, "html", color = ifelse(NA_q > 0, "white", "black"), 
+                      background = ifelse(NA_q > 0, "red", "")),
+     NA_p = cell_spec(NA_p, "html", color = ifelse(NA_p > 0.001, "white", "black"), 
+                      background = ifelse(NA_p > 0.001, "red", "")),
+     zero_q = cell_spec(zero_q, "html", color = ifelse(zero_q > 0.001, "white", "black"), 
+                        background = ifelse(zero_q > 0.001, "orange", "")),
+     zero_p = cell_spec(zero_p, "html", color = ifelse(zero_p > 0.001, "white", "black"), 
+                        background = ifelse(zero_p > 0.001, "orange", "")),
+     classe = cell_spec(classe, "html", color= ifelse(classe == "character", "blue", "")),
+     unics = cell_spec(unics, align = "c")) %>% 
   select(1,3,2,4,6,5,7) %>% 
   arrange(classe) %>% 
   kable(format = "html", escape = F) %>% 
-  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), full_width = T) %>% 
-  add_header_above(c(" " = 1, " " = 1," " = 1, "NA" = 2, "ZERO" = 2))
+    kable_styling(bootstrap_options = c("striped", "hover", "condensed"), full_width = T) %>% 
+    add_header_above(c(" " = 1, " " = 1," " = 1, "NA" = 2, "ZERO" = 2)) %>% 
+    column_spec(2:7, width = "2in", include_thead = T)
 ```
 
 
@@ -1613,7 +1647,7 @@ recepte <-
 
 preparada <- 
   recepte %>% 
-  prep() #aplica transformacions a les dades de training
+  prep() #aplica receptes a les dades de training
 
 # transformar dades de test amb la mateixa recepte anterior
 test_baked <- bake(preparada, df_test)
@@ -1649,7 +1683,7 @@ maco_glm <-
   predict_glm %>% 
   conf_mat(income, .pred_class, dnn= c("Predicci?", "Real")) 
 
-# metriques de valoraci? del model: metriques + matriu confusio
+# metriques de valoracio del model: metriques + matriu confusio
 summary(maco_glm) %>% 
   select(-.estimator) %>%
   filter(.metric %in%
@@ -1657,7 +1691,9 @@ summary(maco_glm) %>%
   rbind(select(metrics_glm, -.estimator)) %>% 
   filter(!.metric  %in% c("kap", "mn_log_loss")) %>% 
   kable(caption = "Metriques del Model", format = "html", escape = T) %>% 
-    kable_styling(bootstrap_options = c("striped", "hover", "condensed"), full_width = TRUE)
+    kable_styling(bootstrap_options = c("striped", "hover", "condensed"), 
+                  full_width = TRUE) %>% 
+    column_spec(1:2, width = "2in", include_thead = T)
 
 ```
 
@@ -1724,7 +1760,7 @@ predir <- function(split, recepte, model) {
 
 set.seed(2019)
 
-#pmap itera sobre n variables
+# pmap itera sobre n variables
 rsam <- 
   rsam %>% 
   mutate(pred = list(splits, receptes,  models) %>% pmap(predir),
@@ -1737,7 +1773,9 @@ rsam %>%
   filter(.metric == "accuracy") %>% 
   select(.estimate) %>% 
   kable(caption = "Accuracy 10 cv-fold") %>% 
-    kable_styling(bootstrap_options = c("striped", "hover", "condensed"), full_width = TRUE)
+    kable_styling(bootstrap_options = c("striped", "hover", "condensed"), 
+                  full_width = TRUE) %>% 
+    column_spec(1:2, width = "2in", include_thead = T)
 
 rsam %>% 
   select(metrics) %>% 
@@ -1745,7 +1783,9 @@ rsam %>%
   filter(.metric == "accuracy") %>% 
   summarise(mean_accuracy = mean(.estimate)) %>% 
   kable(caption = "Mitjana 10 cv-fold", format = "html", escape = F) %>% 
-    kable_styling(bootstrap_options = c("striped", "hover", "condensed"), full_width = TRUE)
+    kable_styling(bootstrap_options = c("striped", "hover", "condensed"), 
+                  full_width = TRUE) %>% 
+    column_spec(1:2, width = "2in", include_thead = T)
 
 ```
 

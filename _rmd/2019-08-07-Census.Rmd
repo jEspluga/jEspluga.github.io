@@ -75,7 +75,7 @@ df_x %>%
   select(1,3,2,4,6,5,7) %>% 
   arrange(classe) %>% 
   kable(format = "html", escape = F) %>% 
-  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), full_width = FALSE) %>% 
+  kable_styling(bootstrap_options = c("striped", "hover")) %>% 
   add_header_above(c(" " = 1, " " = 1," " = 1, "NA" = 2, "ZERO" = 2))
 
 ```

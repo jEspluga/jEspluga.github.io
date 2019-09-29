@@ -6,7 +6,7 @@ author: Josep Espluga
 published: true
 status: process
 draft: false  
-tags: classificacio  
+tags:   
 ---
 
 ***
@@ -17,11 +17,10 @@ options(kableExtra.auto_format = FALSE)
 
 ```
 
-# **Introduccio**  
+# **Introducci�**  
 
-Personalitzar una série d'eines i automatismes per a la exploració analitica de les dades.  
-Test del paquet Tidymodels per una classificacio d'una série d'observacions mitjançant un model de regressio logistica. 
-Prediccio d'ingressos superiors/inferiors a $50k/any en funcio de les dades del cens.  
+Personalitzar una s?rie d'eines i automatismes per a la exploraci? anali?ns mitjan?ant un model de regressi? log?stica.  
+Predicci? d'ingressos superiors/inferiors a $50k/any en funci? de les dades del cens.  
 
 # **Llibreries**
 
@@ -97,13 +96,12 @@ df_x %>%
     column_spec(2:7, width = "2in", include_thead = T)
 ```
 
-NA: workclass, occupation, native.country.  
-Dues variables amb elevada frequencia de zeros.Variables caracter possibles factors.  
-capital.gain i capital.loss amb elevada frequencia de zeros.  
-fnlwgt: alt valor d'unics.  
-native.country: alta cardinalitat.  
-education number i education: mateix nombre d'unics.  
-Variables numeriques i caracter.  
+Pres?ncia de NA's: workclass, occupation, native.country.    
+Elevada frequencia de zeros: capital.gain i capital.loss.     
+Variables caracter possibles factors.    
+Alt valor d'unics: fnlwgt.      
+Alta cardinalitat: native.country.   
+Identic nombre d'unics: education number i education.    
 
 ```{r}
 
@@ -141,7 +139,7 @@ adult %>%
 ```
 
 Occupation i workclass amb el mateix nombre de unics .  
-Comprovem els NA de occupation que tenen workclass que son. 
+Comprovem els NA de occupation que tenen workclass que son.   
 1783 - 1863 = 7 individus.  
 Tots 7 son "never-worked"  
 
@@ -152,10 +150,10 @@ adult %>%
 
 ```
 
-Converisio NA:
-NA occupation: Altres.  
-NA workclass: Altres.  
-NA native.conutry: Altres.  
+Converisio NA:  
+NA occupation -> Altres.  
+NA workclass -> Altres.  
+NA native.conutry -> Altres.  
 
 ```{r}
 adult_m <- 
@@ -240,11 +238,9 @@ adult_n %>%
 ```
 
 
-Distribucio capital.gain i capital.loss consequencia elevat n. zeros.  
+Distribucio capital.gain i capital.loss consequencia de l'elevada quantitat de zeros.  
 Capital.gain te un outlier diferenciat.  
-Education.num te observacions amb baix nivell d'educacio.  
-
-Descriptius:  
+Education.num te observacions amb baix nivell d'educacio. (no ho considerem outlier)  
 
 ```{r}
 options(scipen = 999)
@@ -271,7 +267,7 @@ adult %>%
 ### **education number**
 
 Hi ha 16 unics de education.num i 16 unics de education.  
-Convertim la variabbe a factor.  
+Convertim la variable a factor.  
 
 ```{r}
 adult_m <- 
@@ -339,7 +335,7 @@ adult_m %>%
 
 
 ```{r}
-Bad_rate <- mean(adult$income == ">50K")
+Bad_rate <- percent(mean(adult$income == ">50K"))
 ```
 
 Percentatge >50K: **`r Bad_rate`**  
@@ -368,7 +364,7 @@ adult_m %>%
 ```
 
 Possibles agrupacions a estudiar:  
-- education: unir de preescolar a 12th  
+- education: agrupar de preescolar a 12th  
 - mariral: married + separated + no married + widow  
 - country: USA + Eur + SthA + SthOM + China + exBrit  
 - work: Na-others+never+nopay, self + gov_local `gov_nac  

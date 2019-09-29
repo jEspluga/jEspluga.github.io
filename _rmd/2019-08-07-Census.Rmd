@@ -17,7 +17,7 @@ options(kableExtra.auto_format = FALSE)
 
 ```
 
-# **Introducció**  
+# **Introducci?**  
 
 Personalitzar una s?rie d'eines i automatismes per a la exploraci? anali?ns mitjan?ant un model de regressi? log?stica.  
 Predicci? d'ingressos superiors/inferiors a $50k/any en funci? de les dades del cens.  
@@ -335,7 +335,7 @@ adult_m %>%
 
 
 ```{r}
-Bad_rate <- percent(mean(adult$income == ">50K"))
+Bad_rate <- round(mean(adult$income == ">50K"),2)
 ```
 
 Percentatge >50K: **`r Bad_rate`**  

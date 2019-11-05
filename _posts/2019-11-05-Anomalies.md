@@ -1,6 +1,6 @@
 ---
 layout: post  
-title: DetecciÃ³ Anomalies  
+title: Detecció Anomalies  
 author: Josep Espluga  
 published: true
 status: publish
@@ -138,7 +138,7 @@ ggplot(machine, aes(y=temp, fill= grup))+
 
 <img src="/figures/unnamed-chunk-5-3.png" title="plot of chunk unnamed-chunk-5" alt="plot of chunk unnamed-chunk-5" style="display: block; margin: auto;" />
  
-### Transformaci? Dades
+### Transformació Dades
  
 
 {% highlight r %}
@@ -165,11 +165,11 @@ head(machine_num)
 ## 6  26.0    21      1      1      1
 {% endhighlight %}
  
-### Principal Components
+### Anàlisi Components Principals
  
 
 {% highlight r %}
-acp <-prcomp(machine_num, center=T, scale.=T) # PCA + estandatitzaciÃ³ de variables
+acp <-prcomp(machine_num, center=T, scale.=T) # PCA + estandatització de variables
  
 acp
 {% endhighlight %}
@@ -261,33 +261,33 @@ kor %>%
 <tbody>
   <tr>
    <td style="text-align:left;"> temp </td>
-   <td style="text-align:right;"> 0.0670236 </td>
-   <td style="text-align:right;"> 0.1479168 </td>
-   <td style="text-align:right;"> -0.9846707 </td>
+   <td style="text-align:right;"> 0.0670 </td>
+   <td style="text-align:right;"> 0.1479 </td>
+   <td style="text-align:right;"> -0.9846 </td>
   </tr>
   <tr>
    <td style="text-align:left;"> hora </td>
-   <td style="text-align:right;"> 0.0013117 </td>
-   <td style="text-align:right;"> -0.8613649 </td>
-   <td style="text-align:right;"> -0.1384460 </td>
+   <td style="text-align:right;"> 0.0013 </td>
+   <td style="text-align:right;"> -0.8613 </td>
+   <td style="text-align:right;"> -0.1384 </td>
   </tr>
   <tr>
    <td style="text-align:left;"> torn_n </td>
-   <td style="text-align:right;"> 0.0004440 </td>
-   <td style="text-align:right;"> -0.8693281 </td>
-   <td style="text-align:right;"> -0.0314847 </td>
+   <td style="text-align:right;"> 0.0004 </td>
+   <td style="text-align:right;"> -0.8693 </td>
+   <td style="text-align:right;"> -0.0314 </td>
   </tr>
   <tr>
    <td style="text-align:left;"> wEnd_n </td>
-   <td style="text-align:right;"> -0.9439319 </td>
-   <td style="text-align:right;"> 0.0101961 </td>
-   <td style="text-align:right;"> -0.0926505 </td>
+   <td style="text-align:right;"> -0.9439 </td>
+   <td style="text-align:right;"> 0.0101 </td>
+   <td style="text-align:right;"> -0.0926 </td>
   </tr>
   <tr>
    <td style="text-align:left;"> diaSet </td>
-   <td style="text-align:right;"> 0.9478492 </td>
-   <td style="text-align:right;"> 0.0012938 </td>
-   <td style="text-align:right;"> -0.0224339 </td>
+   <td style="text-align:right;"> 0.9478 </td>
+   <td style="text-align:right;"> 0.0012 </td>
+   <td style="text-align:right;"> -0.0224 </td>
   </tr>
 </tbody>
 </table>
@@ -369,7 +369,7 @@ table(k_15)
 ## 1914 2521 2909 1738  376 2587 2579 1735 1920 3984  432
 {% endhighlight %}
  
-### Gr?fic Cluster HCLUST
+### Gràfic Cluster HCLUST
  
 
 {% highlight r %}
@@ -462,7 +462,7 @@ k_mean %>%
 {% endhighlight %}
 
 <table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
-<caption>Distribuci? clusters</caption>
+<caption>Distribució clusters</caption>
  <thead>
   <tr>
    <th style="text-align:left;"> cluster </th>
@@ -517,7 +517,7 @@ k_mean %>%
 </tbody>
 </table>
  
-### Comparaci? K-MEANS / HCLUST
+### Comparació K-MEANS / HCLUST
  
 
 {% highlight r %}
@@ -561,7 +561,7 @@ percent(accu$.estimate)
 # index d'estabilitat 84.84%
 {% endhighlight %}
  
-### Gr?fic Clusters K-MEANS
+### Gràfic Clusters K-MEANS
  
 
 {% highlight r %}
@@ -606,7 +606,7 @@ actives %>%
 {% endhighlight %}
  
  
-### Gr?fic 3-D clusters K-MEANS
+### Gràfic 3-D clusters K-MEANS
  
 
 {% highlight r %}
@@ -615,9 +615,7 @@ plot_ly(x=actives$PC1_dia, y=actives$PC2_hora, z=actives$PC3_temp, type="scatter
 
 
 
-{% highlight text %}
-## Error in file(con, "rb"): cannot open the connection
-{% endhighlight %}
+<img src="/figures/clusters.png" title="clusters" alt="clusters" style="display: block; margin: auto;" />
  
 ### Centres K-MEANS
  
@@ -1019,10 +1017,4 @@ dia_treball %>%
 
 <img src="/figures/unnamed-chunk-32-1.png" title="plot of chunk unnamed-chunk-32" alt="plot of chunk unnamed-chunk-32" style="display: block; margin: auto;" />
  
-
-{% highlight r %}
-saveRDS(actives, file = "actives.rds")
-saveRDS(k_mean$centers, file = "centres.rds")
-saveRDS(machine, file = "machine.rds")
-{% endhighlight %}
  

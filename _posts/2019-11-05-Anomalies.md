@@ -7,7 +7,14 @@ status: publish
 draft: false  
 tags: anomalies
 ---
- 
+
+*** 
+
+### Introducció
+
+La detecció d'anomalies preten detectar observacions que no concorden amb la resta de les dades, tot i que no tenen perque suposar valors fora dels rangs normals de treball.
+Tot i no disposar de dades etiquetades per tal de poder entrenar un model de classificació, és possible detectar anomalies, utilitzant eines d'aprenentatge no supervisat com el 'clustering'.
+Les dades més similars s'agruparan en 'clusters' i els punts més allunyats dels centres del cluster els considerarem anomalies.
 
  
 ### Llibreries
@@ -73,7 +80,8 @@ ggplot(machine, aes(x = timestamp, y=temp))+
 <img src="/figures/unnamed-chunk-3-1.png" title="plot of chunk unnamed-chunk-3" alt="plot of chunk unnamed-chunk-3" style="display: block; margin: auto;" />
  
 ### Feature Engineering
- 
+
+Agrupacions horàries diferenciant horari treball/inactiu i caps de setmana.  
 
 {% highlight r %}
 machine <- 
@@ -139,7 +147,8 @@ ggplot(machine, aes(y=temp, fill= grup))+
 <img src="/figures/unnamed-chunk-5-3.png" title="plot of chunk unnamed-chunk-5" alt="plot of chunk unnamed-chunk-5" style="display: block; margin: auto;" />
  
 ### Transformació Dades
- 
+
+Transformació en dades numèriques.  
 
 {% highlight r %}
 machine_num <- 
@@ -453,7 +462,7 @@ k_mean <- kmeans(actives[,1:3], centers = cdg)
 actives$kmean <-as.factor(k_mean$cluster)
 machine$kmean <-as.factor(k_mean$cluster)
  
-#distribuci? cluster, size
+#distribució cluster, size
 k_mean %>% 
   tidy() %>% 
   select(cluster, size) %>% 
@@ -610,7 +619,8 @@ actives %>%
  
 
 {% highlight r %}
-plot_ly(x=actives$PC1_dia, y=actives$PC2_hora, z=actives$PC3_temp, type="scatter3d", mode="markers", color=actives$kmean)
+plot_ly(x=actives$PC1_dia, y=actives$PC2_hora, z=actives$PC3_temp, 
+        type="scatter3d", mode="markers", color=actives$kmean)
 {% endhighlight %}
 
 
@@ -696,7 +706,7 @@ actives %>%
 <img src="/figures/unnamed-chunk-20-1.png" title="plot of chunk unnamed-chunk-20" alt="plot of chunk unnamed-chunk-20" style="display: block; margin: auto;" />
  
  
-### Dist?ncies
+### Distàncies
  
 
 {% highlight r %}
@@ -748,14 +758,14 @@ anomalies %>%
 <caption>Total Anomalies</caption>
  <thead>
   <tr>
-   <th style="text-align:right;"> Total </th>
-   <th style="text-align:left;"> Percentatge </th>
+   <th style="text-align:lest;"> T </th>
+   <th style="text-align:right;"> % </th>
   </tr>
  </thead>
 <tbody>
   <tr>
-   <td style="text-align:right;"> 331 </td>
-   <td style="text-align:left;"> 1.46% </td>
+   <td style="text-align:left;"> 331 </td>
+   <td style="text-align:right;"> 1.46% </td>
   </tr>
 </tbody>
 </table>
@@ -768,7 +778,7 @@ actives$out <- as.factor(anomalies$out)
 machine$out <- anomalies$out
 {% endhighlight %}
  
-### Outliers de les Dist?ncies
+### Outliers de les Distàncies
  
 
 {% highlight r %}
@@ -834,7 +844,7 @@ actives %>%
 
 <img src="/figures/unnamed-chunk-24-1.png" title="plot of chunk unnamed-chunk-24" alt="plot of chunk unnamed-chunk-24" style="display: block; margin: auto;" />
  
-### Gr?fic 3D cluster 1 
+### Gràfic 3D cluster 1 
  
 
 {% highlight r %}
@@ -858,16 +868,14 @@ plot_ly(cluster_sel, x= ~PC1_dia, y= ~PC2_hora, z= ~PC3_temp,
 
 
 
-{% highlight text %}
-## Error in file(con, "rb"): cannot open the connection
-{% endhighlight %}
+<img src="/figures/cluster_1.png" title="cluster_1" alt="cluster_1" style="display: block; margin: auto;" />
  
  
-### Distribuci? horaria de les anomalies
+### Distribució horària de les anomalies
  
 
 {% highlight r %}
-# distribuci? horaria de les anomalies
+# distribució horària de les anomalies
 machine %>% 
   filter(out == 1) %>% 
   ggplot(aes(x=hora, fill= grup))+
@@ -885,7 +893,7 @@ machine %>%
 
 <img src="/figures/unnamed-chunk-26-1.png" title="plot of chunk unnamed-chunk-26" alt="plot of chunk unnamed-chunk-26" style="display: block; margin: auto;" />
  
-### Distribuci? diaria de les anomalies
+### Distribució diaria de les anomalies
  
 
 {% highlight r %}

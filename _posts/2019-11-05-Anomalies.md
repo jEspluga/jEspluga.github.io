@@ -735,23 +735,8 @@ anomalies %>%
   kable_styling(full_width = F)
 {% endhighlight %}
 
-<table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
-<caption>Total Anomalies</caption>
- <thead>
-  <tr>
-   <th style="text-align:lest;"> T </th>
-   <th style="text-align:right;"> % </th>
-  </tr>
- </thead>
-<tbody>
-  <tr>
-   <td style="text-align:left;"> 331 </td>
-   <td style="text-align:right;"> 1.4 </td>
-  </tr>
-</tbody>
-</table>
-
-
+Total d'anomalies: 331  
+Percentatge:       1.46%
 
 {% highlight r %}
 # assignar anomalies a la taula actives
@@ -768,7 +753,8 @@ actives %>%
   mutate(kmean = as.factor(kmean)) %>% 
   ggplot(aes(x = kmean, y=dist_c, color= as.factor(kmean)))+
   geom_boxplot(outlier.shape = NA, varwidth = TRUE)+
-  geom_jitter(data = subset(actives, out == 1), aes(color= as.factor(kmean)), alpha = 0.5)+
+  geom_jitter(data = subset(actives, out == 1), aes(color= as.factor(kmean)), 
+              alpha = 0.5)+
   theme_minimal()+
   labs(title = "Ditancia Euclidea al Centroid", x=" ", y="")+
   theme(legend.position = "none",

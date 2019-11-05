@@ -1,6 +1,6 @@
 ---
 layout: post  
-title: Anomaly Detection 
+title: Deteció d'Anomalies
 author: Josep Espluga  
 published: true
 status: publish
@@ -12,8 +12,8 @@ tags: anomalies
 
 ### Introducció
 
-La detecció d'anomalies preten detectar observacions que no concorden amb la resta de les dades, tot i que no tenen perque suposar valors fora dels rangs normals de treball.
-Tot i no disposar de dades etiquetades per tal de poder entrenar un model de classificació, és possible detectar anomalies, utilitzant eines d'aprenentatge no supervisat com el 'clustering'.
+La detecció d'anomalies preten detectar observacions que no concorden amb la resta de les dades, tot i que no tenen perque suposar valors fora dels rangs normals de treball.  
+Tot i no disposar de dades etiquetades per tal de poder entrenar un model de classificació, és possible detectar anomalies, utilitzant eines d'aprenentatge no supervisat com el 'clustering'.  
 Les dades més similars s'agruparan en 'clusters' i els punts més allunyats dels centres del cluster els considerarem anomalies.
 
  
@@ -349,7 +349,7 @@ rect.hclust(hc.ward, k=11, border="red")
 {% highlight r %}
 k_15 <- cutree(hc.ward, k = 11)
  
-# assignaci? de cluster segons hcust
+# assignació de cluster segons hcust
 actives$k <- as.factor(k_15)
  
 prop <- prop.table(table(k_15))
@@ -400,12 +400,9 @@ actives %>%
 <img src="/figures/unnamed-chunk-12-1.png" title="plot of chunk unnamed-chunk-12" alt="plot of chunk unnamed-chunk-12" style="display: block; margin: auto;" />
 
 {% highlight r %}
-    #facet_wrap(~k)
- 
 # clusters dendograma
 actives %>% 
   mutate(k= as.factor(k)) %>% 
-  # filter(k %in% c(1,2,3,4)) %>% 
   ggplot()+
   geom_point(aes(x = PC2_hora, y = PC3_temp, col = k))+
   theme_bw()+
@@ -453,12 +450,8 @@ head(cdg)
 
 {% highlight r %}
 k_mean <- kmeans(actives[,1:3], centers = cdg)
-# k_mean
-# table(k_mean$cluster)
-# k_mean$size
-# table(actives$k, k_mean$cluster)
  
-# assignaci? de cluster segons kmean
+# assignació de cluster segons kmean
 actives$kmean <-as.factor(k_mean$cluster)
 machine$kmean <-as.factor(k_mean$cluster)
  
@@ -592,8 +585,6 @@ actives %>%
 <img src="/figures/unnamed-chunk-16-1.png" title="plot of chunk unnamed-chunk-16" alt="plot of chunk unnamed-chunk-16" style="display: block; margin: auto;" />
 
 {% highlight r %}
-    #facet_wrap(~k)
- 
 actives %>% 
   mutate(k= as.factor(k)) %>% 
   ggplot()+
@@ -610,14 +601,8 @@ actives %>%
 
 <img src="/figures/unnamed-chunk-16-2.png" title="plot of chunk unnamed-chunk-16" alt="plot of chunk unnamed-chunk-16" style="display: block; margin: auto;" />
 
-{% highlight r %}
-#facet_wrap(~k)
-{% endhighlight %}
- 
- 
 ### Gràfic 3-D clusters K-MEANS
  
-
 {% highlight r %}
 plot_ly(x=actives$PC1_dia, y=actives$PC2_hora, z=actives$PC3_temp, 
         type="scatter3d", mode="markers", color=actives$kmean)
@@ -631,12 +616,6 @@ plot_ly(x=actives$PC1_dia, y=actives$PC2_hora, z=actives$PC3_temp,
  
 
 {% highlight r %}
-# tots els centres de cada punt
-# k_mean$centers[k_mean$cluster, ]
-# fitted(k_mean)
-# head(k_mean$centers)
- 
- 
 centroids <- 
   as.data.frame(fitted(k_mean)) %>%  #resum dels centres
   select('PC1_cen' = 'PC1_dia', 'PC2_cen'= "PC2_hora", 'PC3_cen'= "PC3_temp")
@@ -713,7 +692,9 @@ actives %>%
 # Distancia Euclidea al Centroid 
 actives <- 
   actives %>% 
-  mutate(dist_c = sqrt( (PC1_dia - PC1_cen)^2 + (PC2_hora - PC2_cen)^2 + (PC3_temp - PC3_cen)^2))
+  mutate(dist_c = sqrt( (PC1_dia - PC1_cen)^2 + 
+                        (PC2_hora - PC2_cen)^2 + 
+                        (PC3_temp - PC3_cen)^2))
  
 # detectar outliers de les distancies
 anomalies <- 
@@ -765,7 +746,7 @@ anomalies %>%
 <tbody>
   <tr>
    <td style="text-align:left;"> 331 </td>
-   <td style="text-align:right;"> 1.46% </td>
+   <td style="text-align:right;"> 1.4 </td>
   </tr>
 </tbody>
 </table>
@@ -782,7 +763,7 @@ machine$out <- anomalies$out
  
 
 {% highlight r %}
-# dispersi? de clusters i possibles outliers
+# dispersió de clusters i possibles outliers
 actives %>% 
   mutate(kmean = as.factor(kmean)) %>% 
   ggplot(aes(x = kmean, y=dist_c, color= as.factor(kmean)))+
@@ -1001,9 +982,7 @@ ggplotly(plt)
 
 
 
-{% highlight text %}
-## Error in file(con, "rb"): cannot open the connection
-{% endhighlight %}
+<img src="/figures/unnamed-chunk-31-1.png" title="plot of chunk unnamed-chunk-31" alt="plot of chunk unnamed-chunk-31" style="display: block; margin: auto;" />
  
 #### Dilluns 16-12-2013:
  

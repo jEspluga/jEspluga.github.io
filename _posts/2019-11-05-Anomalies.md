@@ -1,6 +1,6 @@
 ---
 layout: post  
-title: Detecció Anomalies  
+title: Anomaly Detection 
 author: Josep Espluga  
 published: true
 status: publish

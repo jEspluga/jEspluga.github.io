@@ -1,0 +1,485 @@
+---
+layout: post  
+title: Segmentació Clients  
+author: Josep Espluga  
+published: false  
+status: process  
+draft: false  
+tags: industrial
+---
+
+***  
+
+### **Anàlisi Descriptiu**
+
+L'anàlisi descriptiu ens ha de permetre conèixer la tipologia actual dels nostres clients.  
+Discretitzem les variàbles numériques per facilitar l'interpretabilitat.  
+  
+```{r setup, include=FALSE}
+library(readr)
+library(tidyverse)
+library(funModeling)
+library(gridExtra)
+library(cowplot)
+library(psych) # permet obtenir descriptius en funció de grups
+library(lsr)   # calcula ETA
+library(gmodels) 
+library(factoextra)
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r, include=FALSE}
+dades <- read_csv("Dades_Consumidors_Supermercat.csv")
+
+
+df <- dades %>% 
+            rename(Sexe= Gender,
+                   Edat= Age,
+                   Ingressos_any= 'Annual Income (k$)',
+                   Despesa_score= 'Spending Score (1-100)')
+
+clients <- dades %>% 
+            rename(Sexe= Gender,
+                   Edat= Age,
+                   Ingressos= 'Annual Income (k$)',
+                   Score= 'Spending Score (1-100)')
+```
+
+
+```{r include=FALSE}
+df$Edat <- cut(df$Edat, breaks = c(-Inf,25,35,45,55,Inf), 
+                        labels = c('18-25','26-35','36-45','46-55','+55'))
+
+df$Ingressos_any <- cut(df$Ingressos_any, breaks = c(-Inf,30,60,90,120,Inf),
+                                          labels = c('0-30', '30-60', '60-90','90-120','120-150'))
+
+df$Despesa_score <- cut(df$Despesa_score, breaks = c(-Inf,20,40,60,80,100),
+                                            labels = c('0-20','21-40','41-60','61-80','81-100'))
+
+```
+
+```{r, include= FALSE}
+p_sexe <- ggplot(dades, aes(Gender, fill = Gender))+
+            geom_bar()+
+            theme_minimal()+
+            geom_text(stat='count', aes(label=..count.., group = Gender), vjust=1.2, position = position_stack(), color= "white", size=4.5)+
+            geom_text(stat='count', aes(label= paste((stat(count))/2,'%'), group= 1), vjust=-1, color= "dimgrey", size=5)+
+            labs(title = "Distribucio Homes/Dones", x= "", y= "Total Observacions")+
+            scale_y_continuous(limits= c(0,120), breaks = seq(0, 120, 20)) +
+            scale_fill_brewer(palette = "Pastel1")+
+            theme(
+                legend.position="none",
+                panel.grid.major.x = element_blank(),
+                plot.title = element_text(color= "gray20", hjust = 0.5, size = 20),
+                axis.title.x = element_text(color = "dimgrey"),
+                axis.title.y = element_text(color = "dimgrey"),
+                axis.text.x = element_text(color = "dimgrey", vjust = 5, size = 10),
+                axis.text.y = element_text(color = "dimgrey"))
+```
+
+
+```{r, echo= FALSE}
+p_den <- ggplot(dades, aes( x = Age, fill = Gender)) + 
+    geom_density(alpha = 0.4)+
+    theme_minimal()+
+            labs(title = "Sexe per Edat", x= "", y= "Densitat")+
+            #scale_y_continuous(limits= c(0,120), breaks = seq(0, 120, 20)) +
+            scale_fill_brewer(palette = "Pastel1")+
+            theme(
+                legend.position="none",
+                panel.grid.major.x = element_blank(),
+                plot.title = element_text(color= "gray20", hjust = 0.5, size = 20),
+                axis.title.x = element_text(color = "dimgrey"),
+                axis.title.y = element_text(color = "dimgrey"),
+                axis.text.x = element_text(color = "dimgrey", vjust = 5, size = 10),
+                axis.text.y = element_text(color = "dimgrey"))
+```
+
+```{r, include= FALSE}
+p_edat <-  ggplot(df, aes(x=Edat, fill=Sexe))+
+            geom_bar()+
+            theme_minimal()+
+            geom_text(stat='count', aes(label=..count.., group = Sexe), vjust=1.2, position = position_stack(), color= "white", size=4.5)+
+            geom_text(stat='count', aes(label= paste((stat(count))/2,'%'), group= 1), vjust=-1, color= "dimgrey", size=5)+
+            labs(title = "Sexe per Grup d'Edat", x= "", y= "Total Observacions")+
+            scale_y_continuous(limits= c(0,60), breaks = seq(0, 60, 20)) +
+            scale_fill_brewer(palette = "Pastel1")+
+            theme(
+                legend.position = c(0.9, 0.92),
+                panel.grid.major.x = element_blank(),
+                plot.title = element_text(color= "gray20", hjust = 0.5, size = 20),
+                axis.title.x = element_text(color = "dimgrey"),
+                axis.title.y = element_text(color = "dimgrey"),
+                axis.text.x = element_text(color = "dimgrey", vjust = 5, size = 10),
+                axis.text.y = element_text(color = "dimgrey"))
+```
+
+```{r, include=FALSE}
+p_ing <- ggplot(df, aes(x=Ingressos_any, fill=Sexe))+
+            geom_bar()+
+            theme_minimal()+
+            geom_text(stat='count', aes(label= stat(count), group = Sexe), vjust=1.2, position = position_stack(), color= "white", size=3)+
+            geom_text(stat='count', aes(label= paste((stat(count))/2,'%'), group= 1), vjust=-1, color= "dimgrey", size=5)+
+            labs(title = "Ingressos Any", x= "", y= "Total Observacions")+
+            scale_y_continuous(limits= c(0,80), breaks = seq(0, 80, 20)) +
+            scale_fill_brewer(palette = "Pastel1")+
+            theme(
+                legend.position = "none",
+                panel.grid.major.x = element_blank(),
+                plot.title = element_text(color= "gray20", hjust = 0.5, size = 20),
+                axis.title.x = element_text(color = "dimgrey"),
+                axis.title.y = element_text(color = "dimgrey"),
+                axis.text.x = element_text(color = "dimgrey", vjust = 5, size = 10),
+                axis.text.y = element_text(color = "dimgrey"))
+
+```          
+
+```{r, include=FALSE}
+p_sco <- ggplot(df, aes(x=Despesa_score, fill=Sexe))+
+            geom_bar()+
+            theme_minimal()+
+            geom_text(stat='count', aes(label= stat(count), group = Sexe), vjust=1.2, position = position_stack(), color= "white", size=3)+
+            geom_text(stat='count', aes(label= paste((stat(count))/2,'%'), group= 1), vjust=-1, color= "dimgrey", size=5)+
+            labs(title = "Ranking Despesa", x= "", y= "Total Observacions")+
+            scale_y_continuous(limits= c(0,80), breaks = seq(0, 80, 20)) +
+            scale_fill_brewer(palette = "Pastel1")+
+            theme(
+                legend.position = c(0.9, 0.92),
+                panel.grid.major.x = element_blank(),
+                plot.title = element_text(color= "gray20", hjust = 0.5, size = 20),
+                axis.title.x = element_text(color = "dimgrey"),
+                axis.title.y = element_text(color = "dimgrey"),
+                axis.text.x = element_text(color = "dimgrey", vjust = 5, size= 10),
+                axis.text.y = element_text(color = "dimgrey"))
+                
+            
+```
+
+&nbsp;  
+
+```{r, client1, echo=FALSE, fig.height = 8, fig.width = 15, fig.align = "center"}
+
+grid.arrange(p_sexe, p_den, p_edat, ncol = 3)
+
+```
+
+* #### **Sexe**
+
+Diferència entre homes i dones del 12% (24 persones d'una mostra de 200). 
+
+* #### **Edat**
+
+Un 30% dels clients estan entre els 26-35 anys.  
+La resta de franges d'edat està molt igualada. Amb un descens natural en la última franja d'edat.   
+Entre els 26 i els 55 anys (66,5%) el percentatge de dones és superior a la diferència global homes-dones (81 dones - 52 homes). 
+Al voltant dels 50 anys hi ha un augment d'activitat en les dones  i a partir dels 55 anys és millor la participació d'homes.  
+  
+&nbsp;  
+
+```{r,client2 , echo=FALSE, fig.height = 8, fig.width = 15, fig.align = "center"}
+grid.arrange(p_ing, p_sco, ncol = 2)
+```
+
+* #### **Ingressos**  
+
+La franja més important de nivells d'ingressos es troba entre els  60 i $90.000.  
+Entre els 30 i $90.000 acumulem el 73% dels enquestats.
+Entre els 0 i $90.000 dolars tenim el 89% dels enquestats.  
+Les rendes son molt homogenies entre els dos sexes.  
+Les rendes altes son poc significatives.  
+
+* #### **Score Despesa**  
+
+El 37,5% dels clients estan en un ranking 'average'.  
+La segona posició amb un 18% correspon a un ranking 'baix'.  
+La resta estan molt equilibrats.  
+La suma dels rankings top + alt suposen un 31%.
+Podriem parlar d'un 31% de bons clients, un 37% de normals i un 31 de dolents.
+Existeix un cert equilibri homes-dones excepte al ranking 'mig-baix' on predominen les dones. 
+  
+  
+***
+
+### **Anàlisi Relacional**  
+
+&nbsp; 
+
+  
+```{r, echo= FALSE}
+p_is <- ggplot(clients, aes(x= Ingressos, y=Score, color= Sexe, size= Edat))+
+            geom_point()+
+            theme_light()+
+            labs(title = "Ingressos-Classificacio \n ", x= "Ingressos", y= "Score")+
+            scale_y_continuous(limits= c(0,100), breaks = seq(0, 100, 20)) +
+            #geom_text( aes(label= ifelse(CustomerID == 1 | CustomerID == 3 | CustomerID == 199, as.character(CustomerID), '')), vjust=-1, color= "dimgrey", size=3)+
+            scale_color_brewer(palette = "Pastel1")+
+            theme(
+                legend.position = "top",
+                plot.title = element_text(color= "gray20", hjust = 0.5, size = 20),
+                axis.title.x = element_text(color = "dimgrey", size = 15),
+                axis.title.y = element_text(color = "dimgrey", size = 15),
+                axis.text.x = element_text(color = "dimgrey", vjust = 0, size= 10),
+                axis.text.y = element_text(color = "dimgrey"))+
+                annotate("rect", xmin = 5, xmax = 48, ymin = 0, ymax = 38,  alpha = 0, color = "red")+
+                annotate("rect", xmin = 5, xmax = 48, ymin = 64, ymax = 100,  alpha = 0, color = "red")+
+                annotate("rect", xmin = 35, xmax = 72, ymin = 39, ymax = 61,  alpha = 0, color = "red")+
+                annotate("rect", xmin = 65, xmax = 140, ymin = 64, ymax = 100,  alpha = 0, color = "red")+
+                annotate("rect", xmin = 65, xmax = 140, ymin = 0, ymax = 38,  alpha = 0, color = "red")
+        
+```
+
+```{r, echo= FALSE}
+p_es <- ggplot(clients, aes(x= Edat, y=Score, color= Sexe, size= Ingressos))+
+            geom_point()+
+            theme_light()+
+            labs(title = "Edat-Classificacio \n ", x= "Edat", y= "Score")+
+            scale_y_continuous(limits= c(0,100), breaks = seq(0, 100, 20)) +
+            #geom_text( aes(label= ifelse(CustomerID == 1 | CustomerID == 3 | CustomerID == 199, as.character(CustomerID), '')), vjust=-1, color= "dimgrey", size=3)+
+            scale_color_brewer(palette = "Pastel1")+
+            theme(
+                legend.position = "top",
+                plot.title = element_text(color= "gray20", hjust = 0.5, size = 20),
+                axis.title.x = element_text(color = "dimgrey", size = 15),
+                axis.title.y = element_text(color = "dimgrey", size = 15),
+                axis.text.x = element_text(color = "dimgrey", vjust = 0, size= 10),
+                axis.text.y = element_text(color = "dimgrey"))+
+            
+            scale_size_continuous(name = "Ingressos",
+                    breaks = c(20,40,60,80,100, 140),
+                    limits = c(10, 140),
+                    labels = c(20,40,60,80,100, 140),
+                    range = c(0.5, 6) )+
+            annotate("rect", xmin = 42, xmax = 72, ymin = 62, ymax = 100,  alpha = 0, color = "red")+
+            annotate("rect", xmin = 21, xmax = 42, ymin = 22, ymax = 47,  alpha = 0, color = "red")+
+            annotate("rect", xmin = 16, xmax = 40, ymin = 0, ymax = 19,  alpha = 0, color = "red")
+            
+    
+```
+
+```{r, client3, echo=FALSE, fig.height = 8, fig.width = 15, fig.align = "center"}
+grid.arrange(p_is, p_es, ncol = 2)
+```
+
+* #### **Ingressos - Score**  
+  
+Gràfica que relaciona els ingressos amb la classificació del client.
+El tamay del punt ens indica l'edat i el color refereix sexe.  
+  
+Aquesta classificació ens permet intuir una certa distribució, a la vegada que ens dona dades del perfil de client de cada grup:  
+- S' insinuen 5 grups diferenciats  
+- No hi ha una clara distinció determinada pel sexe  
+- Per ordre de valoració de client:  
+    - clients TOP 1: perfil de baix ingrés, els més joves. Valoració positiva probablement pel volum de compres i no per l'import.  
+    - clients TOP 2: perfil ingressos superiors a la mitjana, edat al voltant dels 40 anys  
+    - clients PROMIG: clients amb valoració 50 de 100 i centrats segins nivell d'ingressos. Edat al voltant dels 50 anys  
+    
+```{r, client4, echo= FALSE, include= FALSE}
+############################################## CLUSTERING
+actives <- clients %>% 
+                select(4,5) %>% 
+                scale()
+
+dd <- dist(actives, method = "euclidean") 
+hc <- hclust(dd, method = "single") 
+plot(hc, hang = -1, cex = 0.5) 
+
+dd <- dist(actives, method = "euclidean") 
+hc.ward <- hclust(dd, method = "ward.D2") 
+plot(hc.ward, hang = -1, cex = 0.5) 
+
+plot(hc.ward, hang = -1, cex = 0.5) 
+rect.hclust(hc.ward, k=5, border="red")
+
+k_5 <- cutree(hc.ward, k = 5)
+
+actives <- cbind(actives, k_5)
+actives <- as.data.frame(actives)
+
+clients <- cbind(clients, k_5)
+clients <- as.data.frame(clients)
+
+summaries_k5 <- describeBy(actives[,1:2],actives$k_5) 
+
+plot(summaries_k5$'1'$vars,summaries_k5$'1'$mean,type="l",xaxt='n',ylim=c(-5,5),xlab="item",ylab="mitjana de grup k5") 
+lines(summaries_k5$'2'$vars,summaries_k5$'2'$mean,type="l", col=2) 
+lines(summaries_k5$'3'$vars,summaries_k5$'3'$mean,type="l",col=3)
+lines(summaries_k5$'4'$vars,summaries_k5$'4'$mean,type="l",col=4)
+lines(summaries_k5$'5'$vars,summaries_k5$'5'$mean,type="l",col=5)
+legend("topright", c("G1", "G2", "G3", "G4", "G5"), col = c(1, 2, 3, 4, 5), lty = c(1, 1, 1, 1, 1),cex=0.6) 
+axis(1, at=c(1,2), labels=c("Ing","Scor")) 
+
+plot(actives$Ingressos,actives$Score,type="none",main="clustering in 5 classes") 
+text(actives$Ingressos,actives$Score,col=actives$k_5,cex=0.6) 
+abline(h=0,v=0,col="gray") 
+legend("bottomright",c("G1","G2","G3","G4", "G5"),pch=20,col=c(1:3),cex=0.6)
+
+cdg <- actives %>% 
+    group_by(k_5) %>% 
+    summarise(c_ing=mean(Ingressos),
+              c_sco=mean(Score)) %>% 
+    select(-k_5)
+
+k_means<-kmeans(actives[, 1:2], centers = cdg) 
+
+pep <- data.frame(sexe= clients$Sexe,
+                  edat= clients$Edat,
+                  actives)
+
+CrossTable(pep$sexe,pep$k_5,chisq = T,expected = T) 
+
+boxplot(pep$edat~pep$k_5, ylab="Edat", xlab="grups") 
+
+```
+
+***  
+
+### **Anàlisi Clúster** 
+
+Per confirmar la segmentació intuida visualment gràcies a la representació gràfica, realitzem un anàlisi cluster per
+agrupar automàticament les observacions de la mostra.  
+
+
+```{r, echo=FALSE, fig.height = 10, fig.width = 15, fig.align = "center"}
+
+#palette= c("#2E9FDF","#00AFBB","#E7B800","#FC4E07", "darkorchid1"),
+pclu <- fviz_cluster(list(data = pep[ , 3:4], cluster= k_5),
+             palette= c("grey","darkolivegreen3","#E7B800","limegreen", "#F6CED8"),
+             ellipse.type= "convex",
+             show.clust.cent= FALSE,
+             repel= FALSE,
+             labelsize = 8,
+             
+             ggtheme = theme_minimal())+
+             theme(
+                legend.position = "top",
+                plot.title = element_text(color= "gray20", hjust = 0.5, size = 20),
+                axis.title.x = element_text(color = "dimgrey", size = 15),
+                axis.title.y = element_text(color = "dimgrey", size = 15),
+                axis.text.x = element_text(color = "dimgrey", vjust = 0, size= 10),
+                axis.text.y = element_text(color = "dimgrey"))
+
+```
+
+```{r, echo= FALSE, fig.height = 8, fig.width = 15, fig.align = "center"}
+pclu_tot <- ggplot(pep, aes(k_5, fill = as.factor(k_5), color= as.factor(k_5)))+
+            geom_bar(alpha=0.5)+
+            theme_minimal()+
+            geom_text(stat='count', aes(label=..count.., group = k_5), vjust=1.2, position = position_stack(), color= "white", size=4.5)+
+            geom_text(stat='count', aes(label= paste((stat(count))/2,'%'), group= 1), vjust=-1, color= "dimgrey", size=5)+
+            labs(title = "Total Clients per Cluster", x= "", y= "Total Observacions")+
+            scale_y_continuous(limits= c(0,100), breaks = seq(0, 100, 20)) +
+            scale_fill_manual(values = c("grey","darkolivegreen3","#E7B800","limegreen", "#F6CED8"))+
+            scale_color_manual(values = c("grey","darkolivegreen3","#E7B800","limegreen", "#F6CED8"))+
+            theme(
+                legend.position="none",
+                panel.grid.major.x = element_blank(),
+                plot.title = element_text(color= "gray20", hjust = 0.5, vjust= -3, size = 20),
+                axis.title.x = element_text(color = "dimgrey"),
+                axis.title.y = element_text(color = "dimgrey"),
+                axis.text.x = element_text(color = "dimgrey", vjust = 5, size = 10),
+                axis.text.y = element_text(color = "dimgrey"))
+
+
+```
+
+
+```{r, echo= FALSE}
+pclu_sex <- ggplot(pep, aes(factor(k_5)))+
+    geom_bar(alpha=0.5, aes(fill=sexe))+
+    theme_minimal()+
+    geom_text(stat='count', aes(label=..count.., group = sexe), vjust=1.2, position = position_stack(), color= "white", size=4.5)+
+    geom_text(stat='count', aes(label= paste((stat(count))/2,'%'), group= 1), vjust=-1, color= "dimgrey", size=5)+
+    geom_text(stat='count', aes(y=56*(..count..)/100, group= factor(k_5)), label="__            __", size=6, color="darkblue")+ 
+    labs(title = "Sexe per Cluster", x= "", y= "Total Observacions")+
+    scale_y_continuous(limits= c(0,100), breaks = seq(0, 100, 20)) +
+    scale_fill_brewer(palette = "Pastel1")+
+    theme(
+        legend.position= c(0.9, 0.84),
+        #panel.grid.major.x = element_blank(),
+        plot.title = element_text(color= "gray20", hjust = 0.5, vjust= -3, size = 20),
+        axis.title.x = element_text(color = "dimgrey"),
+        axis.title.y = element_text(color = "dimgrey"),
+        axis.text.x = element_text(color = "dimgrey", vjust = 5, size = 10),
+        axis.text.y = element_text(color = "dimgrey"))
+```
+
+
+```{r,client5 , echo=FALSE, fig.height = 15, fig.width = 15, fig.align = "center"}
+#grid.arrange(p_clu, p_tot, ncol = 2)
+
+#grid.arrange(arrangeGrob(p_clu, ncol = 1, nrow = 1),
+             #arrangeGrob(p_tot, ncol = 1, nrow = 1), heights= c(1,1), widths= c(3,1))
+
+grid.arrange(pclu, arrangeGrob(pclu_sex, pclu_tot, nrow=1), nrow= 2)       
+```
+
+* #### **Resum per Clusters** 
+    
+```{r, echo=FALSE}
+#boxplot(pep$edat~pep$k_5, ylab="Edat", xlab="grups")
+pbox_ed <- ggplot(clients, aes(x= k_5, y=Edat, group= k_5, fill= as.factor(k_5)))+
+            geom_boxplot(alpha=0.5)+
+            geom_point(aes(fill = as.factor(k_5)), size = 1.5, shape = 21, position = position_jitterdodge()) +
+            theme_minimal()+
+            labs(title = "Edat", x= "", y= "anys")+
+            #scale_y_continuous(limits= c(0,100), breaks = seq(0, 100, 20)) +
+            #geom_text( aes(label= ifelse(CustomerID == 1 | CustomerID == 3 | CustomerID == 199, as.character(CustomerID), '')), vjust=-1, color= "dimgrey", size=3)+
+            scale_fill_manual(values = c("grey","darkolivegreen3","#E7B800","limegreen", "#F6CED8"))+
+            #scale_color_brewer(palette = "Pastel1")+
+            theme(
+                legend.position = "none",
+                plot.title = element_text(color= "gray20", hjust = 0.5, size = 20),
+                axis.title.x = element_text(color = "dimgrey", size = 15),
+                axis.title.y = element_text(color = "dimgrey", size = 15),
+                axis.text.x = element_text(color = "dimgrey", vjust = 0, size= 10),
+                axis.text.y = element_text(color = "dimgrey"))
+        
+```
+  
+```{r, echo=FALSE}
+
+pbox_ing <- ggplot(clients, aes(x= k_5, y=Ingressos, group= k_5, fill= as.factor(k_5)))+
+            geom_boxplot(alpha=0.5)+
+            geom_point(aes(fill = as.factor(k_5)), size = 1.5, shape = 21, position = position_jitterdodge()) +
+            theme_minimal()+
+            labs(title = "Ingressos", x= "", y= "$ xM")+
+            #scale_y_continuous(limits= c(0,100), breaks = seq(0, 100, 20)) +
+            #geom_text( aes(label= ifelse(CustomerID == 1 | CustomerID == 3 | CustomerID == 199, as.character(CustomerID), '')), vjust=-1, color= "dimgrey", size=3)+
+            scale_fill_manual(values = c("grey","darkolivegreen3","#E7B800","limegreen", "#F6CED8"))+
+            #scale_color_brewer(palette = "Pastel1")+
+            theme(
+                legend.position = "none",
+                plot.title = element_text(color= "gray20", hjust = 0.5, size = 20),
+                axis.title.x = element_text(color = "dimgrey", size = 15),
+                axis.title.y = element_text(color = "dimgrey", size = 15),
+                axis.text.x = element_text(color = "dimgrey", vjust = 0, size= 10),
+                axis.text.y = element_text(color = "dimgrey"))
+        
+```
+  
+```{r, echo=FALSE}
+
+pbox_sco <- ggplot(clients, aes(x= k_5, y=Score, group= k_5, fill= as.factor(k_5)))+
+            geom_boxplot(alpha=0.5)+
+            geom_point(aes(fill = as.factor(k_5)), size = 1.5, shape = 21, position = position_jitterdodge()) +
+            theme_minimal()+
+            labs(title = "Ranking", x= "", y= "Score")+
+            #scale_y_continuous(limits= c(0,100), breaks = seq(0, 100, 20)) +
+            #geom_text( aes(label= ifelse(CustomerID == 1 | CustomerID == 3 | CustomerID == 199, as.character(CustomerID), '')), vjust=-1, color= "dimgrey", size=3)+
+            scale_fill_manual(values = c("grey","darkolivegreen3","#E7B800","limegreen", "#F6CED8"))+
+            #scale_color_brewer(palette = "Pastel1")+
+            theme(
+                legend.position = "none",
+                plot.title = element_text(color= "gray20", hjust = 0.5, size = 20),
+                axis.title.x = element_text(color = "dimgrey", size = 15),
+                axis.title.y = element_text(color = "dimgrey", size = 15),
+                axis.text.x = element_text(color = "dimgrey", vjust = 0, size= 10),
+                axis.text.y = element_text(color = "dimgrey"))
+        
+``` 
+
+```{r,client6 , echo=FALSE, fig.height = 6, fig.width = 15, fig.align = "center"}
+
+grid.arrange(pbox_ed, pbox_ing, pbox_sco, nrow=1)      
+```
+

@@ -270,33 +270,33 @@ kor %>%
 <tbody>
   <tr>
    <td style="text-align:left;"> temp </td>
-   <td style="text-align:right;"> 0.0670 </td>
-   <td style="text-align:right;"> 0.1479 </td>
-   <td style="text-align:right;"> -0.9846 </td>
+   <td style="text-align:right;"> 0.067 </td>
+   <td style="text-align:right;"> 0.147 </td>
+   <td style="text-align:right;"> -0.984 </td>
   </tr>
   <tr>
    <td style="text-align:left;"> hora </td>
-   <td style="text-align:right;"> 0.0013 </td>
-   <td style="text-align:right;"> -0.8613 </td>
-   <td style="text-align:right;"> -0.1384 </td>
+   <td style="text-align:right;"> 0.001 </td>
+   <td style="text-align:right;"> -0.861 </td>
+   <td style="text-align:right;"> -0.138 </td>
   </tr>
   <tr>
-   <td style="text-align:left;"> torn_n </td>
-   <td style="text-align:right;"> 0.0004 </td>
-   <td style="text-align:right;"> -0.8693 </td>
-   <td style="text-align:right;"> -0.0314 </td>
+   <td style="text-align:left;"> torn </td>
+   <td style="text-align:right;"> 0.000 </td>
+   <td style="text-align:right;"> -0.869 </td>
+   <td style="text-align:right;"> -0.031 </td>
   </tr>
   <tr>
-   <td style="text-align:left;"> wEnd_n </td>
-   <td style="text-align:right;"> -0.9439 </td>
-   <td style="text-align:right;"> 0.0101 </td>
-   <td style="text-align:right;"> -0.0926 </td>
+   <td style="text-align:left;"> wEnd </td>
+   <td style="text-align:right;"> -0.943 </td>
+   <td style="text-align:right;"> 0.010 </td>
+   <td style="text-align:right;"> -0.092 </td>
   </tr>
   <tr>
    <td style="text-align:left;"> diaSet </td>
-   <td style="text-align:right;"> 0.9478 </td>
-   <td style="text-align:right;"> 0.0012 </td>
-   <td style="text-align:right;"> -0.0224 </td>
+   <td style="text-align:right;"> 0.947 </td>
+   <td style="text-align:right;"> 0.001 </td>
+   <td style="text-align:right;"> -0.022 </td>
   </tr>
 </tbody>
 </table>

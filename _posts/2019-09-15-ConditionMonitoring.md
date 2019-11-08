@@ -69,33 +69,33 @@ df_fug %>%
 <tbody>
   <tr>
    <td style="text-align:left;"> 10:11:05 </td>
-   <td style="text-align:right;"> 0.00 </td>
-   <td style="text-align:right;"> 5.84 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 5.8 </td>
   </tr>
   <tr>
    <td style="text-align:left;"> 10:11:06 </td>
-   <td style="text-align:right;"> 0.00 </td>
-   <td style="text-align:right;"> 5.84 </td>
+   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 5.8 </td>
   </tr>
   <tr>
    <td style="text-align:left;"> 10:11:06 </td>
-   <td style="text-align:right;"> 109.40 </td>
-   <td style="text-align:right;"> 5.00 </td>
+   <td style="text-align:right;"> 109.4 </td>
+   <td style="text-align:right;"> 5 </td>
   </tr>
   <tr>
    <td style="text-align:left;"> 10:11:07 </td>
-   <td style="text-align:right;"> 108.78 </td>
-   <td style="text-align:right;"> 4.93 </td>
+   <td style="text-align:right;"> 108.7 </td>
+   <td style="text-align:right;"> 4.9 </td>
   </tr>
   <tr>
    <td style="text-align:left;"> 10:11:07 </td>
-   <td style="text-align:right;"> 57.20 </td>
-   <td style="text-align:right;"> 4.62</td>
+   <td style="text-align:right;"> 57.2 </td>
+   <td style="text-align:right;"> 4.6</td>
   </tr>
   <tr>
    <td style="text-align:left;"> 10:11:08 </td>
-   <td style="text-align:right;"> 55.32 </td>
-   <td style="text-align:right;"> 5.048 </td>
+   <td style="text-align:right;"> 55.3 </td>
+   <td style="text-align:right;"> 5 </td>
   </tr>
 </tbody>
 </table>
@@ -191,31 +191,31 @@ df_ok %>%
  </thead>
 <tbody>
   <tr>
-   <td style="text-align:left;"> Cabal_OK </td>
+   <td style="text-align:left;"> Q_OK </td>
    <td style="text-align:left;"> 0 </td>
-   <td style="text-align:left;"> 203.8 </td>
-   <td style="text-align:left;"> 63.3 </td>
-   <td style="text-align:left;"> 54.7 </td>
-   <td style="text-align:left;"> 48.7 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Cabal_fuites </td>
-   <td style="text-align:left;"> 0 </td>
-   <td style="text-align:left;"> 207.5 </td>
-   <td style="text-align:left;"> 66.8 </td>
+   <td style="text-align:left;"> 203 </td>
+   <td style="text-align:left;"> 63 </td>
    <td style="text-align:left;"> 54 </td>
-   <td style="text-align:left;"> 55.3 </td>
+   <td style="text-align:left;"> 48 </td>
   </tr>
   <tr>
-   <td style="text-align:left;"> Pressio_OK </td>
+   <td style="text-align:left;"> Q_fuites </td>
+   <td style="text-align:left;"> 0 </td>
+   <td style="text-align:left;"> 207 </td>
+   <td style="text-align:left;"> 66 </td>
+   <td style="text-align:left;"> 54 </td>
+   <td style="text-align:left;"> 55 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> P_OK </td>
    <td style="text-align:left;"> 4.4 </td>
    <td style="text-align:left;"> 5.8 </td>
    <td style="text-align:left;"> 5.0 </td>
    <td style="text-align:left;"> 0.2 </td>
-   <td style="text-align:left;"> 5 </td>
+   <td style="text-align:left;"> 5.0 </td>
   </tr>
   <tr>
-   <td style="text-align:left;"> Pressio_fuites </td>
+   <td style="text-align:left;"> P_fuites </td>
    <td style="text-align:left;"> 4.4 </td>
    <td style="text-align:left;"> 5.8 </td>
    <td style="text-align:left;"> 4.9 </td>
@@ -429,13 +429,17 @@ Aquests canvis poden representar transicions entre estats de condició de trebal
 {% highlight r %}
 penalty_val_q <- 25000
  
-cptm_qh <- cpt.mean(ts_qh, penalty = "Manual", pen.value = penalty_val_q, method = "PELT")
+cptm_qh <- cpt.mean(ts_qh, penalty = "Manual", pen.value = penalty_val_q, 
+                    method = "PELT")
  
-cptm_qi <- cpt.mean(ts_qi, penalty = "Manual", pen.value = penalty_val_q, method = "PELT")
+cptm_qi <- cpt.mean(ts_qi, penalty = "Manual", pen.value = penalty_val_q, 
+                    method = "PELT")
  
 par(mfrow = c(2,1))
-plot(cptm_qh, col= "grey", main= "Cabal. Monitoritzacio Condicions: OK", col.main= "dodgerblue3")
-plot(cptm_qi, col= "grey", main= "Cabal. Monitoritzacio Condicions: fuites", col.main= "orange")
+plot(cptm_qh, col= "grey", main= "Cabal. Monitoritzacio Condicions: OK", 
+                col.main= "dodgerblue3")
+plot(cptm_qi, col= "grey", main= "Cabal. Monitoritzacio Condicions: fuites", 
+                col.main= "orange")
 {% endhighlight %}
 
 <img src="/figures/unnamed-chunk-12-1.png" title="plot of chunk unnamed-chunk-12" alt="plot of chunk unnamed-chunk-12" style="display: block; margin: auto;" />

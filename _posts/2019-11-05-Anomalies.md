@@ -77,7 +77,7 @@ ggplot(machine, aes(x = timestamp, y=temp))+
         plot.title = element_text(hjust=0.5))
 {% endhighlight %}
 
-<img src="/figures/unnamed-chunk-3-1.png" title="plot of chunk unnamed-chunk-3" alt="plot of chunk unnamed-chunk-3" style="display: block; margin: auto;" />
+<img src="/figures/a1-1.png" title="plot of chunk unnamed-chunk-3" alt="plot of chunk unnamed-chunk-3" style="display: block; margin: auto;" />
  
 ### Feature Engineering
 
@@ -112,7 +112,7 @@ ggplot(machine, aes(x = timestamp, y=temp, color= grup))+
   facet_wrap(~grup)
 {% endhighlight %}
 
-<img src="/figures/unnamed-chunk-5-1.png" title="plot of chunk unnamed-chunk-5" alt="plot of chunk unnamed-chunk-5" style="display: block; margin: auto;" />
+<img src="/figures/a2-1.png" title="plot of chunk unnamed-chunk-5" alt="plot of chunk unnamed-chunk-5" style="display: block; margin: auto;" />
 
 {% highlight r %}
 ggplot(machine, aes(x=temp, fill= grup))+
@@ -128,7 +128,7 @@ ggplot(machine, aes(x=temp, fill= grup))+
   facet_wrap(~grup, scales = "free")
 {% endhighlight %}
 
-<img src="/figures/unnamed-chunk-5-2.png" title="plot of chunk unnamed-chunk-5" alt="plot of chunk unnamed-chunk-5" style="display: block; margin: auto;" />
+<img src="/figures/a2-2.png" title="plot of chunk unnamed-chunk-5" alt="plot of chunk unnamed-chunk-5" style="display: block; margin: auto;" />
 
 {% highlight r %}
 ggplot(machine, aes(y=temp, fill= grup))+
@@ -144,7 +144,7 @@ ggplot(machine, aes(y=temp, fill= grup))+
         axis.text.x = element_blank())
 {% endhighlight %}
 
-<img src="/figures/unnamed-chunk-5-3.png" title="plot of chunk unnamed-chunk-5" alt="plot of chunk unnamed-chunk-5" style="display: block; margin: auto;" />
+<img src="/figures/a2-3.png" title="plot of chunk unnamed-chunk-5" alt="plot of chunk unnamed-chunk-5" style="display: block; margin: auto;" />
  
 ### Transformació Dades
 
@@ -223,7 +223,7 @@ get_eigenvalue(acp)
 fviz_eig(acp, addlabels = TRUE, ylim = c(0, 40))
 {% endhighlight %}
 
-![plot of chunk unnamed-chunk-7](/figures/unnamed-chunk-7-1.png)
+<img src="/figures/a4-2.png" title="plot of chunk unnamed-chunk-8" alt="plot of chunk unnamed-chunk-8" style="display: block; margin: auto;" />
 
 {% highlight r %}
 actives <- 
@@ -238,14 +238,14 @@ plot(acp$x[,1], acp$x[,3], xlab="PC1_dia", ylab="PC3_temp")
 abline(h=0,v=0,col="gray60")
 {% endhighlight %}
 
-<img src="/figures/unnamed-chunk-8-1.png" title="plot of chunk unnamed-chunk-8" alt="plot of chunk unnamed-chunk-8" style="display: block; margin: auto;" />
+<img src="/figures/a3-1.png" title="plot of chunk unnamed-chunk-8" alt="plot of chunk unnamed-chunk-8" style="display: block; margin: auto;" />
 
 {% highlight r %}
 plot(acp$x[,2], acp$x[,3], xlab="PC2_hora", ylab="PC3_temp")
 abline(h=0,v=0,col="gray60")
 {% endhighlight %}
 
-<img src="/figures/unnamed-chunk-8-2.png" title="plot of chunk unnamed-chunk-8" alt="plot of chunk unnamed-chunk-8" style="display: block; margin: auto;" />
+<img src="/figures/a3-2.png" title="plot of chunk unnamed-chunk-8" alt="plot of chunk unnamed-chunk-8" style="display: block; margin: auto;" />
  
 ### Correlacions
  
@@ -307,7 +307,7 @@ kor %>%
 corrplot(kor)
 {% endhighlight %}
 
-<img src="/figures/unnamed-chunk-9-1.png" title="plot of chunk unnamed-chunk-9" alt="plot of chunk unnamed-chunk-9" style="display: block; margin: auto;" />
+<img src="/figures/a4-1.png" title="plot of chunk unnamed-chunk-9" alt="plot of chunk unnamed-chunk-9" style="display: block; margin: auto;" />
 
 {% highlight r %}
 # rotacions
@@ -343,7 +343,7 @@ plot(hc.ward, hang = -1, cex = 0.5)
 rect.hclust(hc.ward, k=11, border="red")
 {% endhighlight %}
 
-<img src="/figures/unnamed-chunk-10-1.png" title="plot of chunk unnamed-chunk-10" alt="plot of chunk unnamed-chunk-10" style="display: block; margin: auto;" />
+<img src="/figures/a5-1.png" title="plot of chunk unnamed-chunk-10" alt="plot of chunk unnamed-chunk-10" style="display: block; margin: auto;" />
  
 
 {% highlight r %}
@@ -397,7 +397,7 @@ actives %>%
           plot.title = element_text(hjust=0.5))
 {% endhighlight %}
 
-<img src="/figures/unnamed-chunk-12-1.png" title="plot of chunk unnamed-chunk-12" alt="plot of chunk unnamed-chunk-12" style="display: block; margin: auto;" />
+<img src="/figures/a6-1.png" title="plot of chunk unnamed-chunk-12" alt="plot of chunk unnamed-chunk-12" style="display: block; margin: auto;" />
 
 {% highlight r %}
 # clusters dendograma
@@ -415,7 +415,7 @@ actives %>%
         plot.title = element_text(hjust=0.5))
 {% endhighlight %}
 
-<img src="/figures/unnamed-chunk-12-2.png" title="plot of chunk unnamed-chunk-12" alt="plot of chunk unnamed-chunk-12" style="display: block; margin: auto;" />
+<img src="/figures/a6-2.png" title="plot of chunk unnamed-chunk-12" alt="plot of chunk unnamed-chunk-12" style="display: block; margin: auto;" />
  
 ### Centres HCLUST
  
@@ -540,7 +540,7 @@ c_m %>%
         plot.title = element_text(hjust=0.5))
 {% endhighlight %}
 
-![plot of chunk unnamed-chunk-15](/figures/unnamed-chunk-15-1.png)
+![plot of chunk unnamed-chunk-15](/figures/a7-1.png)
 
 {% highlight r %}
 accu <- 
@@ -582,7 +582,7 @@ actives %>%
           plot.title = element_text(hjust=0.5))
 {% endhighlight %}
 
-<img src="/figures/unnamed-chunk-16-1.png" title="plot of chunk unnamed-chunk-16" alt="plot of chunk unnamed-chunk-16" style="display: block; margin: auto;" />
+<img src="/figures/a8-1.png" title="plot of chunk unnamed-chunk-16" alt="plot of chunk unnamed-chunk-16" style="display: block; margin: auto;" />
 
 {% highlight r %}
 actives %>% 
@@ -599,7 +599,7 @@ actives %>%
         plot.title = element_text(hjust=0.5))
 {% endhighlight %}
 
-<img src="/figures/unnamed-chunk-16-2.png" title="plot of chunk unnamed-chunk-16" alt="plot of chunk unnamed-chunk-16" style="display: block; margin: auto;" />
+<img src="/figures/a8-2.png" title="plot of chunk unnamed-chunk-16" alt="plot of chunk unnamed-chunk-16" style="display: block; margin: auto;" />
 
 ### Gràfic 3-D clusters K-MEANS
  
@@ -662,7 +662,7 @@ actives %>%
     facet_wrap(~kmean)
 {% endhighlight %}
 
-<img src="/figures/unnamed-chunk-19-1.png" title="plot of chunk unnamed-chunk-19" alt="plot of chunk unnamed-chunk-19" style="display: block; margin: auto;" />
+<img src="/figures/a10-1.png" title="plot of chunk unnamed-chunk-19" alt="plot of chunk unnamed-chunk-19" style="display: block; margin: auto;" />
  
 
 {% highlight r %}
@@ -682,7 +682,7 @@ actives %>%
   facet_wrap(~kmean)
 {% endhighlight %}
 
-<img src="/figures/unnamed-chunk-20-1.png" title="plot of chunk unnamed-chunk-20" alt="plot of chunk unnamed-chunk-20" style="display: block; margin: auto;" />
+<img src="/figures/a11-1.png" title="plot of chunk unnamed-chunk-20" alt="plot of chunk unnamed-chunk-20" style="display: block; margin: auto;" />
  
  
 ### Distàncies
@@ -766,7 +766,7 @@ actives %>%
         axis.text.y = element_blank())
 {% endhighlight %}
 
-<img src="/figures/unnamed-chunk-22-1.png" title="plot of chunk unnamed-chunk-22" alt="plot of chunk unnamed-chunk-22" style="display: block; margin: auto;" />
+<img src="/figures/a12-1.png" title="plot of chunk unnamed-chunk-22" alt="plot of chunk unnamed-chunk-22" style="display: block; margin: auto;" />
  
 ### Clusters amb outliers
  
@@ -789,7 +789,7 @@ actives %>%
   facet_wrap(~kmean)
 {% endhighlight %}
 
-<img src="/figures/unnamed-chunk-23-1.png" title="plot of chunk unnamed-chunk-23" alt="plot of chunk unnamed-chunk-23" style="display: block; margin: auto;" />
+<img src="/figures/a13-1.png" title="plot of chunk unnamed-chunk-23" alt="plot of chunk unnamed-chunk-23" style="display: block; margin: auto;" />
  
 
 {% highlight r %}
@@ -809,7 +809,7 @@ actives %>%
   facet_wrap(~kmean)
 {% endhighlight %}
 
-<img src="/figures/unnamed-chunk-24-1.png" title="plot of chunk unnamed-chunk-24" alt="plot of chunk unnamed-chunk-24" style="display: block; margin: auto;" />
+<img src="/figures/a14-1.png" title="plot of chunk unnamed-chunk-24" alt="plot of chunk unnamed-chunk-24" style="display: block; margin: auto;" />
  
 ### Gràfic 3D cluster 1 
  
@@ -858,7 +858,7 @@ machine %>%
     facet_wrap(~grup)
 {% endhighlight %}
 
-<img src="/figures/unnamed-chunk-26-1.png" title="plot of chunk unnamed-chunk-26" alt="plot of chunk unnamed-chunk-26" style="display: block; margin: auto;" />
+<img src="/figures/a16-1.png" title="plot of chunk unnamed-chunk-26" alt="plot of chunk unnamed-chunk-26" style="display: block; margin: auto;" />
  
 ### Distribució diaria de les anomalies
  
@@ -879,7 +879,7 @@ machine %>%
         plot.title = element_text(hjust=0.5))
 {% endhighlight %}
 
-<img src="/figures/unnamed-chunk-27-1.png" title="plot of chunk unnamed-chunk-27" alt="plot of chunk unnamed-chunk-27" style="display: block; margin: auto;" />
+<img src="/figures/a17-1.png" title="plot of chunk unnamed-chunk-27" alt="plot of chunk unnamed-chunk-27" style="display: block; margin: auto;" />
  
 ### Linia temporal amb anomalies
  
@@ -900,7 +900,7 @@ machine %>%
         plot.title = element_text(hjust=0.5))
 {% endhighlight %}
 
-<img src="/figures/unnamed-chunk-28-1.png" title="plot of chunk unnamed-chunk-28" alt="plot of chunk unnamed-chunk-28" style="display: block; margin: auto;" />
+<img src="/figures/a18-1.png" title="plot of chunk unnamed-chunk-28" alt="plot of chunk unnamed-chunk-28" style="display: block; margin: auto;" />
  
 #### Per grups: 
  
@@ -923,7 +923,7 @@ machine %>%
   facet_wrap(~grup)
 {% endhighlight %}
 
-<img src="/figures/unnamed-chunk-29-1.png" title="plot of chunk unnamed-chunk-29" alt="plot of chunk unnamed-chunk-29" style="display: block; margin: auto;" />
+<img src="/figures/a19-1.png" title="plot of chunk unnamed-chunk-29" alt="plot of chunk unnamed-chunk-29" style="display: block; margin: auto;" />
  
 #### Per dies:
  
@@ -946,7 +946,7 @@ machine %>%
   facet_wrap(~wday(timestamp, week_start = getOption("lubridate.week.start", 1)), ncol = 2)
 {% endhighlight %}
 
-<img src="/figures/unnamed-chunk-30-1.png" title="plot of chunk unnamed-chunk-30" alt="plot of chunk unnamed-chunk-30" style="display: block; margin: auto;" />
+<img src="/figures/a20-1.png" title="plot of chunk unnamed-chunk-30" alt="plot of chunk unnamed-chunk-30" style="display: block; margin: auto;" />
  
 #### Tots els dilluns:
  
@@ -968,7 +968,7 @@ ggplotly(plt)
 
 
 
-<img src="/figures/unnamed-chunk-31-1.png" title="plot of chunk unnamed-chunk-31" alt="plot of chunk unnamed-chunk-31" style="display: block; margin: auto;" />
+<img src="/figures/a21-1.png" title="plot of chunk unnamed-chunk-31" alt="plot of chunk unnamed-chunk-31" style="display: block; margin: auto;" />
  
 #### Dilluns 16-12-2013:
  
@@ -988,6 +988,6 @@ dia_treball %>%
   theme_minimal()
 {% endhighlight %}
 
-<img src="/figures/unnamed-chunk-32-1.png" title="plot of chunk unnamed-chunk-32" alt="plot of chunk unnamed-chunk-32" style="display: block; margin: auto;" />
+<img src="/figures/a22-1.png" title="plot of chunk unnamed-chunk-32" alt="plot of chunk unnamed-chunk-32" style="display: block; margin: auto;" />
  
  

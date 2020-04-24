@@ -507,7 +507,7 @@ telemetria %>%
 ### Errors  
  
 Registre d'errors on la màquina encara és operacional (no son averies)  
-Aproximants a la hora en punt més propera  
+Aproximats a la hora en punt més propera  
  
 
 {% highlight r %}
@@ -2369,8 +2369,7 @@ Un moving average ens ha de permetre visualitzar com una mitjana canvia al llarg
 del soroll.  
 Podem modificar la sensibilitat varinat la durada de la finestra temporal.  
 Combinant la rolling average amb la rolling standard deviation podem detectar zones d'anormal volatilitat i consolidació que permetin confirmar canvis de tendència.   
- 
-![plot of chunk pre](/figures/movingAverage.png)
+
  
 ### Telemetria
  

@@ -498,7 +498,7 @@ telemetria %>%
          datetime < as.POSIXct("2015-02-01")) %>% 
   ggplot(aes(x = datetime, y = volt, col = factor(machineID)))+
   geom_line(alpha = 0.5) +
-  labs(y = "voltage", color = "machineID", title = "Evolucio voltatge màquina ID 1-2") +
+  labs(y = "voltage", color = "machineID", title = "Evolució voltatge màquina ID 1-2") +
   facet_wrap(~machineID, ncol=1)
 {% endhighlight %}
 
@@ -1839,7 +1839,7 @@ skim(maquines)
 |age           |         0|             1| 11.33|  5.86|  0|  6.75| 12.0| 16.00|   20|▆▅▆▇▇ |
  
  
-Antiguitat del parc de mÃ quines: taula
+Antiguitat del parc de màquines: taula
  
 
 {% highlight r %}
@@ -1854,7 +1854,7 @@ table(maquines$age)
 ##  1  3  6  4  3  4  4  6  1  5 10  2  2 14  6  5  7  6  4  7
 {% endhighlight %}
  
-Antiguitat del parc de mÃ quines: histograma
+Antiguitat del parc de màquines: histograma
  
 
 {% highlight r %}
@@ -2363,7 +2363,7 @@ Les dades agregades continues ens proporcionaran:
 - mesura de la tendencia central al llarg del temps (mean, median)  
 - mesura de la volatibilidad al llarg del temps (sd, var)  
 - detectar canvis de tendència (promitjos ràpids vs. lents)  
-- mesurar relacions entre dues sÃ¨ries temporals (cor, cov)  
+- mesurar relacions entre dues sèries temporals (cor, cov)  
  
 Un moving average ens ha de permetre visualitzar com una mitjana canvia al llarg del temps i d'aquesta forma diferenciar la tendència 
 del soroll.  

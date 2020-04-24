@@ -2370,7 +2370,7 @@ del soroll.
 Podem modificar la sensibilitat varinat la durada de la finestra temporal.  
 Combinant la rolling average amb la rolling standard deviation podem detectar zones d'anormal volatilitat i consolidació que permetin confirmar canvis de tendència.   
  
-![-Moving Average-](Images/movingAverage.png)
+![plot of chunk pre](/figures/movingAverage.png)
  
 ### Telemetria
  

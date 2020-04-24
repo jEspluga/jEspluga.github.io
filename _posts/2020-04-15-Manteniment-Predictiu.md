@@ -498,7 +498,7 @@ telemetria %>%
          datetime < as.POSIXct("2015-02-01")) %>% 
   ggplot(aes(x = datetime, y = volt, col = factor(machineID)))+
   geom_line(alpha = 0.5) +
-  labs(y = "voltage", color = "machineID", title = "Evolució voltatge mÃ quina ID 1-2") +
+  labs(y = "voltage", color = "machineID", title = "Evolucio voltatge màquina ID 1-2") +
   facet_wrap(~machineID, ncol=1)
 {% endhighlight %}
 
@@ -953,7 +953,7 @@ errors %>%
 
 ![plot of chunk pre2](/figures/pre2-1.png)
  
-Registre errors mÃ quina 4
+Registre errors màquina 4
  
 
 {% highlight r %}
@@ -2300,7 +2300,7 @@ skim(averies)
 |datetime      |         0|             1|2015-01-02 03:00:00 |2015-12-31 06:00:00 |2015-06-24 06:00:00 |      302|
  
  
-FreqÃ¼Ã¨ncia d'averies per component
+Freqüència d'averies per component
  
 
 {% highlight r %}
@@ -2313,7 +2313,7 @@ averies %>%
 
 ![plot of chunk pre6](/figures/pre6-1.png)
  
-Distribució averies mÃ quines Id 1,2,3  
+Distribució averies màquines Id 1,2,3  
  
 
 {% highlight r %}
@@ -2321,13 +2321,13 @@ averies %>%
   filter(machineID < 4) %>% 
   ggplot(aes(x = failure, fill = factor(machineID))) + 
   geom_bar() + 
-  labs(title = "Distribució averies mÃ quines 1-2-3", x = "component", fill = "MachineID") +
+  labs(title = "Distribucio averies màquines 1-2-3", x = "component", fill = "MachineID") +
   facet_wrap(~machineID, ncol=1)
 {% endhighlight %}
 
 ![plot of chunk pre7](/figures/pre7-1.png)
  
-MÃ quines amb mÃ©s averies  
+Màquines amb més averies  
  
 
 {% highlight r %}
@@ -2342,7 +2342,7 @@ averies %>%
   ggplot(aes(x = machineID, y = n, color = factor(machineID))) + 
   geom_point(show.legend = FALSE, size = 3) + 
   geom_segment(aes(y=0, yend=n, x=machineID, xend=machineID), show.legend = FALSE)+
-  labs(title = "10 MÃ quines amb mÃ©s averies", x = "machineID", y = "Total averies")+
+  labs(title = "10 Màquines amb més averies", x = "machineID", y = "Total averies")+
   coord_flip()+
   theme_minimal()+
   theme(panel.grid.major.y = element_blank())+
@@ -2362,19 +2362,19 @@ Prenem una finestra temporal i es calculen els agregats continus com la mitjana 
 Les dades agregades continues ens proporcionaran:  
 - mesura de la tendencia central al llarg del temps (mean, median)  
 - mesura de la volatibilidad al llarg del temps (sd, var)  
-- detectar canvis de tendÃ¨ncia (promitjos rÃ pids vs. lents)  
+- detectar canvis de tendència (promitjos ràpids vs. lents)  
 - mesurar relacions entre dues sÃ¨ries temporals (cor, cov)  
  
-Un moving average ens ha de permetre visualitzar com una mitjana canvia al llarg del temps i d'aquesta forma diferenciar la tendÃ¨ncia 
+Un moving average ens ha de permetre visualitzar com una mitjana canvia al llarg del temps i d'aquesta forma diferenciar la tendència 
 del soroll.  
 Podem modificar la sensibilitat varinat la durada de la finestra temporal.  
-Combinant la rolling average amb la rolling standard deviation podem detectar zones d'anormal volatilitat i consolidació que permetin confirmar canvis de tendÃ¨ncia.   
+Combinant la rolling average amb la rolling standard deviation podem detectar zones d'anormal volatilitat i consolidació que permetin confirmar canvis de tendència.   
  
 ![-Moving Average-](Images/movingAverage.png)
  
 ### Telemetria
  
-Calculem la mitjana i sd continua  (rolling average) d'una finestra de les Ãºltimes 3 hores per cada mÃ quina
+Calculem la mitjana i sd continua  (rolling average) d'una finestra de les últimes 3 hores per cada màquina
  
 
 {% highlight r %}
@@ -4630,7 +4630,7 @@ telemetriafeat %>%
          datetime > as.POSIXct("2015-01-01"), datetime < as.POSIXct("2015-02-01")) %>% 
   ggplot() +
   geom_line(aes(x = datetime, y = vibrationmean_24hrs, col = factor(machineID)), alpha = 0.5) +
-  labs(y = "vibration", color = "machineID", title = "Vibració: mean 24h")+
+  labs(y = "vibration", color = "machineID", title = "Vibracio: mean 24h")+
   theme_minimal()
 {% endhighlight %}
 
@@ -4642,7 +4642,7 @@ telemetriafeat %>%
          datetime > as.POSIXct("2015-01-01"), datetime < as.POSIXct("2015-02-01")) %>% 
   ggplot() +
   geom_line(aes(x = datetime, y = vibrationsd_24hrs, col = factor(machineID)), alpha = 0.5, color ="blue") +
-  labs(y = "vibration", color = "machineID", title = "Vibració: sd 24h")+
+  labs(y = "vibration", color = "machineID", title = "Vibracio: sd 24h")+
   theme_minimal()
 {% endhighlight %}
 
@@ -5921,7 +5921,7 @@ skim(errorfeat)
 |datetime      |         0|             1|2015-01-01 06:00:00 |2016-01-01 06:00:00 |2015-07-02 18:00:00 |     8761|
  
  
-Calculem el total d'errors d'una finetra temporal de 24h, cada 3 hores per cada mÃ quina.  
+Calculem el total d'errors d'una finetra temporal de 24h, cada 3 hores per cada màquina.  
  
 
 {% highlight r %}
@@ -7215,7 +7215,7 @@ compdate <- as.data.table(telemetriafeat[,c(1:2)])
 setkey(compdate, machineID, datetime)
 {% endhighlight %}
  
-Join roll del timesatmap de telemetriafeat amb les dates de l'Ãºltim error.  
+Join roll del timesatmap de telemetriafeat amb les dates de l'últim error.  
 Lliga la data del telemetriafeat amb la data que correspont a l'anterior error del component.  
  
 
@@ -11330,8 +11330,8 @@ table(labeledfeatures$failure)
 ### Split train-test.  
  
 Train: primers 10 mesos del 2015  
-Test: darresr 2 mesos del 2015 
-(labelling window is 24 hours so records within 24 hours prior to split point are left out)
+Test: darrers 2 mesos del 2015 
+
  
 
 {% highlight r %}
@@ -13464,21 +13464,6 @@ cm_gbd$table %>%
 {% endhighlight %}
 
 ![plot of chunk pre11](/figures/pre11-1.png)
- 
-
-{% highlight r %}
-cm_gbd$table %>% 
-  as_tibble() %>% 
-  ggplot(aes(Prediction, Reference, fill =n)) +
-    geom_tile(show.legend = FALSE, color = "white") +
-    geom_text(aes(label = n), colour = "white", alpha = 1, size = 8)+
-    labs(title = "Confusion Matrix" )+
-    theme_minimal()+
-    theme(panel.grid.major = element_blank())+
-    scale_fill_gradient(low="blue", high="red", na.value="black", name="")
-{% endhighlight %}
-
-![plot of chunk pre12](/figures/pre12-1.png)
  
  
 Com bé captem les fallades queda indicat pel recall/sensivity.  
